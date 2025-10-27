@@ -1,0 +1,39 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    color: black;
+}
+a {
+    text-decoration: none;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+.main-logo {
+    position: absolute;
+    top: 0;
+    left: 150px;
+}
+.primary-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.primary-menu li, .packet-shopping, .main-logo {
+    padding: 5px;
+    margin: 20px;
+    font-size: 25px;
+    font-weight: 600;
+}
+.primary-menu li:last-child {
+    text-align: right;
+}
+.packet-shopping {
+    font-size: 40px;
+    top: 0;
+    right: 100px;
+}
