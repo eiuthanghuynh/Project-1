@@ -5,6 +5,9 @@ public class Order_Detail {
     private String product_id;
     private int quantity;
     private double price;
+    private double subtotal;
+    private double discount;
+    private String note;
 
     public Order_Detail(String order_id, String product_id, int quantity, double price) {
         this.order_id = order_id;
@@ -45,4 +48,27 @@ public class Order_Detail {
         this.price = price;
     }
 
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }
