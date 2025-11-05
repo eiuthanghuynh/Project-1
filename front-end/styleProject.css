@@ -6,34 +6,66 @@
     list-style-type: none;
     color: black;
 }
+
 a {
     text-decoration: none;
     color: black;
     margin: 0;
     padding: 0;
 }
-.main-logo {
-    position: absolute;
-    top: 0;
-    left: 150px;
+
+header {
+    margin-bottom: 20px;
 }
-.primary-menu {
+
+.head-menu {
+    background-color: #ff7d01;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.main-logo a img {
+    max-width: 100%;
+    width: 100%;
+}
+
+.primary-menu,
+.tool-menu {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
 }
-.primary-menu li, .packet-shopping, .main-logo {
-    padding: 5px;
+
+.primary-menu>li,
+.tool-menu>li {
+    padding: 10px;
     margin: 20px;
-    font-size: 25px;
+}
+
+.primary-menu > li >a {
+    color: #fff;
+    font-size: 20px;
     font-weight: 600;
+    padding: 15px 20px;
 }
-.primary-menu li:last-child {
-    text-align: right;
+
+.tool-menu>li>a {
+    font-size: 35px;
 }
-.packet-shopping {
-    font-size: 40px;
-    top: 0;
-    right: 100px;
+
+.current-item {
+    background-color: #ff9633;
+}
+
+.primary-menu .current-item>a,
+.primary-menu li:hover>a {
+    background-color: #ff9633;
 }
