@@ -1,0 +1,135 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+.head-menu {
+    background-color: #ff7d01;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.main-logo a img {
+    max-width: 100%;
+    width: 100%;
+}
+
+.primary-menu,
+.tool-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.primary-menu>li,
+.tool-menu>li {
+    padding: 30px;
+}
+
+.primary-menu>li>a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 30px;
+}
+
+.tool-menu>li>a {
+    font-size: 35px;
+}
+
+.current-item {
+    background-color: #ff9633;
+}
+
+.primary-menu .current-item>a,
+.primary-menu a:hover {
+    background-color: #ff9633;
+}
+
+/* Lựa chọn cách thức giao đồ ăn */
+.shipping-navigation .nav-pills {
+    margin: 50px 0;
+    justify-content: center;
+}
+.shipping-navigation .nav-link {
+    color: #ff7d01;
+    padding: 15px 30px;
+}
+.nav-pills {
+    --bs-nav-pills-link-active-bg: #ff7d01;
+}
+
+/* Danh sách món ăn */
+.food-item {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.food-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.food-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.food-item h3 {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.food-item .price {
+    color: #ff7d01;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Footer */
+footer {
+    background-color: #ff7d01;
+    padding: 50px 0;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+}
+.hotline {
+    font-size: 36px;
+}
+.footer-navigation li {
+    padding: 5px 0;
+}
