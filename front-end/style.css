@@ -67,6 +67,9 @@ header {
 .primary-menu a:hover {
     background-color: #ff9633;
 }
+.packet-shopping > i {
+    font-size: 40px;
+}
 
 /* Lựa chọn cách thức giao đồ ăn */
 .shipping-navigation .nav-pills {
