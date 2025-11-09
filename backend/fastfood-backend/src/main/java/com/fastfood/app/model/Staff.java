@@ -1,4 +1,4 @@
-package main.java.com.fastfood.app.model;
+package com.fastfood.app.model;
 
 public class Staff {
     private String staff_id;
