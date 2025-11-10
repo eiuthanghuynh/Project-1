@@ -13,6 +13,7 @@ a {
     padding: 0;
 }
 
+/*Menu*/
 header {
     margin-bottom: 20px;
 }
@@ -67,24 +68,25 @@ header {
 .primary-menu a:hover {
     background-color: #ff9633;
 }
-.packet-shopping > i {
+
+.packet-shopping>i {
     font-size: 40px;
 }
 
-/* Lựa chọn cách thức giao đồ ăn */
-.shipping-navigation .nav-pills {
-    margin: 50px 0;
-    justify-content: center;
+/*Introduction-slider*/
+.introduce-slider .carousel-item a img {
+    border-radius: 25px;
 }
-.shipping-navigation .nav-link {
-    color: #ff7d01;
-    padding: 15px 30px;
-}
-.nav-pills {
-    --bs-nav-pills-link-active-bg: #ff7d01;
+.introduce-slider {
+    margin-bottom: 40px;
 }
 
 /* Danh sách món ăn */
+h2 {
+    color: #ff7d01;
+    font-size: 40px;
+}
+
 .food-item {
     background-color: #fff;
     border-radius: 15px;
@@ -121,6 +123,19 @@ header {
     margin-top: 5px;
 }
 
+.food-button-next {
+    right: -10%;
+}
+.food-button-prev {
+    left: -10%;
+}
+.food-button-next .carousel-control-next-icon, .food-button-prev .carousel-control-prev-icon{
+    background-color: #ff7d01;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
 /* Footer */
 footer {
     background-color: #ff7d01;
@@ -130,9 +145,11 @@ footer {
     color: #fff;
     text-align: center;
 }
+
 .hotline {
     font-size: 36px;
 }
+
 .footer-navigation li {
     padding: 5px 0;
 }
