@@ -73,33 +73,18 @@ header {
     font-size: 40px;
 }
 
-/*Slider*/
-.carousel-item a img {
+/*Introduction-slider*/
+.introduce-slider .carousel-item a img {
     border-radius: 25px;
 }
-
-
-
-/* Lựa chọn cách thức giao đồ ăn */
-.shipping-navigation .nav-pills {
-    margin: 50px 0;
-    justify-content: center;
-}
-
-.shipping-navigation .nav-link {
-    color: #ff7d01;
-    padding: 15px 30px;
-}
-
-.nav-pills {
-    --bs-nav-pills-link-active-bg: #ff7d01;
+.introduce-slider {
+    margin-bottom: 40px;
 }
 
 /* Danh sách món ăn */
-.pizza-slider h2,
-#burrito h2,
-#hamburger h2 {
+h2 {
     color: #ff7d01;
+    font-size: 40px;
 }
 
 .food-item {
@@ -138,42 +123,17 @@ header {
     margin-top: 5px;
 }
 
-.prev i,
-.next i {
-    width: 20px;
-    height: 20px;
-    color: #ff7d01;
+.food-button-next {
+    right: -10%;
 }
-
-.prev {
-    position: absolute;
-    left: 10%;
-    top: 50%;
-    padding: 10px;
-    border: 1px solid #ff7d01;
+.food-button-prev {
+    left: -10%;
+}
+.food-button-next .carousel-control-next-icon, .food-button-prev .carousel-control-prev-icon{
+    background-color: #ff7d01;
     border-radius: 50%;
-    cursor: pointer;
-}
-
-.next {
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    padding: 10px;
-    border: 1px solid #ff7d01;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.prev:hover i,
-.next:hover i {
-    color: #ff9633;
-}
-
-#pizza-slider,
-#burrito-slider,
-#hamburger-slider {
-    position: relative;
+    width: 40px;
+    height: 40px;
 }
 
 /* Footer */

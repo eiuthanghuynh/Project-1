@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home</title>
+  <title>Menu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -33,10 +33,10 @@
   </header>
 
   <main>
-    <section>
+    <section class="introduce-slider">
       <div class="container">
         <div class="slider">
-          <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+          <div id="introduce-slider-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <a href=""><img src="https://api.popeyes.vn/api/v1/files/10x3fixed.jpg" class="d-block w-100"
@@ -51,12 +51,12 @@
                     alt="..."></a>
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching"
+            <button class="carousel-control-prev" type="button" data-bs-target="#introduce-slider-carousel"
               data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching"
+            <button class="carousel-control-next" type="button" data-bs-target="#introduce-slider-carousel"
               data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
@@ -66,25 +66,6 @@
       </div>
     </section>
 
-    <!-- Địa chỉ giao hàng -->
-    <section class="shipping-navigation">
-      <div class="container">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Delivery</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Carry Out</a>
-          </li>
-        </ul>
-        <form action="">
-          <label for="location"><i class="fa-solid fa-magnifying-glass"></i></label>
-          <input type="text" id="location" placeholder="Bạn muốn giao đến đâu?">
-        </form>
-      </div>
-    </section>
-
-
     <!-- Thực đơn nổi bật -->
     <section id="pizza-slider">
       <div class="container">
@@ -92,11 +73,11 @@
         <div id="pizza-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="pizza">
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#pizza-slider-carousel" data-bs-slide="prev">
+          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#pizza-slider-carousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#pizza-slider-carousel" data-bs-slide="next">
+          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#pizza-slider-carousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -110,11 +91,11 @@
         <div id="burrito-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="burrito">
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#burrito-slider-carousel" data-bs-slide="prev">
+          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#burrito-slider-carousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#burrito-slider-carousel" data-bs-slide="next">
+          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#burrito-slider-carousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -128,11 +109,11 @@
         <div id="hamburger-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="hamburger">
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#hamburger-slider-carousel" data-bs-slide="prev">
+          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#hamburger-slider-carousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#hamburger-slider-carousel" data-bs-slide="next">
+          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#hamburger-slider-carousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
