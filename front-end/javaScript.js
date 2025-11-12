@@ -1,3 +1,18 @@
+async function getAllProducts() {
+  const url = "http://localhost:8080/fastfood-backend/ProductServlet";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log(result); // Thay đổi ở đây sau này
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 let listPizza = [
   {
     "ImageURL": "https://img.dominos.vn/phan-biet-pizza-kieu-my-va-kieu-y-3.jpg",
