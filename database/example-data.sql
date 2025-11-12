@@ -34,21 +34,28 @@ INSERT INTO staff (staff_username, staff_password, staff_name, staff_email, role
 
 INSERT INTO category (category_name) VALUES
 ('Pizza'),
-('Burrito'),
-('Tacos'),
-('Hamburger');
+('Hamburger'),
+('Tacos');
 
 INSERT INTO product (product_name, product_description, price, image_url, category_id) VALUES
-('Pizza Margherita', 'Pizza truyền thống với phô mai Mozzarella và cà chua', 120000, NULL, 'CA0000001'),
-('Pizza Hải sản', 'Pizza hải sản tươi ngon với mực, tôm và phô mai', 150000, NULL, 'CA0000001'),
-('Pizza Thịt xông khói', 'Pizza với thịt xông khói và phô mai cheddar', 130000, NULL, 'CA0000001'),
-('Burrito Bò', 'Burrito nhân thịt bò, đậu và phô mai', 90000, NULL, 'CA0000002'),
-('Burrito Gà', 'Burrito gà nướng cùng rau và sốt chua cay', 85000, NULL, 'CA0000002'),
-('Tacos Bò Cay', 'Tacos với thịt bò cay và rau tươi', 70000, NULL, 'CA0000003'),
-('Tacos Gà Phô Mai', 'Tacos nhân gà và phô mai tan chảy', 75000, NULL, 'CA0000003'),
-('Hamburger Phô Mai', 'Burger với bò nướng và phô mai cheddar', 95000, NULL, 'CA0000004'),
-('Hamburger Gà Giòn', 'Burger gà chiên giòn với rau và sốt mayonnaise', 90000, NULL, 'CA0000004'),
-('Hamburger Bò BBQ', 'Burger bò nướng BBQ đậm đà', 100000, NULL, 'CA0000004');
+('Pizza Hải Sản Cocktail', 'Tôm, cua, giăm bông và xốt Thousand Island.', 180000, NULL, 'CA01'),
+('Pizza Hải Sản Cao Cấp', 'Tôm, cua, mực, nghêu và xốt Marinara.', 180000, NULL, 'CA01'),
+('Pizza Hải Sản Nhiệt Đới', 'Tôm, nghêu, mực, cua, dứa và xốt Thousand Island.', 180000, NULL, 'CA01'),
+('Pizza Tôm Cocktail','Tôm, nấm, dứa, cà chua và xốt Thousand Island.', 180000, NULL, 'CA01'),
+('Pizza Thịt Nguội Xúc Xích','Thịt nguội, xúc xích, dứa và xốt Thousand Island.', 140000, NULL, 'CA01'),
+('Pizza Thịt Xông Khói Đặc Biệt','Thịt giăm bông, thịt xông khói, ớt xanh và cà chua.', 160000, NULL, 'CA01'),
+('Pizza Thịt Nguội Kiểu Canada','Thịt nguội và bắp ngọt.', 120000, NULL, 'CA01'),
+('Pizza Gà Nướng 3 Vị','Gà nướng, gà bơ tỏi và gà ướp xốt nấm.', 180000, NULL, 'CA01'),
+('Pizza Thịt Nguội & Nấm','Giăm bông và nấm.', 160000, NULL, 'CA01'),
+('Pizza 5 Loại Thịt Đặc Biệt','Xúc xích lợn, bò đặc trưng của Ý, giăm bông và thịt xông khói.', 180000, NULL, 'CA01'),
+('Burger Teriyaki', 'Thịt bò, sốt Teriyaki, xà lách, cà chua và hành tây.', 60000, NULL, 'CA02'),
+('Burger Double Double', 'Gấp đôi thịt nướng và phô mai, xà lách, cà chua và hành tây.', 85000, NULL, 'CA02'),
+('Burger Chicken', 'Thịt gà, sốt kem, xà lách, cà chua và hành tây.', 60000, NULL, 'CA02'),
+('Burger Mozzarella', 'Thịt heo chiên xù, thịt nướng, phô mai mozzarella, xà lách, cà chua và hành tây.', 85000, NULL, 'CA02'),
+('Burger Ramen', 'Đế bánh Ramen, tôm chiên xù, sốt chua ngọt, xà lách, cà chua và hành tây.', 75000, NULL, 'CA02'),
+('Tacos Bò Bằm Sốt Tiêu Đen', 'Thịt bò bằm, sốt tiêu đen đặc trưng, hạt bắp, xà lách, cà chua và hành tây.', 60000, NULL, 'CA03'),
+('Tacos Gà Nướng BBQ', 'Thịt gà, sốt BBQ, các loại rau thơm thảo mộc, cà chua và hành tây.', 60000, NULL, 'CA03'),
+('Tacos Tôm Sốt Cay', 'Tôm tươi, sốt cay đậm vị, hạt bắp, dưa leo, cà chua và hành tây.', 60000, NULL, 'CA03');
 
 INSERT INTO orders (customer_id, order_date, order_status) VALUES
 ('C0000001', '2025-10-01 10:00:00', 'Completed'),
@@ -87,7 +94,7 @@ INSERT INTO order_detail VALUES
 ('O0000010', 'P0000010', 2, 100000, 200000, 0.05, NULL),
 ('O0000011', 'P0000005', 1, 85000, 85000, 0, NULL),
 ('O0000012', 'P0000003', 1, 130000, 130000, 0, NULL),
-('O0000013', 'P0000008', 1, 95000, 95000, 0, NULL),
+('O0000013', 'P0000008', 1, 95000, 95000, 0, NULL),	
 ('O0000014', 'P0000009', 2, 90000, 180000, 0.1, NULL),
 ('O0000015', 'P0000006', 1, 70000, 70000, 0, NULL),
 ('O0000016', 'P0000002', 1, 150000, 150000, 0, NULL),
