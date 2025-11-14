@@ -106,8 +106,9 @@ h2 {
 .food-item img {
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 15px;
+    max-width: 100%;
 }
 
 .food-item h3 {
