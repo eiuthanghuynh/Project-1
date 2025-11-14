@@ -6,7 +6,7 @@ USE fastfood_db;
 -- ########################################
 
 CREATE TABLE customer (
-    customer_id VARCHAR(50) PRIMARY KEY,
+    customer_id VARCHAR(20) PRIMARY KEY,
     customer_name VARCHAR(100) NOT NULL,
     phone VARCHAR(20),
     email VARCHAR(100),
@@ -14,7 +14,7 @@ CREATE TABLE customer (
 );
 
 CREATE TABLE staff (
-    staff_id VARCHAR(50) PRIMARY KEY,
+    staff_id VARCHAR(20) PRIMARY KEY,
     staff_username VARCHAR(50) UNIQUE NOT NULL,
     staff_password VARCHAR(255) NOT NULL,
     staff_name VARCHAR(100),
@@ -23,25 +23,25 @@ CREATE TABLE staff (
 );
 
 CREATE TABLE category (
-    category_id VARCHAR(50) PRIMARY KEY,
+    category_id VARCHAR(10) PRIMARY KEY,
     category_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE product (
-    product_id VARCHAR(50) PRIMARY KEY,
+    product_id VARCHAR(20) PRIMARY KEY,
     product_name VARCHAR(100) NOT NULL,
 	product_description TEXT,
     price DECIMAL(10,2) NOT NULL,
     image_url VARCHAR(255),
-    category_id VARCHAR(20),
+    category_id VARCHAR(10),
     FOREIGN KEY (category_id) REFERENCES category(category_id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
 );
 
 CREATE TABLE orders (
-    order_id VARCHAR(50) PRIMARY KEY,
-    customer_id VARCHAR(50),
+    order_id VARCHAR(20) PRIMARY KEY,
+    customer_id VARCHAR(20),
     order_date DATETIME NOT NULL,
     order_status VARCHAR(20),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
@@ -50,8 +50,8 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE order_detail (
-    order_id VARCHAR(50),
-    product_id VARCHAR(50),
+    order_id VARCHAR(20),
+    product_id VARCHAR(20),
     quantity INT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
@@ -118,7 +118,7 @@ BEGIN
     SELECT IFNULL(MAX(CAST(SUBSTRING(category_id, 3) AS UNSIGNED)), 0) + 1 INTO next_id
     FROM category;
 
-    SET new_id = CONCAT('CA', LPAD(next_id, 7, '0'));
+    SET new_id = CONCAT('CA', LPAD(next_id, 2, '0'));
     SET NEW.category_id = new_id;
 END//
 DELIMITER ;
