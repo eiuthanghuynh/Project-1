@@ -14,6 +14,14 @@ a {
 }
 
 /*Menu*/
+.logo {
+    padding: 0 !important;
+    margin: 0;
+}
+.logo > img{
+    width: 100%;
+    max-width: 100%;
+}
 header {
     margin-bottom: 20px;
 }
@@ -22,7 +30,7 @@ header {
     background-color: #ff7d01;
     display: flex;
     align-items: center;
-    padding: 0 10%;
+    padding: 0;
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -184,8 +192,8 @@ h2 {
     border-radius: 5px;
     border-color: #ff7d01;
 }
-.note-input:focus {
-    border-color: #ff7d01;
+.note-input:focus-visible {
+    outline: #ff7d01 auto 2px;
 }
 .modal-footer {
     display: block;
