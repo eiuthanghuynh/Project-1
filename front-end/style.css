@@ -77,6 +77,7 @@ header {
 .introduce-slider .carousel-item a img {
     border-radius: 25px;
 }
+
 .introduce-slider {
     margin-bottom: 40px;
 }
@@ -117,7 +118,7 @@ h2 {
     font-weight: 600;
 }
 
-.food-item .price {
+.food-item .food-price {
     color: #ff7d01;
     font-weight: 700;
     font-size: 16px;
@@ -127,14 +128,97 @@ h2 {
 .food-button-next {
     right: -10%;
 }
+
 .food-button-prev {
     left: -10%;
 }
-.food-button-next .carousel-control-next-icon, .food-button-prev .carousel-control-prev-icon{
+
+.food-button-next .carousel-control-next-icon,
+.food-button-prev .carousel-control-prev-icon {
     background-color: #ff7d01;
     border-radius: 50%;
     width: 40px;
     height: 40px;
+}
+
+/*modal*/
+.modal-food-img {
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    object-fit: contain; 
+    padding: 5px; 
+}
+
+.modal-header {
+    margin-top: 40px;
+    max-width: 100%;
+    width: 100%;
+    border-bottom: 1px solid #dee2e6;
+    display: block;
+    padding: 5px;
+}
+#modalTitle {
+    margin: 0;
+    color: #ff7d01;
+    font-size: 25px;
+    font-weight: 600;
+}
+#modalDescription {
+    margin: 0;
+    padding: 5px 0;
+    font-size: 20px;
+}
+#modalPrice {
+    font-size: 20px;
+    font-weight: 800;
+}
+.modal-body {
+    padding: 10px 0;
+}
+.modal-body-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+#note {
+    padding: 15px;
+    border-radius: 5px;
+    border-color: #ff7d01;
+}
+.note-input:focus {
+    border-color: #ff7d01;
+}
+.modal-footer {
+    display: block;
+}
+.btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-weight: 700;
+    font-size: 25px;
+    border-color: #ff7d01;
+    color: #ff7d01;
+}
+.btn:hover {
+    background-color: #ff9633;
+    border-color: #ff7d01;
+}
+.form-control {
+    border: 1px solid #ff7d01;
+}
+.add-to-cart {
+    background-color: #ff7d01;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.add-to-cart:hover {
+    background-color: #ff9633;
 }
 
 /* Footer */
