@@ -15,52 +15,52 @@ async function getAllProducts() {
 
 let listPizza = [
   {
-    "ImageURL": "./Resources for project/0002212_sf-cocktail-test_300.png",
+    "ImageURL": ".access/product/0002212_sf-cocktail-test_300.png",
     "Title": "Pizza Hải Sản Cocktail",
     "Price": "150.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002214_sf-deluxe_300.png",
+    "ImageURL": ".access/product/0002214_sf-deluxe_300.png",
     "Title": "Pizza Hải Sản Cao Cấp",
     "Price": "130.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002211_tropical-sf-test_300.png",
+    "ImageURL": ".access/product/0002211_tropical-sf-test_300.png",
     "Title": "Pizza Hải Sản Nhiệt Đới",
     "Price": "140.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002216_shrimp-ctl-test_300.png",
+    "ImageURL": ".access/product/0002216_shrimp-ctl-test_300.png",
     "Title": "Pizza Tôm Cocktail",
     "Price": "120.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0003536_aloha_300.png",
+    "ImageURL": ".access/product/0003536_aloha_300.png",
     "Title": "Pizza Thịt Nguội Xúc Xích",
     "Price": "130.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002221_bacon-sup_300.png",
+    "ImageURL": ".access/product/0002221_bacon-sup_300.png",
     "Title": "Pizza Thịt Xông Khói Đặc Biệt",
     "Price": "120.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002222_ca-bacon_300.png",
+    "ImageURL": ".access/product/0002222_ca-bacon_300.png",
     "Title": "Pizza Thịt Nguội Kiểu Canada",
     "Price": "140.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002223_ck-trio_300.png",
+    "ImageURL": ".access/product/0002223_ck-trio_300.png",
     "Title": "Pizza Gà Nướng 3 Vị",
     "Price": "150.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002227_h-m_300.png",
+    "ImageURL": ".access/product/0002227_h-m_300.png",
     "Title": "Pizza Thịt Nguội & Nấm",
     "Price": "150.000₫"
   },
   {
-    "ImageURL": "./Resources for project/0002219_meat-deluxe_300.png",
+    "ImageURL": ".access/product/0002219_meat-deluxe_300.png",
     "Title": "Pizza 5 Loại Thịt Đặc Biệt",
     "Price": "150.000₫"
   },
@@ -68,22 +68,22 @@ let listPizza = [
 
 let listBurrito = [
   {
-    "ImageURL": "./Resources for project/burrito-nhan-thit-bo-bam.jpg",
+    "ImageURL": ".access/product/burrito-nhan-thit-bo-bam.jpg",
     "Title": "Burrito Bò Bằm Sốt Tiêu Đen",
     "Price": "80.000₫"
   },
   {
-    "ImageURL": "./Resources for project/ff90e9e630c4346d8699398cbb2da4bd.jpg",
+    "ImageURL": ".access/product/ff90e9e630c4346d8699398cbb2da4bd.jpg",
     "Title": "Burrito Bò Nướng BBQ Hàn Quốc",
     "Price": "100.000₫"
   },
   {
-    "ImageURL": "./Resources for project/3de7660996a24057fb50f57b3e0b1f16.jpg",
+    "ImageURL": ".access/product/3de7660996a24057fb50f57b3e0b1f16.jpg",
     "Title": "Burrito Gà Nướng BBQ",
     "Price": "100.000₫"
   },
   {
-    "ImageURL": "./Resources for project/4ee8be68a07f7eecfa0d3f96788069b4.jpg",
+    "ImageURL": ".access/product/4ee8be68a07f7eecfa0d3f96788069b4.jpg",
     "Title": "Burrito Tôm Sốt Cay",
     "Price": "80.000₫"
   },
@@ -91,37 +91,37 @@ let listBurrito = [
 
 let listHamburger = [
   {
-    "ImageURL": "./Resources for project/burger_double_double.jpg",
+    "ImageURL": ".access/product/burger_double_double.jpg",
     "Title": "Burger Double Double",
     "Price": "80.000₫"
   },
   {
-    "ImageURL": "./Resources for project/burger_lchicken.jpg",
+    "ImageURL": ".access/product/burger_lchicken.jpg",
     "Title": "Burger Chicken",
     "Price": "50.000₫"
   },
   {
-    "ImageURL": "./Resources for project/burger_mozzarella.jpg",
+    "ImageURL": ".access/product/burger_mozzarella.jpg",
     "Title": "Burger Mozzarella",
     "Price": "60.000₫"
   },
   {
-    "ImageURL": "./Resources for project/burger_ph_mai_1.jpg",
+    "ImageURL": ".access/product/burger_ph_mai_1.jpg",
     "Title": "Cheese Burger",
     "Price": "50.000₫"
   },
   {
-    "ImageURL": "./Resources for project/burger_ramen.jpg",
+    "ImageURL": ".access/product/burger_ramen.jpg",
     "Title": "Burger Ramen",
     "Price": "80.000₫"
   },
   {
-    "ImageURL": "./Resources for project/burger_t_m.jpg",
+    "ImageURL": ".access/product/burger_t_m.jpg",
     "Title": "Shrimp Burger",
     "Price": "60.000₫"
   },
   {
-    "ImageURL": "./Resources for project/burger_b_teriyaki.jpg",
+    "ImageURL": ".access/product/burger_b_teriyaki.jpg",
     "Title": "Beef teriyaki Burger",
     "Price": "80.000₫"
   },
