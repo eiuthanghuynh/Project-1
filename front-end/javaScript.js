@@ -167,10 +167,10 @@ function printPizza() {
       }
       pizzaItem +=
         `<div class="col-md-3">
-              <div class="food-item">
+              <div class="food-item" id="pizza-${i}">
                 <img src="${item.ImageURL}">
-                <h3>${item.Title}</h3>
-                <p class="price">${item.Price}</p>
+                <h3 class="food-title">${item.Title}</h3>
+                <p class="food-price">${item.Price}</p>
               </div>
         </div>`;
       if (i % 4 == 0) {
@@ -196,8 +196,8 @@ function printBurrito() {
         `<div class="col-md-3">
               <div class="food-item">
                 <img src="${item.ImageURL}">
-                <h3>${item.Title}</h3>
-                <p class="price">${item.Price}</p>
+                <h3 class="food-title">${item.Title}</h3>
+                <p class="food-price">${item.Price}</p>
               </div>
         </div>`;
       if (i % 4 == 0) {
@@ -223,8 +223,8 @@ function printHamburger() {
         `<div class="col-md-3">
               <div class="food-item">
                 <img src="${item.ImageURL}">
-                <h3>${item.Title}</h3>
-                <p class="price">${item.Price}</p>
+                <h3 class="food-title">${item.Title}</h3>
+                <p class="food-price">${item.Price}</p>
               </div>
         </div>`;
       if (i % 4 == 0) {
@@ -249,9 +249,47 @@ function printIntroductionSlider() {
   }
   $("#intro").html(introArr);
 }
+
+function attachFoodEvents() {
+  document.querySelectorAll(".food-item").forEach(item => {
+    item.addEventListener("click", function () {
+      let title = $(this).find(".food-title").text();
+      let price = $(this).find(".food-price").text();
+      let img = $(this).find("img").attr("src");
+
+      $("#modalTitle").text(title);
+      $("#modalPrice").text(price);
+      $("#modalImg").attr("src", img);
+
+      $("#foodModal").modal("show");
+    });
+  });
+}
+
+$(document).ready(function () {
+
+  // Nút cộng
+  $(".btn-plus").click(function () {
+    let input = $("#foodQty");
+    let current = parseInt(input.val());
+    input.val(current + 1);
+  });
+
+  // Nút trừ
+  $(".btn-minus").click(function () {
+    let input = $("#foodQty");
+    let current = parseInt(input.val());
+
+    if (current > 1) {
+      input.val(current - 1);
+    }
+  });
+
+});
 document.addEventListener("DOMContentLoaded", function () {
   printIntroductionSlider()
   printPizza();
   printBurrito();
   printHamburger();
+  attachFoodEvents();
 });

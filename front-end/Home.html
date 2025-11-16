@@ -25,7 +25,7 @@
             <li><a href="">DEALS</a></li>
             <li><a href="">COMBO</a></li>
             <li><a href="">E-VOUCHER</a></li>
-            <li><a href="" class="packet-shopping"><i class="fa-solid fa-basket-shopping"></i></a></li>
+            <li><a href="" class="basket-shopping" id="baskket"><i class="fa-solid fa-basket-shopping"></i></a></li>
           </ul>
         </div>
       </nav>
@@ -61,11 +61,13 @@
         <div id="pizza-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="pizza">
           </div>
-          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#pizza-slider-carousel" data-bs-slide="prev">
+          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#pizza-slider-carousel"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#pizza-slider-carousel" data-bs-slide="next">
+          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#pizza-slider-carousel"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -79,11 +81,13 @@
         <div id="burrito-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="burrito">
           </div>
-          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#burrito-slider-carousel" data-bs-slide="prev">
+          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#burrito-slider-carousel"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#burrito-slider-carousel" data-bs-slide="next">
+          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#burrito-slider-carousel"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -97,11 +101,13 @@
         <div id="hamburger-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="hamburger">
           </div>
-          <button class="carousel-control-prev food-button-prev" type="button" data-bs-target="#hamburger-slider-carousel" data-bs-slide="prev">
+          <button class="carousel-control-prev food-button-prev" type="button"
+            data-bs-target="#hamburger-slider-carousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next food-button-next" type="button" data-bs-target="#hamburger-slider-carousel" data-bs-slide="next">
+          <button class="carousel-control-next food-button-next" type="button"
+            data-bs-target="#hamburger-slider-carousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -109,6 +115,43 @@
       </div>
     </section>
 
+    <div class="modal fade" id="foodModal" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-7">
+                <img src="" alt="" style="width:100%;">
+              </div>
+              <div class="col-md-5">
+                <div class="modal-head">
+                  <h1 id="modalTitle"></h1>
+                </div>
+                <div class="modal-body">
+                  <p>Hai hai</p>
+                  <p id="modalPrice"></p>
+                </div>
+                <div class="modal-footer">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="quantity-box d-flex align-items-center">
+                        <button class="btn btn-outline-secondary btn-minus">-</button>
+                        <input type="number" class="form-control mx-2 foodQty" value="1" min="1"
+                          style="width: 70px; text-align: center;">
+                        <button class="btn btn-outline-secondary btn-plus">+</button>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <button class="btn btn-primary w-100">Add To Cart</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer>
       <div class="container">
