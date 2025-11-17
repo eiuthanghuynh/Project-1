@@ -1,7 +1,2 @@
-*.class
-*.jar
-bin/
-out/
-.vscode/
-*.iml
-*.log
+/target/
+/.vscode/

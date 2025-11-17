@@ -1,6 +1,6 @@
-package com.fastfood.app.dao;
+package com.fastfeast.dao;
 
-import com.fastfood.app.model.Product;
+import com.fastfeast.model.Product;
 import java.sql.*;
 import java.util.*;
 

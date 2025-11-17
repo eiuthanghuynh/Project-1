@@ -1,7 +1,7 @@
-package com.fastfood.app.api;
+package com.fastfeast.api;
 
-import com.fastfood.app.dao.ProductDAO;
-import com.fastfood.app.model.Product;
+import com.fastfeast.dao.ProductDAO;
+import com.fastfeast.model.Product;
 import com.google.gson.Gson;
 
 import jakarta.servlet.ServletException;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/api/products")
+@WebServlet("/ProductServlet")
 public class ProductServlet extends HttpServlet {
 
     private ProductDAO productDAO = new ProductDAO();

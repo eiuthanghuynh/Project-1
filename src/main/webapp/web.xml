@@ -9,7 +9,7 @@
 
     <servlet>
         <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>com.fastfood.app.api.ProductServlet</servlet-class>
+        <servlet-class>com.fastfeast.api.ProductServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

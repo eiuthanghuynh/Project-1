@@ -1,7 +1,7 @@
-package com.fastfood.app;
+package com.fastfeast;
 
-import com.fastfood.app.dao.ProductDAO;
-import com.fastfood.app.model.Product;
+import com.fastfeast.dao.ProductDAO;
+import com.fastfeast.model.Product;
 import java.util.List;
 
 public class Main {

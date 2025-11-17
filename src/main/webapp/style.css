@@ -18,10 +18,12 @@ a {
     padding: 0 !important;
     margin: 0;
 }
-.logo > img{
+
+.logo>img {
     width: 120px;
     max-width: 100%;
 }
+
 header {
     margin-bottom: 20px;
 }
@@ -75,6 +77,7 @@ header {
 .basket-shopping>i {
     font-size: 40px;
 }
+
 /*Introduction-slider*/
 .introduce-slider .carousel-item a img {
     border-radius: 25px;
@@ -187,21 +190,25 @@ h2 {
     font-weight: 600;
     margin-top: 20px;
 }
+
 .pizza-base {
     padding: 10px;
     font-size: 20px;
     font-weight: 600;
     color: #ff7d01;
 }
+
 .pizza-base:hover,
 .pizza-base:focus {
-  color: #ff9633;
+    color: #ff9633;
 }
+
 #note {
     padding: 15px;
     border-radius: 5px;
     border-color: #ff7d01;
 }
+
 .note-input:focus {
     border-color: #ff7d01;
 }
@@ -235,11 +242,13 @@ h2 {
     --bs-btn-color: #fff;
     --bs-btn-bg: #fff;
 }
+
 .btn-check+.btn:hover {
     color: #fff;
     background-color: #ff9633;
     border-color: #ff7d01;
 }
+
 .btn:hover {
     background-color: #ff9633;
     border-color: #ff7d01;

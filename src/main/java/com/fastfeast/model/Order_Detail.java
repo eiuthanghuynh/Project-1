@@ -1,4 +1,4 @@
-package com.fastfood.app.model;
+package com.fastfeast.model;
 
 public class Order_Detail {
     private String order_id;
