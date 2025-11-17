@@ -14,6 +14,16 @@ a {
 }
 
 /*Menu*/
+.logo {
+    padding: 0 !important;
+    margin: 0;
+}
+
+.logo>img {
+    width: 120px;
+    max-width: 100%;
+}
+
 header {
     margin-bottom: 20px;
 }
@@ -22,15 +32,10 @@ header {
     background-color: #ff7d01;
     display: flex;
     align-items: center;
-    padding: 0 10%;
+    padding: 0;
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
-}
-
-.main-logo a img {
-    max-width: 100%;
-    width: 100%;
 }
 
 .primary-menu,
@@ -144,9 +149,9 @@ h2 {
 /*modal*/
 .modal-food-img {
     width: 100%;
-    aspect-ratio: 1 / 1; 
-    object-fit: contain; 
-    padding: 5px; 
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 5px;
 }
 
 .modal-header {
@@ -157,56 +162,97 @@ h2 {
     display: block;
     padding: 5px;
 }
+
 #modalTitle {
     margin: 0;
     color: #ff7d01;
     font-size: 25px;
     font-weight: 600;
 }
+
 #modalDescription {
     margin: 0;
     padding: 5px 0;
     font-size: 20px;
 }
+
 #modalPrice {
     font-size: 20px;
     font-weight: 800;
 }
+
 .modal-body {
     padding: 10px 0;
 }
+
 .modal-body-title {
     font-size: 18px;
     font-weight: 600;
+    margin-top: 20px;
+}
+.pizza-base {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ff7d01;
+}
+.pizza-base:hover,
+.pizza-base:focus {
+  color: #ff9633;
 }
 #note {
     padding: 15px;
     border-radius: 5px;
     border-color: #ff7d01;
 }
-.note-input:focus {
-    border-color: #ff7d01;
+
+.note-input:focus-visible {
+    outline: #ff7d01 auto 2px;
 }
+
 .modal-footer {
     display: block;
 }
+
 .btn {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    font-weight: 700;
-    font-size: 25px;
+    border-radius: 10px;
+    width: 30%;
+    height: 20%;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 20px;
     border-color: #ff7d01;
     color: #ff7d01;
+}
+
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
+    color: #fff;
+    background-color: #ff7d01;
+    border-color: #ff7d01;
+}
+
+.btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #fff;
+}
+.btn-check+.btn:hover {
+    color: #fff;
+    background-color: #ff9633;
+    border-color: #ff7d01;
 }
 .btn:hover {
     background-color: #ff9633;
     border-color: #ff7d01;
 }
+
 .form-control {
     border: 1px solid #ff7d01;
 }
+
 .add-to-cart {
     background-color: #ff7d01;
     border-radius: 20px;
@@ -217,6 +263,7 @@ h2 {
     font-weight: 700;
     cursor: pointer;
 }
+
 .add-to-cart:hover {
     background-color: #ff9633;
 }
@@ -224,7 +271,7 @@ h2 {
 /* Footer */
 footer {
     background-color: #ff7d01;
-    padding: 50px 0;
+    padding-top: 50px;
     font-size: 18px;
     font-weight: 900;
     color: #fff;
@@ -237,4 +284,26 @@ footer {
 
 .footer-navigation li {
     padding: 5px 0;
+}
+
+.end-logo {
+    width: 50%;
+    max-width: 100%;
+}
+
+.advert {
+    margin-top: 20px;
+}
+
+.social-icon {
+    padding: 0;
+    margin: 0;
+    text-align: right;
+    padding-right: 25%;
+}
+
+.social-icon a {
+    padding: 15px;
+    margin: 0;
+    font-size: 20px;
 }

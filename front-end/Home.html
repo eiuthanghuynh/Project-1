@@ -16,20 +16,18 @@
 
 <body>
   <header>
-    <div class="head-menu">
-      <nav>
-        <div class="container">
-          <ul class="primary-menu">
-            <li><a href="">HOME</a></li>
-            <li><a href="">MENU</a></li>
-            <li><a href="">DEALS</a></li>
-            <li><a href="">COMBO</a></li>
-            <li><a href="">E-VOUCHER</a></li>
-            <li><a href="" class="basket-shopping" id="baskket"><i class="fa-solid fa-basket-shopping"></i></a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <nav class="head-menu">
+      <div class="container d-flex align-items-center justify-content-between">
+        <a href="" class="logo"><img src="./access/Fast.png" alt=""></a>
+        <ul class="primary-menu">
+          <li><a href="">HOME</a></li>
+          <li><a href="">MENU</a></li>
+          <li><a href="">DEALS</a></li>
+          <li><a href="">COMBO</a></li>
+        </ul>
+        <a href="" class="basket-shopping" id="baskket"><i class="fa-solid fa-basket-shopping"></i></a>
+      </div>
+    </nav>
   </header>
 
   <main>
@@ -116,7 +114,7 @@
     </section>
 
     <div class="modal fade" id="foodModal" tabindex="-1">
-      <div class="modal-dialog modal-xl">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="container">
             <div class="row">
@@ -132,17 +130,17 @@
                 <div class="modal-body">
                   <form action="">
                     <h2 class="modal-body-title">KÍCH THƯỚC</h2>
-                    <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
-                    <label class="btn btn-secondary" for="option1">Nhỏ 6"</label>
-                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-                    <label class="btn btn-secondary" for="option2">Vừa 9" + 80.000đ</label>
-                    <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off">
-                    <label class="btn btn-secondary" for="option4">Lớn 12" + 190.000đ</label>
+                    <input type="radio" class="btn-check" name="options" id="size1" autocomplete="off" checked>
+                    <label class="btn btn-secondary" for="size1">Size S</label>
+                    <input type="radio" class="btn-check" name="options" id="size2" autocomplete="off">
+                    <label class="btn btn-secondary" for="size2">Size M</label>
+                    <input type="radio" class="btn-check" name="options" id="size3" autocomplete="off">
+                    <label class="btn btn-secondary" for="size3">Size L</label>
                     <h2 class="modal-body-title">ĐẾ</h2>
                     <input type="radio" id="thick" name="pizza-base" checked>
-                    <label for="thick">Dày</label>
+                    <label for="thick" class="pizza-base">Dày</label>
                     <input type="radio" id="thin" name="pizza-base">
-                    <label for="thin">Mỏng</label>
+                    <label for="thin" class="pizza-base">Mỏng</label>
                     <h2 class="modal-body-title">GHI CHÚ</h2>
                     <textarea name="note" id="note" rows="2" cols="55" class="note-input"
                       placeholder="Nhập ghi chú của bạn tại đây"></textarea>
@@ -174,10 +172,10 @@
     <footer>
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <a href=""><img src="" alt=""></a>
+          <div class="col-md-3">
+            <a href=""><img src="./access/Fast.png" alt="" class="end-logo"></a>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <i class="fa-solid fa-phone"></i>
             HOTLINE
             <p class="hotline">1900 0089</p>
@@ -201,6 +199,22 @@
                 </ul>
               </div>
             </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="advert">
+        <div class="row">
+          <div class="col-md-6">
+            <p> &copy; 2025 Fast Feast's Food Vietnam | <a href="">Privacy Policy</a></p>
+          </div>
+          <div class="col-md-6">
+            <p class="social-icon">
+              <a href=""><i class="fa-brands fa-facebook"></i></a>
+              <a href=""><i class="fa-brands fa-instagram"></i></a>
+              <a href=""><i class="fa-brands fa-youtube"></i></a>
+              <a href=""><i class="fa-regular fa-envelope"></i></a>
+            </p>
           </div>
         </div>
       </div>
