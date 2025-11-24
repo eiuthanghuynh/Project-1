@@ -11,7 +11,7 @@ async function getAllProducts() {
     let listPizza = result.filter(p => p.category_id === 'CA01');
     let listHamburger = result.filter(p => p.category_id === 'CA02');
     let listBurrito = result.filter(p => p.category_id === 'CA03');
-
+    menuArr = [...listPizza, ...listBurrito, ...listHamburger];
     printProduct(listPizza, "#pizza");
     printProduct(listBurrito, "#burrito");
     printProduct(listHamburger, "#hamburger");
@@ -21,6 +21,8 @@ async function getAllProducts() {
     console.error(error.message);
   }
 }
+
+let menuArr;
 
 let linkIntroductionSliders = [
   "./assets/Banner1.png",
@@ -95,7 +97,7 @@ function printIntroductionSlider() {
   }
   $("#intro").html(introArr);
 }
-
+//Tạo popup cho món ăn
 function attachFoodEvents() {
   document.querySelectorAll(".food-item").forEach(item => {
     item.addEventListener("click", function () {
@@ -146,12 +148,79 @@ $(document).on("click", ".btn-minus", function () {
 
   if (val > 1) input.val(val - 1);
 });
-
+// Tìm kiếm món ăn
+function searchFood(keywork) {
+  $("#result").html("");
+  key = keywork.toLowerCase();
+  let result = menuArr.filter(food => food.product_name.toLowerCase().includes(key));
+  if (result.length === 0) {
+    $("#result").html(`<p class="noInfor">Không tìm thấy món ăn</p>`);
+    return;
+  }
+  // In món ăn đã tìm
+  printFood(result, "#result")
+  function printFood(result, selector) {
+    let resultStr = "";
+    let i = 1;
+    for (const food of result) {
+      resultStr +=
+        `<div class="col-md-3">
+              <div class="food-item" id="${food.product_name.split(" ")[0].toLowerCase()}-${i}" data-description="${food.product_description}">
+                <img src="${food.image_url}">
+                <h3 class="food-title">${food.product_name}</h3>
+                <p class="food-price">${formatPrice(food.price)}</p>
+              </div>
+        </div>`;
+      i++;
+    }
+    $(selector).html(resultStr);
+    attachFoodEvents();
+  }
+}
+// Xóa tìm kiếm
+$("#deleteInput").on("click", function () {
+  $("#searching").val("");
+  $("#result").html("");
+  $("#pizza-slider").css("display", "block");
+  $("#hamburger-slider").css("display", "block");
+  $("#burrito-slider").css("display", "block");
+});
+// Đóng modal
 $("#close").on("click", function () {
-  $("#foodModal").modal("hide");;
+  $("#foodModal").modal("hide");
+});
+// Nhấn nút tìm kiếm
+$("#searchingButton").on("click", function(){
+  search();
 });
 
+function search() {
+  let keywork = $("#searching").val().trim();
+  if (!keywork) {
+    getAllProducts();
+    return;
+  }
+  $("#pizza-slider").css("display", "none");
+  $("#hamburger-slider").css("display", "none");
+  $("#burrito-slider").css("display", "none");
+  searchFood(keywork);
+}
+// thay đổi tìm kiếm
+$("#searching").on("change", function () {
+  if ($("#searching").val().length === 0) {
+    $("#result").html("");
+    $("#pizza-slider").css("display", "block");
+    $("#hamburger-slider").css("display", "block");
+    $("#burrito-slider").css("display", "block");
+  }
+});
+//nhấn enter để tìm
+$("#searching").keydown(function (e) {
+    if (e.key === "Enter") {
+      search();
+    }
+});
 document.addEventListener("DOMContentLoaded", function () {
-  printIntroductionSlider()
+  printIntroductionSlider();
   getAllProducts();
 });
