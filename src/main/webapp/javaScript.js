@@ -99,6 +99,10 @@ function printIntroductionSlider() {
 function attachFoodEvents() {
   document.querySelectorAll(".food-item").forEach(item => {
     item.addEventListener("click", function () {
+      document.getElementById("foodForm").reset();
+      $("#only-pizza").html("");
+      $(".foodQty").val(1);
+
       let title = $(this).find(".food-title").text();
       let price = $(this).find(".food-price").text();
       let img = $(this).find("img").attr("src");
@@ -108,7 +112,22 @@ function attachFoodEvents() {
       $("#modalPrice").text(price);
       $("#modalImg").attr("src", img);
       $("#modalDescription").text(description);
-
+      if (title.toLowerCase().includes("pizza")) {
+        let str = `
+        <h2 class="modal-body-title">KÍCH THƯỚC</h2>
+        <input type="radio" class="btn-check" name="options" id="size1" autocomplete="off" checked>
+        <label class="btn btn-secondary" for="size1">Size S</label>
+        <input type="radio" class="btn-check" name="options" id="size2" autocomplete="off">
+        <label class="btn btn-secondary" for="size2">Size M</label>
+        <input type="radio" class="btn-check" name="options" id="size3" autocomplete="off">
+        <label class="btn btn-secondary" for="size3">Size L</label>
+        <h2 class="modal-body-title">ĐẾ</h2>
+        <input type="radio" id="thick" name="pizza-base" checked>
+        <label for="thick" class="pizza-base">Dày</label>
+        <input type="radio" id="thin" name="pizza-base">
+        <label for="thin" class="pizza-base">Mỏng</label>`;
+        $("#only-pizza").html(str);
+      }
       $("#foodModal").modal("show");
     });
   });
@@ -127,6 +146,11 @@ $(document).on("click", ".btn-minus", function () {
 
   if (val > 1) input.val(val - 1);
 });
+
+$("#close").on("click", function () {
+  $("#foodModal").modal("hide");;
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   printIntroductionSlider()
   getAllProducts();

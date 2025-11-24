@@ -147,6 +147,19 @@ h2 {
 }
 
 /*modal*/
+#close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#close>i {
+    font-size: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ff7d01;
+}
+
 .modal-food-img {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -161,6 +174,7 @@ h2 {
     border-bottom: 1px solid #dee2e6;
     display: block;
     padding: 5px;
+    position: relative;
 }
 
 #modalTitle {
@@ -210,11 +224,21 @@ h2 {
 }
 
 .note-input:focus {
-    border-color: #ff7d01;
+    border-color: #ff7d01 !important;
+    outline: none;
 }
 
 .modal-footer {
     display: block;
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    width: 94%;
+    max-width: 100%;
+}
+
+#modalInfor {
+    position: relative;
 }
 
 .btn {
