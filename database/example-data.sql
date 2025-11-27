@@ -35,27 +35,30 @@ INSERT INTO staff (staff_username, staff_password, staff_name, staff_email, role
 INSERT INTO category (category_name) VALUES
 ('Pizza'),
 ('Hamburger'),
-('Tacos');
+('Burrito');
 
 INSERT INTO product (product_name, product_description, price, image_url, category_id) VALUES
-('Pizza Hải Sản Cocktail', 'Tôm, cua, giăm bông và xốt Thousand Island.', 180000, NULL, 'CA01'),
-('Pizza Hải Sản Cao Cấp', 'Tôm, cua, mực, nghêu và xốt Marinara.', 180000, NULL, 'CA01'),
-('Pizza Hải Sản Nhiệt Đới', 'Tôm, nghêu, mực, cua, dứa và xốt Thousand Island.', 180000, NULL, 'CA01'),
-('Pizza Tôm Cocktail','Tôm, nấm, dứa, cà chua và xốt Thousand Island.', 180000, NULL, 'CA01'),
-('Pizza Thịt Nguội Xúc Xích','Thịt nguội, xúc xích, dứa và xốt Thousand Island.', 140000, NULL, 'CA01'),
-('Pizza Thịt Xông Khói Đặc Biệt','Thịt giăm bông, thịt xông khói, ớt xanh và cà chua.', 160000, NULL, 'CA01'),
-('Pizza Thịt Nguội Kiểu Canada','Thịt nguội và bắp ngọt.', 120000, NULL, 'CA01'),
-('Pizza Gà Nướng 3 Vị','Gà nướng, gà bơ tỏi và gà ướp xốt nấm.', 180000, NULL, 'CA01'),
-('Pizza Thịt Nguội & Nấm','Giăm bông và nấm.', 160000, NULL, 'CA01'),
-('Pizza 5 Loại Thịt Đặc Biệt','Xúc xích lợn, bò đặc trưng của Ý, giăm bông và thịt xông khói.', 180000, NULL, 'CA01'),
-('Burger Teriyaki', 'Thịt bò, sốt Teriyaki, xà lách, cà chua và hành tây.', 60000, NULL, 'CA02'),
-('Burger Double Double', 'Gấp đôi thịt nướng và phô mai, xà lách, cà chua và hành tây.', 85000, NULL, 'CA02'),
-('Burger Chicken', 'Thịt gà, sốt kem, xà lách, cà chua và hành tây.', 60000, NULL, 'CA02'),
-('Burger Mozzarella', 'Thịt heo chiên xù, thịt nướng, phô mai mozzarella, xà lách, cà chua và hành tây.', 85000, NULL, 'CA02'),
-('Burger Ramen', 'Đế bánh Ramen, tôm chiên xù, sốt chua ngọt, xà lách, cà chua và hành tây.', 75000, NULL, 'CA02'),
-('Tacos Bò Bằm Sốt Tiêu Đen', 'Thịt bò bằm, sốt tiêu đen đặc trưng, hạt bắp, xà lách, cà chua và hành tây.', 60000, NULL, 'CA03'),
-('Tacos Gà Nướng BBQ', 'Thịt gà, sốt BBQ, các loại rau thơm thảo mộc, cà chua và hành tây.', 60000, NULL, 'CA03'),
-('Tacos Tôm Sốt Cay', 'Tôm tươi, sốt cay đậm vị, hạt bắp, dưa leo, cà chua và hành tây.', 60000, NULL, 'CA03');
+('Pizza Hải Sản Cocktail', 'Tôm, cua, giăm bông và xốt Thousand Island.', 180000, './assets/product/0002212_sf-cocktail-test_300.png', 'CA01'),
+('Pizza Hải Sản Cao Cấp', 'Tôm, cua, mực, nghêu và xốt Marinara.', 180000, './assets/product/0002214_sf-deluxe_300.png', 'CA01'),
+('Pizza Hải Sản Nhiệt Đới', 'Tôm, nghêu, mực, cua, dứa và xốt Thousand Island.', 180000, './assets/product/0002211_tropical-sf-test_300.png', 'CA01'),
+('Pizza Tôm Cocktail','Tôm, nấm, dứa, cà chua và xốt Thousand Island.', 180000, './assets/product/0002216_shrimp-ctl-test_300.png', 'CA01'),
+('Pizza Thịt Nguội Xúc Xích','Thịt nguội, xúc xích, dứa và xốt Thousand Island.', 140000, './assets/product/0003536_aloha_300.png', 'CA01'),
+('Pizza Thịt Xông Khói Đặc Biệt','Thịt giăm bông, thịt xông khói, ớt xanh và cà chua.', 160000, './assets/product/0002221_bacon-sup_300.png', 'CA01'),
+('Pizza Thịt Nguội Kiểu Canada','Thịt nguội và bắp ngọt.', 120000, './assets/product/0002222_ca-bacon_300.png', 'CA01'),
+('Pizza Gà Nướng 3 Vị','Gà nướng, gà bơ tỏi và gà ướp xốt nấm.', 180000, './assets/product/0002223_ck-trio_300.png', 'CA01'),
+('Pizza Thịt Nguội & Nấm','Giăm bông và nấm.', 160000, './assets/product/0002227_h-m_300.png', 'CA01'),
+('Pizza 5 Loại Thịt Đặc Biệt','Xúc xích lợn, bò đặc trưng của Ý, giăm bông và thịt xông khói.', 180000, './assets/product/0002219_meat-deluxe_300.png', 'CA01'),
+('Burger Teriyaki', 'Thịt bò, sốt Teriyaki, xà lách, cà chua và hành tây.', 60000, './assets/product/burger_b_teriyaki.jpg', 'CA02'),
+('Burger Double Double', 'Gấp đôi thịt nướng và phô mai, xà lách, cà chua và hành tây.', 85000, './assets/product/burger_double_double.jpg', 'CA02'),
+('Burger Chicken', 'Thịt gà, sốt kem, xà lách, cà chua và hành tây.', 60000, './assets/product/burger_lchicken.jpg', 'CA02'),
+('Burger Mozzarella', 'Thịt heo chiên xù, thịt nướng, phô mai mozzarella, xà lách, cà chua và hành tây.', 85000, './assets/product/burger_mozzarella.jpg', 'CA02'),
+('Burger Cheese', 'Thịt bò, phô mai tan chảy, xà lách, cà chua và hành tây.', 60000, './assets/product/burger_ph_mai_1.jpg', 'CA02'),
+('Burger Ramen', 'Đế bánh Ramen, tôm chiên xù, sốt chua ngọt, xà lách, cà chua và hành tây.', 75000, './assets/product/burger_ramen.jpg', 'CA02'),
+('Burger Shrimp', 'Tôm xay nhuyễn, phô mai tan chảy, xà lách, cà chua và hành tây.', 75000, './assets/product/burger_t_m.jpg', 'CA02'),
+('Burrito Bò Bằm Sốt Tiêu Đen', 'Thịt bò bằm, sốt tiêu đen đặc trưng, hạt bắp, xà lách, cà chua và hành tây.', 80000, './assets/product/burrito-nhan-thit-bo-bam.jpg', 'CA03'),
+('Burrito Bò Nướng BBQ HQ', 'Thịt bò Hàn Quốc, sốt BBQ, các loại rau thơm thảo mộc, cà chua và hành tây.', 90000, './assets/product/ff90e9e630c4346d8699398cbb2da4bd.jpg', 'CA03'),
+('Burrito Gà Nướng BBQ', 'Thịt gà, sốt BBQ, các loại rau thơm thảo mộc, cà chua và hành tây.', 90000, './assets/product/3de7660996a24057fb50f57b3e0b1f16.jpg', 'CA03'),
+('Burrito Tôm Sốt Cay', 'Tôm tươi, sốt cay đậm vị, hạt bắp, dưa leo, cà chua và hành tây.', 80000, './assets/product/4ee8be68a07f7eecfa0d3f96788069b4.jpg', 'CA03');
 
 INSERT INTO orders (customer_id, order_date, order_status) VALUES
 ('C0000001', '2025-10-01 10:00:00', 'Completed'),
