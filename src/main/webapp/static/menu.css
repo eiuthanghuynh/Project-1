@@ -85,8 +85,8 @@ a {
 }
 
 .logo>img {
-    width: 120px;
-    max-width: 100%;
+    width: 100px;
+    max-width: 100px;
 }
 
 header {
@@ -101,6 +101,10 @@ header {
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
+}
+
+.wrapper {
+    height: 100px;
 }
 
 .primary-menu,

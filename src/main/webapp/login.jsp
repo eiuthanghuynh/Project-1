@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="./loginStyle.css">
+    <link rel="stylesheet" type="text/css" href="./static/login.css">
   </head>
 
   <body>
@@ -46,6 +46,6 @@
   </body>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="./login.js"></script>
+  <script src="./js/login.js"></script>
 
   </html>
