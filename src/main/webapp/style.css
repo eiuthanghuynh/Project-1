@@ -12,7 +12,72 @@ a {
     margin: 0;
     padding: 0;
 }
+/*filter*/
+#filter-section {
+    margin-bottom: 40px;
+}
+#searching {
+    flex: 1;
+    padding-left: 20px;
+    font-size: 20px;
+    border: none;
+}
 
+#searching:focus {
+    border: none;
+    outline: none;
+}
+#deleteInput {
+    cursor: pointer;
+}
+#deleteInput i {
+    color: #ff7d01;
+    font-size: 20px;
+}
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ff7d01;
+    border-radius: 15px;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+#searchingButton {
+    margin-bottom: 40px;
+    color: #fff;
+    background-color: #ff7d01;
+    padding: 10px;
+    border-radius: 15px;
+    border: none !important;
+    outline: none !important;  
+    box-shadow: none !important;
+    font-size: 20px;
+    font-weight: 600;
+    width: 200%;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+#searchingButton:hover,
+#searchingButton:active {
+    background-color: #ff9633;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#result {
+    margin-bottom: 40px;
+}
+
+.noInfor {
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+    font-weight: 600;
+}
 /*Menu*/
 .logo {
     padding: 0 !important;
@@ -147,6 +212,19 @@ h2 {
 }
 
 /*modal*/
+#close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#close>i {
+    font-size: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ff7d01;
+}
+
 .modal-food-img {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -161,6 +239,7 @@ h2 {
     border-bottom: 1px solid #dee2e6;
     display: block;
     padding: 5px;
+    position: relative;
 }
 
 #modalTitle {
@@ -210,11 +289,21 @@ h2 {
 }
 
 .note-input:focus {
-    border-color: #ff7d01;
+    border-color: #ff7d01 !important;
+    outline: none;
 }
 
 .modal-footer {
     display: block;
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    width: 94%;
+    max-width: 100%;
+}
+
+#modalInfor {
+    position: relative;
 }
 
 .btn {
@@ -299,12 +388,14 @@ footer {
 .advert {
     margin-top: 20px;
 }
+.advert p {
+    text-align: left;
+}
 
 .social-icon {
     padding: 0;
     margin: 0;
     text-align: right;
-    padding-right: 25%;
 }
 
 .social-icon a {
