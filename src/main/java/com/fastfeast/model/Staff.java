@@ -8,6 +8,9 @@ public class Staff {
     private String staff_email;
     private int role;
 
+    public Staff() {
+    }
+
     public Staff(String staff_id, String staff_username, String staff_password, int role) {
         this.staff_id = staff_id;
         this.staff_username = staff_username;
