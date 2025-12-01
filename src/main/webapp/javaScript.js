@@ -190,7 +190,7 @@ $("#close").on("click", function () {
   $("#foodModal").modal("hide");
 });
 // Nhấn nút tìm kiếm
-$("#searchingButton").on("click", function(){
+$("#searchingButton").on("click", function () {
   search();
 });
 
@@ -216,10 +216,113 @@ $("#searching").on("change", function () {
 });
 //nhấn enter để tìm
 $("#searching").keydown(function (e) {
-    if (e.key === "Enter") {
-      search();
-    }
+  if (e.key === "Enter") {
+    search();
+  }
 });
+// Hover giỏ hàng sẽ hiện các món ăn trong giỏ
+$("#cartWrapper").hover(
+  function () {
+    $("#cart").stop().fadeIn(200);
+    printCart();
+  },
+  function () {
+    $("#cart").stop().fadeOut(200);
+  }
+);
+// Bấm nút thêm vào giỏ hàng sẽ add món ăn vào
+let cartItemArr = [];
+let nextId = 1
+function addCartItem(title, price, img, qty, note, base, size) {
+  cartItemArr.push({
+    "Id": nextId++,
+    "Title": title,
+    "Price": price,
+    "Img": img,
+    "Quantity": qty,
+    "Note": note,
+    "Size": size,
+    "Base": base
+  });
+}
+function deleteCartItem(id) {
+  id = Number(id);
+  const index = cartItemArr.findIndex(item => item.Id === id);
+  if (index !== -1) {
+    cartItemArr.splice(index, 1);
+  }
+  printCart();
+  $("#countCart").text(cartItemArr.length);
+}
+function printCart() {
+  $("#item").html();
+  if (cartItemArr.length == 0) {
+    $("#item").html(`<p id="emptyCart">Giỏ hàng của bạn trống <i class="fa-regular fa-face-sad-cry"></i></p>`);
+    return;
+  }
+  let itemStr = "";
+  let totalPrice = 0;
+  for (const item of cartItemArr) {
+    let price = item.Price.replace(/[^\d]/g, "");
+    totalPrice += Number(price);
+    itemStr +=
+      `<div class="cartItem">
+        <div class="row">
+          <div class="col-md-3">
+            <img src="${item.Img}" alt=""
+              class="cartItemImg">
+          </div>
+          <div class="col-md-6">
+            <h1 class="cartItemTitle">${item.Title}</h1>
+            <p class="cartItemInfor">Kích thước - ${item.Size}</p>
+            <p class="cartItemInfor">Đế - ${item.Base}</p>
+            <p class="cartItemInfor">Ghi chú - ${item.Note}</p>
+            <p class="cartItemInfor">Số lượng - ${item.Quantity}</p>
+          </div>
+          <div class="col-md-3" id="cartPrice">
+            <p class="deleteCartItem" id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
+            <p class="cartItemInfor cartItemPrice">${item.Price}</p>
+          </div>
+        </div>
+        <hr>
+      </div>`;
+  }
+  itemStr +=
+    `<div class="payment">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="cartItemTitle">Tổng Tiền</p>
+        </div>
+        <div class="col-md-6">
+          <p id="cartItemTotal">${totalPrice.toLocaleString()}đ</p>
+        </div>
+        <div class="col-md-12">
+          <button type="button" id="pay">Thanh toán</button>
+        </div>
+      </div>
+    </div>`;
+  $("#item").html(itemStr);
+}
+$("#addToCart").on("click", function () {
+  let title = $("#modalTitle").text();
+  let price = $("#modalPrice").text();
+  let img = $("#modalImg").attr("src");
+  let qty = $(".foodQty").val();
+  let note = $("#foodNote").val();
+  let size = $("input[name='options']:checked").next("label").text();
+  let base = $("input[name='pizza-base']:checked").next("label").text();
+  addCartItem(title, price, img, qty, note, base, size);
+  $("#foodModal").modal("hide");
+  printCart();
+  $("#countCart").text(cartItemArr.length);
+});
+$(document).on("click", ".deleteCartItem", function () {
+  deleteCartItem($(this).attr("id"));
+});
+
+
+
+// Load trang
 document.addEventListener("DOMContentLoaded", function () {
   printIntroductionSlider();
   getAllProducts();
