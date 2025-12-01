@@ -245,6 +245,7 @@ function addCartItem(title, price, img, qty, note, base, size) {
     "Base": base
   });
 }
+// Xóa item
 function deleteCartItem(id) {
   id = Number(id);
   const index = cartItemArr.findIndex(item => item.Id === id);
@@ -254,6 +255,14 @@ function deleteCartItem(id) {
   printCart();
   $("#countCart").text(cartItemArr.length);
 }
+// kiểm tra có phải là pizza hay không
+function isPizza(base, size) {
+  if (base == "" && size == "") {
+    return false;
+  }
+  return true;
+}
+// in item ra giỏ hàng
 function printCart() {
   $("#item").html();
   if (cartItemArr.length == 0) {
@@ -264,7 +273,11 @@ function printCart() {
   let totalPrice = 0;
   for (const item of cartItemArr) {
     let price = item.Price.replace(/[^\d]/g, "");
-    totalPrice += Number(price);
+    price = Number(price);
+    let quantity = Number(item.Quantity);
+    total = price * quantity;
+    totalPrice += total;
+
     itemStr +=
       `<div class="cartItem">
         <div class="row">
@@ -273,18 +286,24 @@ function printCart() {
               class="cartItemImg">
           </div>
           <div class="col-md-6">
-            <h1 class="cartItemTitle">${item.Title}</h1>
-            <p class="cartItemInfor">Kích thước - ${item.Size}</p>
-            <p class="cartItemInfor">Đế - ${item.Base}</p>
-            <p class="cartItemInfor">Ghi chú - ${item.Note}</p>
-            <p class="cartItemInfor">Số lượng - ${item.Quantity}</p>
-          </div>
-          <div class="col-md-3" id="cartPrice">
-            <p class="deleteCartItem" id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
-            <p class="cartItemInfor cartItemPrice">${item.Price}</p>
-          </div>
-        </div>
-        <hr>
+            <h1 class="cartItemTitle">${item.Title}</h1>`;
+    if (isPizza(item.Base, item.Size)) {
+      itemStr +=
+        `<p class="cartItemInfor">Kích thước - ${item.Size}</p>
+        <p class="cartItemInfor">Đế - ${item.Base}</p>`;
+    }
+    if (item.Note != "") {
+      itemStr += `<p class="cartItemInfor">Ghi chú - ${item.Note}</p>`;
+    }
+    itemStr +=
+      `<p class="cartItemInfor">Số lượng - ${item.Quantity}</p>
+      </div >
+      <div class="col-md-3" id="cartPrice">
+        <p class="deleteCartItem" id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
+        <p class="cartItemInfor cartItemPrice">${formatPrice(total)}</p>
+      </div>
+        </div >
+      <hr>
       </div>`;
   }
   itemStr +=
@@ -294,15 +313,16 @@ function printCart() {
           <p class="cartItemTitle">Tổng Tiền</p>
         </div>
         <div class="col-md-6">
-          <p id="cartItemTotal">${totalPrice.toLocaleString()}đ</p>
+          <p id="cartItemTotal">${formatPrice(totalPrice)}</p>
         </div>
         <div class="col-md-12">
           <button type="button" id="pay">Thanh toán</button>
         </div>
       </div>
-    </div>`;
+    </div > `;
   $("#item").html(itemStr);
 }
+// khi click nút thêm lấy dữ liệu
 $("#addToCart").on("click", function () {
   let title = $("#modalTitle").text();
   let price = $("#modalPrice").text();
@@ -319,7 +339,6 @@ $("#addToCart").on("click", function () {
 $(document).on("click", ".deleteCartItem", function () {
   deleteCartItem($(this).attr("id"));
 });
-
 
 
 // Load trang
