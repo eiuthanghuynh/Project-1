@@ -25,11 +25,21 @@
           <li><a href="">DEALS</a></li>
           <li><a href="">COMBO</a></li>
         </ul>
-        <a href="./Cart.html" class="basket-shopping" id="baskket"><i class="fa-solid fa-basket-shopping"></i></a>
+        <div id="cartWrapper">
+          <a href="./Cart.html" class="basket-shopping" id="basket">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span id="countCart">0</span>
+          </a>
+          <div id="cart">
+            <div class="arrow-up"></div>
+            <div class="container" id="item">
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
-
+  
   <main>
     <section class="introduce-slider">
       <div class="container">
@@ -175,7 +185,7 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                      <p class="add-to-cart">Thêm vào giỏ hàng</p>
+                      <p id="addToCart">Thêm vào giỏ hàng</p>
                     </div>
                   </div>
                 </div>
