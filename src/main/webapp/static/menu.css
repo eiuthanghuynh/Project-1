@@ -254,6 +254,83 @@ header {
     padding: 5px;
     font-weight: 600;
 }
+/*Menu*/
+.logo {
+    padding: 0 !important;
+    margin: 0;
+}
+
+.logo>img {
+    width: 100px;
+    max-width: 100px;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+.head-menu {
+    background-color: #ff7d01;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.wrapper {
+    height: 100px;
+}
+
+.primary-menu,
+.tool-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.primary-menu>li,
+.tool-menu>li {
+    padding: 30px;
+}
+
+.primary-menu>li>a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 30px;
+}
+
+.tool-menu>li>a {
+    font-size: 35px;
+}
+
+.current-item {
+    background-color: #ff9633;
+}
+
+.primary-menu .current-item>a,
+.primary-menu a:hover {
+    background-color: #ff9633;
+}
+
+.basket-shopping>i {
+    font-size: 40px;
+}
+
+/*Introduction-slider*/
+.introduce-slider .carousel-item a img {
+    border-radius: 25px;
+}
+
+.introduce-slider {
+    margin-bottom: 40px;
+}
 
 /* Danh sách món ăn */
 h2 {

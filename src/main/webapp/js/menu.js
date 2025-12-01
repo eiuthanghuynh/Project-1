@@ -1,5 +1,5 @@
 async function getAllProducts() {
-  const url = "http://localhost:8080/fastfeast/ProductServlet";
+  const url = "http://localhost:8080/fastfeast/api/products";
   try {
     const response = await fetch(url);
     if (!response.ok) {
