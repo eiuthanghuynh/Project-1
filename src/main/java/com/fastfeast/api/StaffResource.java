@@ -9,13 +9,46 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Path("/staff")
 public class StaffResource {
 
     private StaffDAO staffDAO = new StaffDAO();
+
+    @GET
+    @Path("/list")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllStaff(@Context HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("staff_username") == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(Map.of("success", false, "message", "Vui lòng đăng nhập"))
+                    .type("application/json; charset=UTF-8")
+                    .build();
+        }
+
+        List<Staff> staffList = staffDAO.getAllStaff();
+        List<Map<String, Object>> responseList = new ArrayList<>();
+
+        for (Staff s : staffList) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("id", s.getStaff_id());
+            item.put("name", s.getStaff_name());
+            item.put("role", s.getRole());
+            item.put("username", s.getStaff_username());
+            item.put("email", s.getStaff_email());
+            responseList.add(item);
+        }
+
+        return Response.ok(responseList)
+                .type("application/json; charset=UTF-8")
+                .build();
+    }
 
     @POST
     @Path("/login")
@@ -62,13 +95,14 @@ public class StaffResource {
         Map<String, Object> response = new HashMap<>();
 
         if (session == null || session.getAttribute("staff_username") == null) {
-            response.put("auth", false);
-            return Response.ok(response)
+            response.put("success", false);
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(response)
                     .type("application/json; charset=UTF-8")
                     .build();
         }
 
-        response.put("auth", true);
+        response.put("success", true);
         response.put("username", session.getAttribute("staff_username"));
         response.put("name", session.getAttribute("staff_name"));
         response.put("role", session.getAttribute("staff_role"));

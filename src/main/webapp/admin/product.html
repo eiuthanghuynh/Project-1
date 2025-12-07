@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fastfeast - Trang Nhân Viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="static/admin/staff.css">
+    <link rel="stylesheet" type="text/css" href="static/manage.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="page-header">
+            <h2 class="page-title">Trang quản lý sản phẩm</h2>
+            <button class="btn btn-primary">
+                <i class="fas fa-plus"></i> Thêm sản phẩm
+            </button>
+        </div>
+
+        <div class="content-box">
+            <div class="box-header">
+                <h3>Danh sách sản phẩm</h3>
+            </div>
+
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="custom-table" id="productTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">ID</th>
+                                <th style="width: 20%">Tên sản phẩm</th>
+                                <th style="width: 35%">Mô tả</th>
+                                <th style="width: 10%">Giá</th>
+                                <th style="width: 10%">Ảnh minh họa</th>
+                                <!-- <th style="width: 5%">ID Danh mục</th> -->
+                                <th style="width: 20%">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/product.js"></script>
+</body>
+
+</html>

@@ -22,7 +22,7 @@ $(document).ready(function () {
             const data = await response.json();
 
             if (data.success) {
-                window.location.href = '/fastfeast/staff/manage.html';
+                window.location.href = '/fastfeast/manage';
             } else {
                 $('.message').text(data.message);
             }
