@@ -1,0 +1,87 @@
+/*Css cho trang cart*/
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    padding-bottom: 20px; 
+}
+
+/*Cart*/
+#cartItemProduct {
+    font-size: 36px;
+    color: #ff7d01;
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+.cartProductTitle {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    color: #ff7d01;
+}
+.cartProductInfor {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+#itemRight{
+    align-content: center;
+}
+.cartProductPrice {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+.deleteCartProduct {
+    color: #ccc;
+    font-size: 24px;
+    text-align: center;
+}
+.cartProductTotalPrice {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: right;
+}
+.cartProductTotalPrice span {
+    color: #cc3e44;
+    font-size: 30px;
+    font-weight: 700;
+}
+#payMent {
+    margin-bottom: 40px;
+}
+#backToMenu, #payConfirm {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #ff7d01;
+    border-radius: 10px;
+    border: none;
+}
+#backToMenu i {
+    margin-right: 60px;
+}
+#payConfirm i {
+    margin-left: 100px;
+}
+#backToMenu:hover, #payConfirm:hover {
+    background-color: #ff9633;
+}
+/*Chỉnh hiện thị giỏ hàng trống*/
+#emptyCart2 {
+    font-size: 40px;
+    margin-top: 40px;
+    text-align: center;
+    color: #ff7d01;
+}

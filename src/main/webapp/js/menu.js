@@ -137,16 +137,32 @@ function attachFoodEvents() {
 
 // Thay đổi số lượng thức ăn cần order trong popup
 $(document).on("click", ".btn-plus", function () {
-  let input = $(this).siblings(".foodQty");
+  let input = $(this).closest(".quantity-box").find(".foodQty");
   let val = parseInt(input.val()) || 1;
+  let parent = $(this).closest(".cartProduct");
+  let id = Number(parent.attr("id"));
+  let item = cartItemArr.find(x => x.Id === id);
   input.val(val + 1);
+  item.Quantity++;
+  saveCart();
+  printCartProduct();
+  updateCartBadge();
 });
 
 $(document).on("click", ".btn-minus", function () {
-  let input = $(this).siblings(".foodQty");
+  let input = $(this).closest(".quantity-box").find(".foodQty");
   let val = parseInt(input.val()) || 1;
-
-  if (val > 1) input.val(val - 1);
+  let parent = $(this).closest(".cartProduct");
+  let id = Number(parent.attr("id"));
+  let item = cartItemArr.find(x => x.Id === id);
+  if (val > 1) {
+    input.val(val - 1);
+    item.Quantity--;
+  }
+  else deleteCartProduct(id);
+  saveCart();
+  printCartProduct();
+  updateCartBadge();
 });
 // Tìm kiếm món ăn
 function searchFood(keywork) {
@@ -245,6 +261,15 @@ function addCartItem(title, price, img, qty, note, base, size) {
     "Base": base
   });
 }
+function findCartItem(title, size, base, note) {
+  return cartItemArr.find(item =>
+    item.Title === title &&
+    (item.Size || "") === (size || "") &&
+    (item.Base || "") === (base || "") &&
+    (item.Note || "") === (note || "")
+  );
+}
+
 // Xóa item
 function deleteCartItem(id) {
   id = Number(id);
@@ -252,8 +277,10 @@ function deleteCartItem(id) {
   if (index !== -1) {
     cartItemArr.splice(index, 1);
   }
+  saveCart();
+  updateCartBadge();
   printCart();
-  $("#countCart").text(cartItemArr.length);
+  updateScroll();
 }
 // kiểm tra có phải là pizza hay không
 function isPizza(base, size) {
@@ -264,9 +291,9 @@ function isPizza(base, size) {
 }
 // in item ra giỏ hàng
 function printCart() {
-  $("#item").html();
+  $("#item").html("");
   if (cartItemArr.length == 0) {
-    $("#item").html(`<p id="emptyCart">Giỏ hàng của bạn trống <i class="fa-regular fa-face-sad-cry"></i></p>`);
+    $("#item").html(`<p id="emptyCart">Giỏ hàng của bạn trống!!!</p>`);
     return;
   }
   let itemStr = "";
@@ -275,7 +302,7 @@ function printCart() {
     let price = item.Price.replace(/[^\d]/g, "");
     price = Number(price);
     let quantity = Number(item.Quantity);
-    total = price * quantity;
+    let total = price * quantity;
     totalPrice += total;
 
     itemStr +=
@@ -331,16 +358,91 @@ $("#addToCart").on("click", function () {
   let note = $("#foodNote").val();
   let size = $("input[name='options']:checked").next("label").text();
   let base = $("input[name='pizza-base']:checked").next("label").text();
-  addCartItem(title, price, img, qty, note, base, size);
+  let existItem = findCartItem(title, size, base, note);
+  if (existItem) {
+    existItem.Quantity = Number(existItem.Quantity) + Number(qty);
+  } else {
+    addCartItem(title, price, img, qty, note, base, size);
+  }
   $("#foodModal").modal("hide");
+  saveCart();
+  updateCartBadge();
   printCart();
-  $("#countCart").text(cartItemArr.length);
+  updateScroll();
 });
+//Khi bấm thùng rác sẽ xóa món ăn khỏi giỏ hàng
 $(document).on("click", ".deleteCartItem", function () {
   deleteCartItem($(this).attr("id"));
+  updateScroll();
 });
+//Bấm vào giỏ hàng sẽ chuyển sang trang giỏ hàng
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cartItemArr));
+}
+function updateCartBadge() {
+  $("#countCart").text(cartItemArr.length);
+  localStorage.setItem("cartCount", cartItemArr.length);
+}
+function deleteCartProduct(id) {
+  id = Number(id);
+  const index = cartItemArr.findIndex(item => item.Id === id);
+  if (index !== -1) {
+    cartItemArr.splice(index, 1);
+  }
+  saveCart();
+  updateCartBadge();
+  printCartProduct();
+  updateScroll();
+}
+// Khi load trang
+window.addEventListener("beforeunload", function () {
+  localStorage.setItem("cartLastClosed", Date.now());
+});
+window.onload = function () {
+  // Lấy thời gian đóng tab trước đó
+  let lastClosed = localStorage.getItem("cartLastClosed");
 
+  if (lastClosed) {
+    let gap = Date.now() - Number(lastClosed);
+    // Nếu cách lúc đóng tab > 1 ngày thì xóa giỏ hàng
+    if (gap > 86400000) {
+      localStorage.removeItem("cart");
+      localStorage.removeItem("cartCount");
+    }
+  }
+  // --- Load lại giỏ ---
+  let savedCart = localStorage.getItem("cart");
+  cartItemArr = savedCart ? JSON.parse(savedCart) : [];
 
+  let savedCount = localStorage.getItem("cartCount");
+  document.getElementById("countCart").textContent = savedCount ?? cartItemArr.length;
+
+  if (window.location.pathname.includes("Cart.html")) {
+    printCartProduct();
+  }
+};
+//Khi thêm trên 3 món ăn sẽ có nút Scroll
+function updateScroll() {
+    if (cartItemArr.length > 3) {
+        $("#item2").css({
+            "max-height": "550px",
+            "overflow-y": "auto"
+        });
+        $("#cart").css({
+            "max-height": "300px",
+            "overflow-y": "auto"
+        });
+    } else {
+        $("#item2").css({
+            "max-height": "unset",
+            "overflow-y": "unset"
+        });
+        $("#cart").css({
+            "max-height": "unset",
+            "overflow-y": "unset"
+        });
+    }
+}
 // Load trang
 document.addEventListener("DOMContentLoaded", function () {
   printIntroductionSlider();

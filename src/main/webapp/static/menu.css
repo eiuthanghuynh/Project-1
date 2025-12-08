@@ -333,9 +333,10 @@ header {
 }
 
 /* Danh sách món ăn */
-h2 {
+h1 {
     color: #ff7d01;
     font-size: 40px;
+    margin-bottom: 20px;
 }
 
 .food-item {
@@ -590,3 +591,4 @@ footer {
     margin: 0;
     font-size: 20px;
 }
+
