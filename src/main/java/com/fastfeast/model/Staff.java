@@ -11,10 +11,11 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(String staff_id, String staff_username, String staff_password, int role) {
+    public Staff(String staff_id, String staff_username, String staff_name, String staff_email, int role) {
         this.staff_id = staff_id;
         this.staff_username = staff_username;
-        this.staff_password = staff_password;
+        this.staff_name = staff_name;
+        this.staff_email = staff_email;
         this.role = role;
     }
 

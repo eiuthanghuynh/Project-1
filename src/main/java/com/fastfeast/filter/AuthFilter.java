@@ -22,7 +22,8 @@ public class AuthFilter implements Filter {
         }
 
         // Kiểm tra session khi vào các trang liên quan tới staff
-        if (path.startsWith("/fastfeast/staff/")) {
+        if (path.startsWith("/fastfeast/admin/")) {
+            // Kiểm tra tính hợp lệ của đăng nhập
             if (session != null && session.getAttribute("staff_username") != null) {
                 chain.doFilter(req, res);
                 return;
@@ -30,6 +31,9 @@ public class AuthFilter implements Filter {
                 response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
+
+            // Kiểm tra role của nhân viên theo từng mục quản lý
+            
         }
         chain.doFilter(req, res);
     }
