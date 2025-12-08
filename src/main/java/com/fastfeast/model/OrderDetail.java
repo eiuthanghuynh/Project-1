@@ -1,6 +1,6 @@
 package com.fastfeast.model;
 
-public class Order_Detail {
+public class OrderDetail {
     private String order_id;
     private String product_id;
     private int quantity;
@@ -9,7 +9,10 @@ public class Order_Detail {
     private double discount;
     private String note;
 
-    public Order_Detail(String order_id, String product_id, int quantity, double price) {
+    public OrderDetail() {
+    }
+
+    public OrderDetail(String order_id, String product_id, int quantity, double price) {
         this.order_id = order_id;
         this.product_id = product_id;
         this.quantity = quantity;
