@@ -55,10 +55,13 @@ INSERT INTO product (product_name, product_description, price, image_url, catego
 ('Burger Cheese', 'Thịt bò, phô mai tan chảy, xà lách, cà chua và hành tây.', 60000, './assets/product/burger_ph_mai_1.jpg', 'CA02'),
 ('Burger Ramen', 'Đế bánh Ramen, tôm chiên xù, sốt chua ngọt, xà lách, cà chua và hành tây.', 75000, './assets/product/burger_ramen.jpg', 'CA02'),
 ('Burger Shrimp', 'Tôm xay nhuyễn, phô mai tan chảy, xà lách, cà chua và hành tây.', 75000, './assets/product/burger_t_m.jpg', 'CA02'),
-('Burrito Bò Bằm Sốt Tiêu Đen', 'Thịt bò bằm, sốt tiêu đen đặc trưng, hạt bắp, xà lách, cà chua và hành tây.', 80000, './assets/product/burrito-nhan-thit-bo-bam.jpg', 'CA03'),
-('Burrito Bò Nướng BBQ HQ', 'Thịt bò Hàn Quốc, sốt BBQ, các loại rau thơm thảo mộc, cà chua và hành tây.', 90000, './assets/product/ff90e9e630c4346d8699398cbb2da4bd.jpg', 'CA03'),
-('Burrito Gà Nướng BBQ', 'Thịt gà, sốt BBQ, các loại rau thơm thảo mộc, cà chua và hành tây.', 90000, './assets/product/3de7660996a24057fb50f57b3e0b1f16.jpg', 'CA03'),
-('Burrito Tôm Sốt Cay', 'Tôm tươi, sốt cay đậm vị, hạt bắp, dưa leo, cà chua và hành tây.', 80000, './assets/product/4ee8be68a07f7eecfa0d3f96788069b4.jpg', 'CA03');
+('Burrito 7 Lớp', 'Đậu đen, cơm, kem chua, sốt bơ, xà lách, cà chua, phô mai 3 loại.', 80000, './assets/product/7-Layer-Burrito-1370x650px – Đã sửa.png', 'CA03'),
+('Burrito Bò Phô Mai Tan Chảy', 'Cơm, thịt bò, sốt phô mai Nacho, bánh Nachos nghiền, phô mai 3 loại, kem chua.', 90000, './assets/product/Beefy-Nacho-Griller-1370x650px – Đã sửa.png', 'CA03'),
+('Burrito Núi Lửa', 'Thịt bò, sốt lava cay, bánh Nachos nghiền, cơm, phô mai Cheddar, kem chua.', 90000, './assets/product/VolcanoBurrito-1370x650px – Đã sửa.png', 'CA03'),
+('Burrito Đậu Đen Phô Mai Kép', 'Đậu đen, cơm, sốt phô mai Nacho, phô mai Cheddar.', 75000, './assets/product/Double-Cheesy-Black-Bean-Burrito-1370x650px – Đã sửa.png', 'CA03'),
+('Burrito Bò Nacho Phô Mai', 'Thịt bò, sốt phô mai Nacho, bánh Nacho nghiền.', 100000, './assets/product/Beefy-Nacho-Griller-1370x650px – Đã sửa.png', 'CA03'),
+('Burrito Gà Cay', 'Thịt gà nướng, sốt cay béo, kem chua.', 85000, './assets/product/Spicy-Chicken-Griller-1370x650px – Đã sửa.png', 'CA03'),
+('Burrito Gà Giòn', 'Hai miếng gà giòn, sốt béo cay, xà lách, cà chua, phô mai Cheddar.', 80000, './assets/product/CrispyChickenBurrito-1370x650px – Đã sửa.png', 'CA03');
 
 INSERT INTO orders (customer_id, order_date, order_status) VALUES
 ('C0000001', '2025-10-01 10:00:00', 'Completed'),
