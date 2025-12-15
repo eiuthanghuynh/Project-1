@@ -101,7 +101,7 @@ $(document).on("click", ".cartMinus", function () {
     input.val(val - 1);
     item.Quantity--;
   }
-  else deleteCartProduct(id);
+  else removeCartItem(id);
   saveCart();
   printCartProduct();
   updateCartBadge();
