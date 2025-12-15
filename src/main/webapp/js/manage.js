@@ -20,10 +20,14 @@ $(document).ready(async function () {
         menu.filter(`[data-page="${pageName}"]`).show();
     };
     if (data.role == 0) {
-        menu.show();
+        // menu.show();
+        showMenu('order');
+        showMenu('staff');
+        showMenu('product');
+        $('.logout').show();
     } else if (data.role == 1) {
         menu.hide();
-        showMenu('dashboard');
+        // showMenu('dashboard');
         showMenu('order');
         showMenu('staff');
         $('.logout').show();
