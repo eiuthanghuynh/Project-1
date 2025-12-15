@@ -23,14 +23,14 @@ INSERT INTO customer (customer_name, phone, email, address) VALUES
 ('Phan Đức Lộc', '0909988776', 'locphan@gmail.com', 'Phường Thuận An, TP.HCM');
 
 INSERT INTO staff (staff_username, staff_password, staff_name, staff_email, role) VALUES
-('admin', '123456', 'Trần Quản Trị', 'admin@fastfood.vn', 0),
-('manager1', '123456', 'Trần Quản Lý', 'manager1@fastfood.vn', 1),
-('manager2', '123456', 'Lê Quản Lý', 'manager2@fastfood.vn', 1),
-('staff1', '123456', 'Hoàng Anh', 'staff1@fastfood.vn', 2),
-('staff2', '123456', 'Nguyễn Minh', 'staff2@fastfood.vn', 2),
-('staff3', '123456', 'Phạm Hòa', 'staff3@fastfood.vn', 2),
-('staff4', '123456', 'Vũ Hương', 'staff4@fastfood.vn', 2),
-('staff5', '123456', 'Trần Dũng', 'staff5@fastfood.vn', 2);
+('admin', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Trần Quản Trị', 'admin@fastfood.vn', 0),
+('manager1', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Trần Quản Lý', 'manager1@fastfood.vn', 1),
+('manager2', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Lê Quản Lý', 'manager2@fastfood.vn', 1),
+('staff1', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Hoàng Anh', 'staff1@fastfood.vn', 2),
+('staff2', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Nguyễn Minh', 'staff2@fastfood.vn', 2),
+('staff3', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Phạm Hòa', 'staff3@fastfood.vn', 2),
+('staff4', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Vũ Hương', 'staff4@fastfood.vn', 2),
+('staff5', '$2a$12$2lWm2UnvZ5Jo1DugBn6uZ.DSyk.zsa1FRl9906oDDKDSTPDsvnXBS', 'Trần Dũng', 'staff5@fastfood.vn', 2);
 
 INSERT INTO category (category_name) VALUES
 ('Pizza'),
