@@ -77,11 +77,6 @@ function printCartProduct() {
         </div>`;
   $("#item2").html(itemStr + paymentStr);
 }
-//Khi bấm nút xóa sẽ xóa món ăn ở trang cart
-$(document).on("click", ".deleteCartProduct", function () {
-  deleteCartProduct($(this).attr("id"));
-});
-
 // Thay đổi số lượng thức ăn cần order trong cart
 $(document).on("click", ".cartPlus", function () {
   let input = $(this).closest(".quantity-box").find(".foodQty");

@@ -261,7 +261,7 @@ function findCartItem(title, size, base, note) {
   );
 }
 // Xóa item
-function deleteCartItem(id) {
+function removeCartItem(id) {
   id = Number(id);
   const index = cartItemArr.findIndex(item => item.Id === id);
   if (index !== -1) {
@@ -363,9 +363,14 @@ $("#addToCart").on("click", function () {
   updateScroll();
 });
 //Khi bấm thùng rác sẽ xóa món ăn khỏi giỏ hàng
-$(document).on("click", ".deleteCartItem", function () {
-  deleteCartItem($(this).attr("id"));
-});
+$(document).on(
+  "click",
+  ".deleteCartItem, .deleteCartProduct",
+  function () {
+    const id = $(this).attr("id") || $(this).data("id");
+    removeCartItem(id);
+  }
+);
 //Bấm vào giỏ hàng sẽ chuyển sang trang giỏ hàng
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cartItemArr));
@@ -373,16 +378,6 @@ function saveCart() {
 function updateCartBadge() {
   $("#countCart").text(cartItemArr.length);
   localStorage.setItem("cartCount", cartItemArr.length);
-}
-function deleteCartProduct(id) {
-  id = Number(id);
-  const index = cartItemArr.findIndex(item => item.Id === id);
-  if (index !== -1) {
-    cartItemArr.splice(index, 1);
-  }
-  saveCart();
-  updateCartBadge();
-  printCartProduct();
 }
 // Khi load trang
 window.addEventListener("beforeunload", function () {
