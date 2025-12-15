@@ -27,7 +27,9 @@ let menuArr;
 let linkIntroductionSliders = [
   "./assets/Banner1.png",
   "./assets/1.png",
-  "./assets/2.png"
+  "./assets/2.png",
+  "./assets/bannercombo1.png",
+  "./assets/bannercombo2.png",
 ]
 
 function calcLoop(list) {
@@ -89,7 +91,7 @@ function printIntroductionSlider() {
   let i = 1;
   for (const link of linkIntroductionSliders) {
     introArr +=
-      `<div class="carousel-item active ${i === 1 ? "active" : ""}">
+      `<div class="carousel-item ${i === 1 ? "active" : ""}">
                 <a href=""><img src=${link} class="d-block w-100"
                     alt="..."></a>
               </div>`;
@@ -136,32 +138,21 @@ function attachFoodEvents() {
 }
 
 // Thay đổi số lượng thức ăn cần order trong popup
-$(document).on("click", ".btn-plus", function () {
+$(document).on("click", ".modalPlus", function () {
   let input = $(this).closest(".quantity-box").find(".foodQty");
   let val = parseInt(input.val()) || 1;
-  let parent = $(this).closest(".cartProduct");
-  let id = Number(parent.attr("id"));
-  let item = cartItemArr.find(x => x.Id === id);
   input.val(val + 1);
-  item.Quantity++;
   saveCart();
-  printCartProduct();
   updateCartBadge();
 });
 
-$(document).on("click", ".btn-minus", function () {
+$(document).on("click", ".modalMinus", function () {
   let input = $(this).closest(".quantity-box").find(".foodQty");
   let val = parseInt(input.val()) || 1;
-  let parent = $(this).closest(".cartProduct");
-  let id = Number(parent.attr("id"));
-  let item = cartItemArr.find(x => x.Id === id);
   if (val > 1) {
     input.val(val - 1);
-    item.Quantity--;
   }
-  else deleteCartProduct(id);
   saveCart();
-  printCartProduct();
   updateCartBadge();
 });
 // Tìm kiếm món ăn
@@ -269,7 +260,6 @@ function findCartItem(title, size, base, note) {
     (item.Note || "") === (note || "")
   );
 }
-
 // Xóa item
 function deleteCartItem(id) {
   id = Number(id);
@@ -280,7 +270,7 @@ function deleteCartItem(id) {
   saveCart();
   updateCartBadge();
   printCart();
-  updateScroll();
+  printCartProduct();
 }
 // kiểm tra có phải là pizza hay không
 function isPizza(base, size) {
@@ -296,7 +286,7 @@ function printCart() {
     $("#item").html(`<p id="emptyCart">Giỏ hàng của bạn trống!!!</p>`);
     return;
   }
-  let itemStr = "";
+  let itemStr = `<div id="cartItemList">`;
   let totalPrice = 0;
   for (const item of cartItemArr) {
     let price = item.Price.replace(/[^\d]/g, "");
@@ -333,7 +323,8 @@ function printCart() {
       <hr>
       </div>`;
   }
-  itemStr +=
+  itemStr += `</div>`;
+  let paymentStr =
     `<div class="payment">
       <div class="row">
         <div class="col-md-6">
@@ -347,7 +338,8 @@ function printCart() {
         </div>
       </div>
     </div > `;
-  $("#item").html(itemStr);
+  $("#item").html(itemStr + paymentStr);
+  showScroll();
 }
 // khi click nút thêm lấy dữ liệu
 $("#addToCart").on("click", function () {
@@ -373,7 +365,6 @@ $("#addToCart").on("click", function () {
 //Khi bấm thùng rác sẽ xóa món ăn khỏi giỏ hàng
 $(document).on("click", ".deleteCartItem", function () {
   deleteCartItem($(this).attr("id"));
-  updateScroll();
 });
 //Bấm vào giỏ hàng sẽ chuyển sang trang giỏ hàng
 function saveCart() {
@@ -392,7 +383,6 @@ function deleteCartProduct(id) {
   saveCart();
   updateCartBadge();
   printCartProduct();
-  updateScroll();
 }
 // Khi load trang
 window.addEventListener("beforeunload", function () {
@@ -410,9 +400,16 @@ window.onload = function () {
       localStorage.removeItem("cartCount");
     }
   }
+   
   // --- Load lại giỏ ---
   let savedCart = localStorage.getItem("cart");
   cartItemArr = savedCart ? JSON.parse(savedCart) : [];
+
+  if (cartItemArr.length > 0) {
+    nextId = Math.max(...cartItemArr.map(item => item.Id)) + 1;
+  } else {
+    nextId = 1;
+  }
 
   let savedCount = localStorage.getItem("cartCount");
   document.getElementById("countCart").textContent = savedCount ?? cartItemArr.length;
@@ -421,28 +418,18 @@ window.onload = function () {
     printCartProduct();
   }
 };
-//Khi thêm trên 3 món ăn sẽ có nút Scroll
-function updateScroll() {
-    if (cartItemArr.length > 3) {
-        $("#item2").css({
-            "max-height": "550px",
-            "overflow-y": "auto"
-        });
-        $("#cart").css({
-            "max-height": "300px",
-            "overflow-y": "auto"
-        });
-    } else {
-        $("#item2").css({
-            "max-height": "unset",
-            "overflow-y": "unset"
-        });
-        $("#cart").css({
-            "max-height": "unset",
-            "overflow-y": "unset"
-        });
-    }
+//Khi thêm trên 4 món ăn sẽ có nút Scroll
+function showScroll() {
+  const $list = $("#cartItemList");
+  if ($list.length === 0) return;
+
+  if (cartItemArr.length >= 4) {
+    $list.css("overflow-y", "auto");
+  } else {
+    $list.css("overflow-y", "hidden");
+  }
 }
+
 // Load trang
 document.addEventListener("DOMContentLoaded", function () {
   printIntroductionSlider();

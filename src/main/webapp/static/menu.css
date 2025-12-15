@@ -591,4 +591,11 @@ footer {
     margin: 0;
     font-size: 20px;
 }
-
+#cartItemList {
+  max-height: 260px;
+  overflow-y: hidden;
+}
+#cartItemList .row {
+  margin-left: 0;
+  margin-right: 0;
+}
