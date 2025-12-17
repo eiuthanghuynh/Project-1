@@ -47,21 +47,20 @@ public class ProductDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                    PreparedStatement stmt = conn.prepareStatement(sql);
-                    ResultSet rs = stmt.executeQuery()) {
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 stmt.setString(1, product_id);
-
-                while (rs.next()) {
-                    product.setProduct_id(rs.getString("product_id"));
-                    product.setProduct_name(rs.getString("product_name"));
-                    product.setPrice(rs.getDouble("price"));
-                    product.setProduct_description(rs.getString("product_description"));
-                    product.setImage_url(rs.getString("image_url"));
-                    product.setCategory_id(rs.getString("category_id"));
-                    return product;
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        product.setProduct_id(rs.getString("product_id"));
+                        product.setProduct_name(rs.getString("product_name"));
+                        product.setPrice(rs.getDouble("price"));
+                        product.setProduct_description(rs.getString("product_description"));
+                        product.setImage_url(rs.getString("image_url"));
+                        product.setCategory_id(rs.getString("category_id"));
+                        return product;
+                    }
                 }
-
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -126,7 +125,7 @@ public class ProductDAO {
 
             try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
                     PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
+
                 stmt.setString(1, product_id);
 
                 return stmt.executeUpdate() > 0;
