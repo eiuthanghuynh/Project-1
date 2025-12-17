@@ -69,4 +69,21 @@ public class OrderDAO {
 
         return order;
     }
+
+    public boolean updateOrderStatus(String orderId, String status) {
+        String sql = "UPDATE orders SET order_status=? WHERE order_id=?";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setString(1, status);
+                stmt.setString(2, orderId);
+                return stmt.executeUpdate() > 0;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

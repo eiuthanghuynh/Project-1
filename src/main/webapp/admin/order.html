@@ -11,6 +11,38 @@
     <link rel="stylesheet" type="text/css" href="static/manage.css">
 </head>
 
+<!-- Popup chỉnh trạng thái đơn hàng -->
+<div class="modal fade" id="editStatusModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cập nhật trạng thái đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editStatusForm">
+                    <input type="hidden" id="editOrderId">
+                    <div class="mb-3">
+                        <label class="form-label">Trạng thái</label>
+                        <select class="form-select" id="orderStatus" required>
+                            <option value="">Vui lòng nhập trạng thái</option>
+                            <option value="Completed">Hoàn thành</option>
+                            <option value="In Delivery">Đang giao hàng</option>
+                            <option value="Preparing">Đang chuẩn bị</option>
+                            <option value="Cancelled">Đã hủy</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary-custom">Cập nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <body>
     <div class="container-fluid">
         <div class="page-header">
@@ -46,7 +78,15 @@
         </div>
     </div>
 
-
+    <!-- Toast thông báo hành động -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 999">
+        <div id="appToast" class="toast align-items-center text-white border-0 p-3" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
