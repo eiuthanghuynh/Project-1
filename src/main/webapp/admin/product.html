@@ -17,36 +17,37 @@
         <div class="modal-content">
 
             <div class="modal-header m-section-header">
-                <h5 class="modal-title m-section-title text-center">Thêm sản phẩm mới</h5>
+                <h5 class="modal-title m-section-title text-center">Nhập thông tin sản phẩm</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
                 <form id="addProductForm" enctype="multipart/form-data">
+                    <input type="hidden" name="product_id" id="productId">
 
                     <div class="mb-3">
-                        <label class="form-label">Tên sản phẩm</label>
+                        <label for="productName" class="form-label">Tên sản phẩm</label>
                         <input name="product_name" type="text" class="form-control" id="productName" required>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Mô tả</label>
+                        <label for="productDescription" class="form-label">Mô tả</label>
                         <textarea name="product_description" class="form-control" id="productDescription"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Giá</label>
+                        <label for="productPrice" class="form-label">Giá</label>
                         <input type="text" class="form-control" id="productPrice" required>
                         <input name="price" type="hidden" id="price">
                     </div>
 
                     <div class="mb-3">
-                        <label>Ảnh sản phẩm</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        <label class="form-label">Ảnh sản phẩm</label>
+                        <input type="file" name="image" class="form-control" accept="image/*">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Danh mục</label>
+                        <label for="categoryId" class="form-label">Danh mục</label>
                         <select name="category_id" class="form-select" id="categoryId" required>
                             <option value="">Vui lòng chọn danh mục</option>
                             <option value="CA01">Pizza</option>
@@ -56,7 +57,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                         <button type="submit" class="btn btn-primary-custom" id="btnSaveProduct">Lưu</button>
                     </div>
                 </form>
