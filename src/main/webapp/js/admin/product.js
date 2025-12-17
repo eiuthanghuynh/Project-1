@@ -1,5 +1,38 @@
+$(document).ready(function () {
+
+    // Mở popup khi nhấn thêm sản phẩm
+    $('#btnAddProduct').on('click', function () {
+        $('#addProductForm')[0].reset();
+        $('#addProductModal').modal('show');
+    });
+
+    // Lưu sản phẩm
+    $(document).on('submit', '#addProductForm', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: '/fastfeast/upload/products',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function () {
+                alert('Thêm sản phẩm thành công');
+                getProducts();
+            },
+            error: function () {
+                alert('Lỗi khi thêm sản phẩm');
+            }
+        });
+    });
+
+});
+
+// Fetch API và hiện danh sách sản phẩm
 function getProducts() {
-    fetch("api/products")
+    fetch("/fastfeast/api/products")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Lỗi kết nối tới máy chủ");
@@ -14,6 +47,7 @@ function getProducts() {
         });
 }
 
+// Hiện danh sách sản phẩm
 function renderProductList(products) {
     const tableBody = $('#productTable tbody');
     tableBody.empty();
@@ -46,5 +80,23 @@ function renderProductList(products) {
 function formatPrice(price) {
     return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 }
+
+// Chuyển input price trong popup thành dạng tiền việt
+$('#productPrice').on('input', function () {
+    this.value = this.value.replace(/\D/g, '');
+    $('#price').val(this.value);
+});
+
+$('#productPrice').on('blur', function () {
+    if (!this.value) return;
+
+    const number = Number(this.value);
+    this.value = number.toLocaleString('vi-VN') + ' đ';
+});
+
+$('#productPrice').on('focus', function () {
+    this.value = this.value.replace(/\D/g, '');
+    $('#price').val(this.value);
+});
 
 getProducts();

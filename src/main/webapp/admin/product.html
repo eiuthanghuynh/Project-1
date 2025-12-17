@@ -11,11 +11,67 @@
     <link rel="stylesheet" type="text/css" href="static/manage.css">
 </head>
 
+<!-- Popup thêm sản phẩm -->
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header m-section-header">
+                <h5 class="modal-title m-section-title text-center">Thêm sản phẩm mới</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="addProductForm" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label">Tên sản phẩm</label>
+                        <input name="product_name" type="text" class="form-control" id="productName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Mô tả</label>
+                        <textarea name="product_description" class="form-control" id="productDescription"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Giá</label>
+                        <input type="text" class="form-control" id="productPrice" required>
+                        <input name="price" type="hidden" id="price">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Ảnh sản phẩm</label>
+                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Danh mục</label>
+                        <select name="category_id" class="form-select" id="categoryId" required>
+                            <option value="">Vui lòng chọn danh mục</option>
+                            <option value="CA01">Pizza</option>
+                            <option value="CA02">Hamburger</option>
+                            <option value="CA03">Burrito</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary-custom" id="btnSaveProduct">Lưu</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 <body>
     <div class="container-fluid">
         <div class="page-header">
             <h2 class="page-title">Trang quản lý sản phẩm</h2>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary-custom" id="btnAddProduct">
                 <i class="fas fa-plus"></i> Thêm sản phẩm
             </button>
         </div>
