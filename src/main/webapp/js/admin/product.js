@@ -4,7 +4,6 @@ $(document).ready(function () {
     // Mở popup khi nhấn thêm sản phẩm
     $('#btnAddProduct').on('click', function () {
         $('#addProductForm')[0].reset();
-        $('#productId').val('');
         $('#addProductModal').modal('show');
     });
 
@@ -24,19 +23,19 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function () {
-                alert('Thêm sản phẩm thành công');
+                showToast(isEdit ? 'Cập nhật sản phẩm thành công' : 'Thêm sản phẩm thành công', 'success');
                 $('#addProductModal').modal('hide');
+                $('#productId').val('');
                 getProducts();
             },
             error: function () {
-                alert('Lỗi khi thêm sản phẩm');
+                showToast(isEdit ? 'Cập nhật sản phẩm thất bại' : 'Thêm sản phẩm thất bại', 'error');
             }
         });
     });
 
     // Thay đổi thông tin sản phẩm
     $(document).on('click', '.btn-edit', function () {
-        console.log("Debug: Edit Button Clicked");
         const productId = $(this).data('id');
 
         fetch(`/fastfeast/api/products/${productId}`)
@@ -45,14 +44,38 @@ $(document).ready(function () {
                 $('#productId').val(product.product_id);
                 $('#productName').val(product.product_name);
                 $('#productDescription').val(product.product_description);
-
                 $('#productPrice').val(formatPrice(product.price));
                 $('#price').val(product.price);
-
                 $('#categoryId').val(product.category_id);
 
                 $('#addProductModal').modal('show');
             });
+    });
+
+    // Xóa sản phẩm
+    let deleteProductId = null;
+    $(document).on('click', '.btn-delete', function () {
+        deleteProductId = $(this).data('id');
+        $('#deleteConfirmModal').modal('show');
+    });
+
+    $('#btnConfirmDelete').on('click', function () {
+        if (!deleteProductId) return;
+
+        $.ajax({
+            url: `/fastfeast/api/products/${deleteProductId}`,
+            method: 'DELETE',
+            success: function () {
+                $('#deleteConfirmModal').modal('hide');
+                deleteProductId = null;
+
+                showToast('Xóa sản phẩm thành công', 'success');
+                getProducts();
+            },
+            error: function () {
+                showToast('Xóa sản phẩm thất bại', 'error');
+            }
+        });
     });
 
 });
@@ -93,7 +116,7 @@ function renderProductList(products) {
                             <button class="btn btn-sm btn-warning btn-edit me-1" title="Sửa" data-id="${product.product_id}">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger" title="Xóa">
+                            <button class="btn btn-sm btn-danger btn-delete" title="Xóa" data-id="${product.product_id}">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -133,3 +156,30 @@ $('#productPrice').on('focus', function () {
     this.value = this.value.replace(/\D/g, '');
     $('#price').val(this.value);
 });
+
+// Toast thông báo hành động
+function showToast(message, type = 'success') {
+    const toastEl = document.getElementById('appToast');
+    const toastBody = document.getElementById('toastMessage');
+
+    toastBody.textContent = message;
+
+    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-warning', 'bg-info');
+
+    switch (type) {
+        case 'success':
+            toastEl.classList.add('bg-success');
+            break;
+        case 'error':
+            toastEl.classList.add('bg-danger');
+            break;
+        case 'warning':
+            toastEl.classList.add('bg-warning');
+            break;
+        default:
+            toastEl.classList.add('bg-info');
+    }
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+}

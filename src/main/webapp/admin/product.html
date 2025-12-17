@@ -67,6 +67,36 @@
     </div>
 </div>
 
+<!-- Popup xác nhận xóa sản phẩm -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">
+                    <i class="fas fa-triangle-exclamation me-2"></i>
+                    Xác nhận xóa
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Bạn có chắc chắn muốn <strong>xóa sản phẩm này</strong> không?<br>
+                Hành động này <span class="text-danger">không thể hoàn tác</span>.
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Hủy
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmDelete">
+                    Xóa
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <body>
     <div class="container-fluid">
@@ -104,7 +134,15 @@
         </div>
     </div>
 
-
+    <!-- Toast thông báo hành động -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 999">
+        <div id="appToast" class="toast align-items-center text-white border-0 p-3" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
