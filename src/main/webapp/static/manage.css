@@ -69,7 +69,6 @@ li {
     display: none;
     width: 100%;
     text-align: left;
-    padding: 20px 30px;
 }
 
 .sidebar-menu li a {
@@ -77,6 +76,7 @@ li {
     font-size: 20px;
     font-weight: 900;
     display: block;
+    padding: 20px 30px;
 }
 
 .sidebar-menu li:hover,

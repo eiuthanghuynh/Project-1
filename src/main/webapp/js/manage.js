@@ -21,6 +21,7 @@ $(document).ready(async function () {
     };
     if (data.role == 0) {
         // menu.show();
+        menu.hide();
         showMenu('order');
         showMenu('staff');
         showMenu('product');
@@ -41,7 +42,7 @@ $(document).ready(async function () {
     function loadPage(page) {
         $('.manage-content').load(`/fastfeast/admin/${page}.html`);
     }
-    loadPage('dashboard');
+    loadPage('order');
     $('.sidebar-menu li a').click(function (e) {
         e.preventDefault();
         const page = $(this).parent().data('page');
