@@ -11,11 +11,97 @@
     <link rel="stylesheet" type="text/css" href="static/manage.css">
 </head>
 
+<!-- Popup thêm/sửa nhân viên -->
+<div class="modal fade" id="addStaffModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header m-section-header">
+                <h5 class="modal-title m-section-title">Nhập thông tin nhân viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="addStaffForm" enctype="multipart/form-data">
+                    <input name="staff_id" type="hidden" id="staffId">
+
+                    <div class="mb-3">
+                        <label for="staffName" class="form-label">Họ và tên</label>
+                        <input name="staff_name" type="text" class="form-control" id="staffName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staffUsername" class="form-label">Tên đăng nhập</label>
+                        <input name="staff_username" type="text" class="form-control" id="staffUsername" required>
+                    </div>
+
+                    <div class="mb-3 password-section">
+                        <label class="form-label">Mật khẩu</label>
+                        <input name="staff_password" type="password" class="form-control" id="staffPassword">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="staffEmail" class="form-label">Email</label>
+                        <input name="staff_email" type="email" class="form-control" id="staffEmail">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Chức vụ</label>
+                        <select name="role" class="form-select" id="staffRole" required>
+                            <option value="">Chọn chức vụ</option>
+                            <option value="0">Quản trị viên</option>
+                            <option value="1">Quản lý</option>
+                            <option value="2">Nhân viên</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary-custom">Lưu</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Popup xác nhận xóa -->
+<div class="modal fade" id="deleteStaffModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">
+                    <i class="fas fa-triangle-exclamation me-2"></i>
+                    Xác nhận xóa
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Bạn có chắc chắn muốn <strong>xóa tài khoản nhân viên này</strong> không?<br>
+                Hành động này <span class="text-danger">không thể hoàn tác</span>.
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Hủy
+                </button>
+                <button class="btn btn-danger" id="btnConfirmDeleteStaff">
+                    Xóa
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <body>
     <div class="container-fluid">
         <div class="page-header">
             <h2 class="page-title">Trang quản lý nhân viên</h2>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary-custom" id="btnAddStaff">
                 <i class="fas fa-plus"></i> Thêm nhân viên
             </button>
         </div>
@@ -41,6 +127,16 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast thông báo hành động -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 999">
+        <div id="appToast" class="toast align-items-center text-white border-0 p-3" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
         </div>
     </div>

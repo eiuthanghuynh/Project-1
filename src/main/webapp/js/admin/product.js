@@ -4,6 +4,7 @@ $(document).ready(function () {
     // Mở popup khi nhấn thêm sản phẩm
     $('#btnAddProduct').on('click', function () {
         $('#addProductForm')[0].reset();
+        $('#productId').val('');
         $('#addProductModal').modal('show');
     });
 
