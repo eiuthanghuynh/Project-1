@@ -165,17 +165,16 @@ header {
     color: #ff7d01;
 }
 #pay {
+    display: inline-block;
+    padding: 10px;
     width: 100%;
-    padding: 5px;
-    margin-bottom: 20px;
     font-size: 20px;
     font-weight: 700;
+    text-align: center;
     color: #fff;
     background-color: #ff7d01;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    border-radius: 8px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 #pay:hover {
     background-color: #ff9633;

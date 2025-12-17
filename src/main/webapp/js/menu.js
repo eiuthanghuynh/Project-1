@@ -334,7 +334,7 @@ function printCart() {
           <p id="cartItemTotal">${formatPrice(totalPrice)}</p>
         </div>
         <div class="col-md-12">
-          <button type="button" id="pay">Thanh toán</button>
+          <a href = "./Cart.html" id="pay">Thanh toán</a>
         </div>
       </div>
     </div > `;
@@ -371,6 +371,7 @@ $(document).on(
     removeCartItem(id);
   }
 );
+
 //Bấm vào giỏ hàng sẽ chuyển sang trang giỏ hàng
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cartItemArr));
@@ -395,7 +396,7 @@ window.onload = function () {
       localStorage.removeItem("cartCount");
     }
   }
-   
+
   // --- Load lại giỏ ---
   let savedCart = localStorage.getItem("cart");
   cartItemArr = savedCart ? JSON.parse(savedCart) : [];
