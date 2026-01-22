@@ -70,6 +70,26 @@ public class OrderDAO {
         return order;
     }
 
+    public boolean createOrder(Order order) {
+        String sql = "INSERT INTO orders (customer_id, order_status) VALUES (?, ?)";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setString(1, order.getCustomer_id());
+                stmt.setString(2, "Preparing");
+
+                return stmt.executeUpdate() > 0;
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean updateOrderStatus(String orderId, String status) {
         String sql = "UPDATE orders SET order_status=? WHERE order_id=?";
         try {

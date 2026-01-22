@@ -1,18 +1,20 @@
 package com.fastfeast.model;
 
+import java.math.BigDecimal;
+
 public class OrderDetail {
     private String order_id;
     private String product_id;
     private int quantity;
-    private double price;
-    private double subtotal;
-    private double discount;
+    private BigDecimal price;
+    private BigDecimal subtotal;
+    private BigDecimal discount;
     private String note;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(String order_id, String product_id, int quantity, double price) {
+    public OrderDetail(String order_id, String product_id, int quantity, BigDecimal price) {
         this.order_id = order_id;
         this.product_id = product_id;
         this.quantity = quantity;
@@ -43,27 +45,27 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public double getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(double subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 
-    public double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 
