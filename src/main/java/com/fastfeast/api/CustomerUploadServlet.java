@@ -21,8 +21,12 @@ public class CustomerUploadServlet extends HttpServlet {
         try {
             String name = req.getParameter("customer_name");
             String phone = req.getParameter("phone");
-            String email = req.getParameter("email");
+            String email = null;
             String address = req.getParameter("address");
+
+            if (req.getParameter("email") != null && !req.getParameter("email").isBlank()) {
+                email = req.getParameter("email");
+            }
 
             if (name == null || name.isBlank()) {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu tên khách hàng");
