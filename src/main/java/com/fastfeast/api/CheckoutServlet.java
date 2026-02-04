@@ -4,6 +4,7 @@ import com.fastfeast.dao.CheckoutDAO;
 import com.fastfeast.dto.*;
 import com.fastfeast.model.OrderDetail;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -24,6 +25,10 @@ public class CheckoutServlet extends HttpServlet {
 
         try {
             CheckoutRequest request = mapper.readValue(req.getInputStream(), CheckoutRequest.class);
+            if (request.getCustomer() == null || request.getItems() == null || request.getItems().isEmpty()) {
+                resp.sendError(400, "Thiếu thông tin customer hoặc danh sách món ăn");
+                return;
+            }
             CustomerDTO c = request.getCustomer();
             List<OrderDetail> orderDetails = new ArrayList<>();
 
@@ -48,9 +53,16 @@ public class CheckoutServlet extends HttpServlet {
                 resp.sendError(500, "Đặt hàng thất bại");
             }
 
+        } catch (MismatchedInputException e) {
+            e.printStackTrace();
+            resp.sendError(500, e.getClass().getName() + ": " + e.getMessage());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            resp.sendError(500, e.getClass().getName() + ": " + e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            resp.sendError(400, "Dữ liệu đặt hàng không hợp lệ");
+            // resp.sendError(400, "Dữ liệu đặt hàng không hợp lệ");
+            resp.sendError(400, e.getClass().getName() + ": " + e.getMessage());
         }
     }
 }
