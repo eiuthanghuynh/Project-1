@@ -20,20 +20,17 @@ $(document).ready(async function () {
         menu.filter(`[data-page="${pageName}"]`).show();
     };
     if (data.role == 0) {
-        // menu.show();
-        menu.hide();
-        showMenu('order');
-        showMenu('staff');
-        showMenu('product');
+        menu.show();
         $('.logout').show();
     } else if (data.role == 1) {
         menu.hide();
-        // showMenu('dashboard');
+        showMenu('dashboard');
         showMenu('order');
         showMenu('staff');
         $('.logout').show();
     } else {
         menu.hide();
+        showMenu('dashboard');
         showMenu('order');
         $('.logout').show();
     }
@@ -42,7 +39,11 @@ $(document).ready(async function () {
     function loadPage(page) {
         $('.manage-content').load(`/fastfeast/admin/${page}.html`);
     }
-    loadPage('order');
+    if (data.role == 0) {
+        loadPage('dashboard')
+    } else {
+        loadPage('order');
+    }
     $('.sidebar-menu li a').click(function (e) {
         e.preventDefault();
         const page = $(this).parent().data('page');
