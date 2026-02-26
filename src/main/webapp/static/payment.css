@@ -1,0 +1,88 @@
+/*form thông tin*/
+#customer-form-box {
+    margin: auto 0 !important;
+    padding: 20px 40px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.customer-title {
+    font-size: 25px !important;
+    color: #ff9633;
+}
+
+.forced {
+    color: red;
+    font-size: 20px;
+}
+
+#customer-name,
+#customer-address,
+#customer-phone,
+#customer-email {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+#customer-name:focus,
+#customer-address:focus,
+#customer-phone:focus,
+#customer-email:focus {
+    outline: none;
+}
+
+#customer-form-box p,
+#customer-form-box h1 {
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+#order {
+    color: #fff;
+    font-weight: 700;
+    padding: 10px;
+    background-color: #ff7d01;
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+#order:hover {
+    background-color: #ff9633;
+}
+
+/*giỏ hàng review*/
+.cart-title {
+    font-size: 25px;
+    color: #ff9633;
+}
+
+.cart-form-box {
+    margin: auto 0 !important;
+    padding: 20px 40px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.paymentProductTitle {
+    font-size: 25px !important;
+    font-weight: 600;
+    color: #ff9633;
+}
+.paymentProductImg {
+    width: 100%;
+}
+.paymentProductQty {
+    font-size: 16px;
+    font-weight: 700;
+}
+.paymentProductTotal {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: right;
+}
+.paymentProductTotal span {
+    color: #cc3e44;
+}

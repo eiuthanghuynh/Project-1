@@ -1,0 +1,32 @@
+.combo {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.combo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.combo>img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.combo-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+    margin: 0;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+.combo-price {
+    font-size: 20px;
+    color: #637381;
+    padding-left: 10px;
+    margin: 10px 0;
+}
