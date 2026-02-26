@@ -55,10 +55,10 @@ function getOrders() {
 
 function renderOrderList(orders) {
     const statusMap = {
-        "Completed": "Hoàn thành",
-        "In Delivery": "Đang giao hàng",
-        "Preparing": "Đang chuẩn bị",
-        "Cancelled": "Đã hủy"
+        "Completed": "<span class='badge bg-success'>Hoàn thành</span>",
+        "Preparing": "<span class='badge bg-warning text-dark'>Đang chuẩn bị</span>",
+        "In Delivery": "<span class='badge bg-info text-dark'>Đang giao</span>",
+        "Cancelled": "<span class='badge bg-danger'>Đã hủy</span>"
     };
 
     const tableBody = $('#orderTable tbody');

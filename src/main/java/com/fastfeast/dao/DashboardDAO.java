@@ -112,4 +112,69 @@ public class DashboardDAO {
         }
         return list;
     }
+
+    public List<Map<String, Object>> getChart(String range) throws Exception {
+        List<Map<String, Object>> list = new ArrayList<>();
+        String sql = getChartSql(range);
+
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("label", rs.getString("label"));
+                row.put("total", rs.getInt("total"));
+                list.add(row);
+            }
+        }
+        return list;
+    }
+
+    public String getChartSql(String range) {
+        switch (range) {
+            case "7d":
+                return """
+                            SELECT DATE(order_date) AS label, COUNT(*) AS total
+                            FROM orders
+                            WHERE order_date >= CURDATE() - INTERVAL 6 DAY
+                            GROUP BY DATE(order_date)
+                            ORDER BY DATE(order_date)
+                        """;
+            case "30d":
+                return """
+                            SELECT DATE(order_date) AS label, COUNT(*) AS total
+                            FROM orders
+                            WHERE order_date >= CURDATE() - INTERVAL 29 DAY
+                            GROUP BY DATE(order_date)
+                            ORDER BY DATE(order_date)
+                        """;
+            case "3m":
+                return """
+                            SELECT DATE_FORMAT(order_date, '%Y-%m') AS label, COUNT(*) AS total
+                            FROM orders
+                            WHERE order_date >= CURDATE() - INTERVAL 3 MONTH
+                            GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+                            ORDER BY label
+                        """;
+            case "6m":
+                return """
+                            SELECT DATE_FORMAT(order_date, '%Y-%m') AS label, COUNT(*) AS total
+                            FROM orders
+                            WHERE order_date >= CURDATE() - INTERVAL 6 MONTH
+                            GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+                            ORDER BY label
+                        """;
+            case "1y":
+                return """
+                            SELECT DATE_FORMAT(order_date, '%Y-%m') AS label, COUNT(*) AS total
+                            FROM orders
+                            WHERE order_date >= CURDATE() - INTERVAL 1 YEAR
+                            GROUP BY DATE_FORMAT(order_date, '%Y-%m')
+                            ORDER BY label
+                        """;
+            default:
+                throw new IllegalArgumentException("Sai mốc thời gian (7d, 30d, 3m, 6m, 12m): " + range);
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.fastfeast.api;
 
+import java.util.Map;
+
 import com.fastfeast.dao.DashboardDAO;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -18,7 +20,7 @@ public class DashboardResource {
             return Response.ok(dashboardDAO.getKPI()).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.serverError().build();
+            return Response.status(500).entity(Map.of("error", "Không thể tải dữ liệu KPI")).build();
         }
     }
 
@@ -29,7 +31,7 @@ public class DashboardResource {
             return Response.ok(dashboardDAO.getOrderStatusSummary()).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.serverError().build();
+            return Response.status(500).entity(Map.of("error", "Không thể tải dữ liệu trạng thái order")).build();
         }
     }
 
@@ -40,7 +42,7 @@ public class DashboardResource {
             return Response.ok(dashboardDAO.getRecentOrders()).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.serverError().build();
+            return Response.status(500).entity(Map.of("error", "Không thể tải dữ liệu order gần đây")).build();
         }
     }
 
@@ -51,7 +53,23 @@ public class DashboardResource {
             return Response.ok(dashboardDAO.getTopProducts()).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.serverError().build();
+            return Response.status(500).entity(Map.of("error", "Không thể tải dữ liệu top sản phẩm")).build();
+        }
+    }
+
+    @GET
+    @Path("/chart/orders")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getChart(@QueryParam("range") String range) {
+        try {
+            if (range == null || range.isBlank()) {
+                range = "7d";
+            }
+
+            return Response.ok(dashboardDAO.getChart(range)).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(500).entity(Map.of("error", "Không thể tải dữ liệu biểu đồ do lỗi server")).build();
         }
     }
 }

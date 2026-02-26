@@ -42,7 +42,7 @@ CREATE TABLE product (
 CREATE TABLE orders (
     order_id VARCHAR(20) PRIMARY KEY,
     customer_id VARCHAR(20),
-    order_date DATETIME NOT NULL,
+    order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     order_status VARCHAR(20),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
         ON UPDATE CASCADE
