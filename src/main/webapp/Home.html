@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
     integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" type="text/css" href="./static/outline.css">
   <link rel="stylesheet" type="text/css" href="./static/menu.css">
 </head>
 </head>
@@ -23,7 +24,7 @@
           <li><a href="./Home.html">HOME</a></li>
           <li><a href="">MENU</a></li>
           <li><a href="">DEALS</a></li>
-          <li><a href="">COMBO</a></li>
+          <li><a href="./combo.html">COMBO</a></li>
         </ul>
         <div id="cartWrapper">
           <a href="./Cart.html" class="basket-shopping" id="basket">
@@ -39,7 +40,7 @@
       </div>
     </nav>
   </header>
-  
+
   <main>
     <section class="introduce-slider">
       <div class="container">
@@ -88,7 +89,7 @@
     <!-- Thực đơn nổi bật -->
     <section id="pizza-slider">
       <div class="container">
-        <h1>Pizza</h1>
+        <h1 class="product-stratergy">Pizza</h1>
         <div id="pizza-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="pizza">
           </div>
@@ -105,10 +106,10 @@
         </div>
       </div>
     </section>
-    
+
     <section id="burrito-slider">
       <div class="container">
-        <h1>Burrito</h1>
+        <h1 class="product-stratergy">Burrito</h1>
         <div id="burrito-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="burrito">
           </div>
@@ -128,7 +129,7 @@
 
     <section id="hamburger-slider">
       <div class="container">
-        <h1>Hamburger</h1>
+        <h1 class="product-stratergy">Hamburger</h1>
         <div id="hamburger-slider-carousel" class="carousel slide">
           <div class="carousel-inner" id="hamburger">
           </div>
@@ -148,7 +149,7 @@
 
     <div class="modal fade" id="foodModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
+        <div class="modal-content" data-id="">
           <div class="container">
             <div class="row">
               <div class="col-md-7">
@@ -158,7 +159,7 @@
                 <div class="modal-header">
                   <h1 id="modalTitle"></h1>
                   <p id="modalDescription"></p>
-                  <p id="modalPrice"></p>
+                  <p id="modalPrice" data-price=""></p>
                 </div>
                 <div id="close">
                   <i class="fa-solid fa-xmark"></i>
@@ -194,7 +195,6 @@
           </div>
         </div>
       </div>
-    </div>
     </div>
   </main>
   <footer>

@@ -110,8 +110,22 @@ function printCartBox(addr) {
                     <img src="${item.Img}" class="paymentProductImg">
                 </div>
                 <div class="col-md-8">
-                    <h1 class="paymentProductTitle">${item.Title}</h1>
-                    <p class="paymentProductQty">Số lượng - ${item.Quantity}</p>
+                    <h1 class="paymentProductTitle">${item.Title}</h1>`
+    if (isPizza(item.Base, item.Size)) {
+      cartBoxStr += `                  <p class="paymentProductSize">Kích thước - ${item.Size}</p>
+                                    <p class="paymentProductBase">Đế - ${item.Base}</p>`;
+    }
+    if (item.Note != "") {
+      cartBoxStr += `<p class="paymentProductNote">Ghi chú - ${item.Note}</p>`;
+    }
+    cartBoxStr += `<div class="row">
+                    <div class="col-md-6">
+                      <p class="paymentProductQty">Số lượng - ${item.Quantity}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="paymentProductPrice">${formatPrice(item.Price)}</p>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>`;
