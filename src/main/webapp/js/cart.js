@@ -1,8 +1,10 @@
 //In ra món ăn trong giỏ hàng vào trang cart
-function printCartProduct() {
-  $("#item2").html("");
+window.cartItemArr = JSON.parse(localStorage.getItem("cart")) || [];
+function printCartProduct(addr) {
+  $(addr).html("");
+
   if (cartItemArr.length == 0) {
-    $("#item2").html(`<p id="emptyCart2">Giỏ hàng của bạn trống!!!</p>`);
+    $(addr).html(`<p id="emptyCart2">Giỏ hàng của bạn trống!!!</p>`);
     return;
   }
   let itemStr = `<h1 id="cartItemProduct">Sản Phẩm</h1>
@@ -10,14 +12,13 @@ function printCartProduct() {
                 <div id="cartPageItemList">`;
   let totalPrice = 0;
   for (const item of cartItemArr) {
-    let price = item.Price.replace(/[^\d]/g, "");
-    price = Number(price);
-    let quantity = Number(item.Quantity);
+    let price = item.Price;
+    let quantity = item.Quantity;
     let total = price * quantity;
     totalPrice += total;
 
     itemStr +=
-      `<div class="cartProduct" id="${item.Id}">
+      `<div class="cartProduct" data-id="${item.Id}">
                     <div class="row">
                         <div class="col-md-6" id="itemLeft">
                             <div class="row">
@@ -52,7 +53,7 @@ function printCartProduct() {
             <p class="cartProductPrice">${formatPrice(total)}</p>
           </div>
           <div class="col-md-4">
-            <p class="deleteCartProduct" id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
+            <p class="deleteCartProduct" data-id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
           </div>
         </div>
       </div>
@@ -70,40 +71,40 @@ function printCartProduct() {
               class="fa-solid fa-arrow-left"></i>Tiếp tục mua
               hàng</a>
             </div>
-            <div class="col-md-3"><a href="" id="payConfirm">Thanh toán<i
+            <div class="col-md-3"><a href="./Payment.html" id="payConfirm">Thanh toán<i
               class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>`;
-  $("#item2").html(itemStr + paymentStr);
+  $(addr).html(itemStr + paymentStr);
 }
 // Thay đổi số lượng thức ăn cần order trong cart
 $(document).on("click", ".cartPlus", function () {
-  let input = $(this).closest(".quantity-box").find(".foodQty");
-  let val = parseInt(input.val()) || 1;
   let parent = $(this).closest(".cartProduct");
-  let id = Number(parent.attr("id"));
+  let id = parent.data("id");
+
   let item = cartItemArr.find(x => x.Id === id);
-  input.val(val + 1);
+  if (!item) return;
+
   item.Quantity++;
   saveCart();
-  printCartProduct();
+  printCartProduct("#item2");
   updateCartBadge();
 });
 
 $(document).on("click", ".cartMinus", function () {
-  let input = $(this).closest(".quantity-box").find(".foodQty");
-  let val = parseInt(input.val()) || 1;
   let parent = $(this).closest(".cartProduct");
-  let id = Number(parent.attr("id"));
-  let item = cartItemArr.find(x => x.Id === id);
-  if (val > 1) {
-    input.val(val - 1);
-    item.Quantity--;
-  }
-  else removeCartItem(id);
-  saveCart();
-  printCartProduct();
-  updateCartBadge();
-});
+  let id = parent.data("id");
 
+  let item = cartItemArr.find(x => x.Id === id);
+  if (!item) return;
+
+  if (item.Quantity > 1) {
+    item.Quantity--;
+    saveCart();
+    printCartProduct("#item2");
+    updateCartBadge();
+  } else {
+    removeCartItem(id);
+  }
+});
