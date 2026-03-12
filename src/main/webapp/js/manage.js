@@ -40,18 +40,19 @@ $(document).ready(async function () {
         $('.manage-content').load(`/fastfeast/admin/${page}.html`);
     }
     if (data.role == 0) {
-        loadPage('dashboard')
+        loadPage('dashboard');
     } else {
         loadPage('order');
     }
     $('.sidebar-menu li a').click(function (e) {
+        if ($(this).parent().hasClass('logout')) return;
         e.preventDefault();
         const page = $(this).parent().data('page');
         loadPage(page);
 
         $('.sidebar-menu li').removeClass('current-item');
         $(this).parent().addClass('current-item');
-    })
+    });
 
     // Đăng xuất
     $('.logout').click(async function (e) {

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fastfeast - Trang Nhân Viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="static/admin/staff.css">
+    <link rel="stylesheet" type="text/css" href="static/manage.css">
+</head>
+
+<body>
+    <div class="modal fade" id="addComboModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <div class="modal-header m-section-header">
+                    <h5 class="modal-title m-section-title">Nhập thông tin combo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="addComboForm" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 border-end">
+                                <h6 class="text-primary mb-3">Thông tin chung</h6>
+
+                                <input type="hidden" name="combo_id" id="comboId">
+
+                                <div class="mb-3">
+                                    <label for="comboName" class="form-label">Tên combo</label>
+                                    <input name="combo_name" type="text" class="form-control" id="comboName" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="comboDescription" class="form-label">Mô tả</label>
+                                    <textarea name="combo_description" class="form-control" id="comboDescription"
+                                        rows="3"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="comboPrice" class="form-label">Giá</label>
+                                    <input type="text" class="form-control" id="comboPrice" required>
+                                    <input name="price" type="hidden" id="price">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Ảnh combo</label>
+                                    <input type="file" name="image" class="form-control" accept="image/*">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6 class="text-primary mb-3">Chọn các món ăn trong combo</h6>
+
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    <input type="text" class="form-control" id="searchProduct"
+                                        placeholder="Tìm nhanh món ăn...">
+                                </div>
+
+                                <div id="productCheckboxes" class="border p-2 rounded bg-light"
+                                    style="height: 320px; overflow-y: auto;">
+                                    <div class="text-center text-muted mt-5">
+                                        <div class="spinner-border spinner-border-sm" role="status"></div> Đang tải món
+                                        ăn...
+                                    </div>
+                                </div>
+                                <small class="text-muted mt-1 d-block"><i class="fas fa-info-circle"></i> Hãy chọn ít nhất 1 món ăn.</small>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer mt-4 pb-0 pe-0 border-0">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary-custom" id="btnSaveCombo">Lưu thông
+                                tin</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">
+                        <i class="fas fa-triangle-exclamation me-2"></i>
+                        Xác nhận xóa
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn <strong>xóa combo này</strong> không?<br>
+                    Hành động này <span class="text-danger">không thể hoàn tác</span>.
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmDelete">Xóa</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="page-header">
+            <h2 class="page-title">Trang quản lý Combo</h2>
+            <button class="btn btn-primary-custom" id="btnAddCombo">
+                <i class="fas fa-plus"></i> Thêm Combo
+            </button>
+        </div>
+
+        <div class="content-box">
+            <div class="box-header">
+                <h3>Danh sách Combo</h3>
+            </div>
+
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="custom-table" id="comboTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%">ID</th>
+                                <th style="width: 25%">Tên combo</th>
+                                <th style="width: 35%">Mô tả</th>
+                                <th style="width: 10%">Giá</th>
+                                <th style="width: 10%">Ảnh minh họa</th>
+                                <th style="width: 15%">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 999">
+        <div id="appToast" class="toast align-items-center text-white border-0 p-3" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/combo.js"></script>
+</body>
+
+</html>
