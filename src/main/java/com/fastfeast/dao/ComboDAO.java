@@ -124,35 +124,46 @@ public class ComboDAO {
     }
 
     public boolean editCombo(Combo combo) {
-        String sql = "UPDATE combo SET combo_name = ?, combo_description = ?, price = ?, image_url = ? WHERE combo_id = ?";
+        String sqlUpdateCombo = "UPDATE combo SET combo_name = ?, combo_description = ?, price = ?, image_url = ? WHERE combo_id = ?";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD)) {
 
-            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+                conn.setAutoCommit(false);
 
-                stmt.setString(1, combo.getCombo_name());
-                stmt.setString(2, combo.getCombo_description());
-                stmt.setDouble(3, combo.getPrice());
-                stmt.setString(4, combo.getImage_url());
-                stmt.setString(5, combo.getCombo_id());
+                try {
 
-                boolean isUpdated = stmt.executeUpdate() > 0;
+                    try (PreparedStatement stmtCombo = conn.prepareStatement(sqlUpdateCombo)) {
+                        stmtCombo.setString(1, combo.getCombo_name());
+                        stmtCombo.setString(2, combo.getCombo_description());
+                        stmtCombo.setDouble(3, combo.getPrice());
+                        stmtCombo.setString(4, combo.getImage_url());
+                        stmtCombo.setString(5, combo.getCombo_id());
+                        stmtCombo.executeUpdate();
+                    }
 
-                if (isUpdated) {
                     deleteComboProducts(conn, combo.getCombo_id());
+
                     if (combo.getProduct_ids() != null && !combo.getProduct_ids().isEmpty()) {
                         insertComboProducts(conn, combo.getCombo_id(), combo.getProduct_ids());
                     }
-                }
 
-                return isUpdated;
+                    conn.commit();
+                    return true;
+
+                } catch (SQLException e) {
+                    conn.rollback();
+                    e.printStackTrace();
+                    return false;
+                } finally {
+                    conn.setAutoCommit(true);
+                }
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public boolean deleteCombo(String combo_id) {
@@ -200,8 +211,6 @@ public class ComboDAO {
                 stmt.addBatch();
             }
             stmt.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -210,8 +219,6 @@ public class ComboDAO {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, comboId);
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 }

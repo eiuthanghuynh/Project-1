@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 @WebServlet("/upload/combos")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 20 * 1024 * 1024, maxRequestSize = 50 * 1024 * 1024)
 public class ComboUploadServlet extends HttpServlet {
 
     private ComboDAO comboDAO = new ComboDAO();
