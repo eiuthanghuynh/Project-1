@@ -58,7 +58,6 @@ function calcLoop(list) {
 function formatPrice(price) {
   return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 }
-
 function printProduct(list, selector) {
   let html = ``;
   let i = 1;
@@ -71,10 +70,10 @@ function printProduct(list, selector) {
       }
       html +=
         `<div class="col-md-3">
-              <div class="food-item" id="${selector.substring(1)}-${i}" data-description="${item.product_description}">
+              <div class="food-item" data-id="${item.product_id}" data-description="${item.product_description}">
                 <img src="${item.image_url}">
                 <h3 class="food-title">${item.product_name}</h3>
-                <p class="food-price">${formatPrice(item.price)}</p>
+                <p data-price="${item.price}" class="food-price">${formatPrice(item.price)}</p>
               </div>
         </div>`;
       if (i % 4 == 0) {
@@ -99,6 +98,12 @@ function printIntroductionSlider() {
   }
   $("#intro").html(introArr);
 }
+// Load trang
+document.addEventListener("DOMContentLoaded", function () {
+  getAllProducts();
+  printIntroductionSlider();
+});
+
 //Tạo popup cho món ăn
 function attachFoodEvents() {
   document.querySelectorAll(".food-item").forEach(item => {
@@ -106,14 +111,15 @@ function attachFoodEvents() {
       document.getElementById("foodForm").reset();
       $("#only-pizza").html("");
       $(".foodQty").val(1);
-
+      let id = $(this).data("id");
       let title = $(this).find(".food-title").text();
-      let price = $(this).find(".food-price").text();
+      let price = Number($(this).find(".food-price").data("price"));
       let img = $(this).find("img").attr("src");
       let description = $(this).data("description");
-
+      $(".modal-content").data("id", id);
       $("#modalTitle").text(title);
-      $("#modalPrice").text(price);
+      $("#modalPrice").data("price", price);
+      $("#modalPrice").text(formatPrice(price));
       $("#modalImg").attr("src", img);
       $("#modalDescription").text(description);
       if (title.toLowerCase().includes("pizza")) {
@@ -195,6 +201,7 @@ $("#deleteInput").on("click", function () {
 // Đóng modal
 $("#close").on("click", function () {
   $("#foodModal").modal("hide");
+  $("#comboModal").modal("hide");
 });
 // Nhấn nút tìm kiếm
 $("#searchingButton").on("click", function () {
@@ -228,25 +235,32 @@ $("#searching").keydown(function (e) {
   }
 });
 // Hover giỏ hàng sẽ hiện các món ăn trong giỏ
-$("#cartWrapper").hover(
-  function () {
-    $("#cart").stop().fadeIn(200);
-    printCart();
-  },
-  function () {
-    $("#cart").stop().fadeOut(200);
-  }
-);
+const path = window.location.pathname;
+
+const disableHoverPages = ["Cart.html", "Payment.html"];
+const isDisableHover = disableHoverPages.some(p => path.includes(p));
+
+if (!isDisableHover) {
+  $("#cartWrapper").hover(
+    function () {
+      $("#cart").stop().fadeIn(200);
+      printCart("#item");
+    },
+    function () {
+      $("#cart").stop().fadeOut(200);
+    }
+  );
+}
+
 // Bấm nút thêm vào giỏ hàng sẽ add món ăn vào
-let cartItemArr = [];
-let nextId = 1
-function addCartItem(title, price, img, qty, note, base, size) {
+cartItemArr = JSON.parse(localStorage.getItem("cart")) || [];
+function addCartItem(id, title, price, img, qty, note, base, size) {
   cartItemArr.push({
-    "Id": nextId++,
+    "Id": id,
     "Title": title,
     "Price": price,
     "Img": img,
-    "Quantity": qty,
+    "Quantity": Number(qty),
     "Note": note,
     "Size": size,
     "Base": base
@@ -261,16 +275,17 @@ function findCartItem(title, size, base, note) {
   );
 }
 // Xóa item
-function removeCartItem(id) {
-  id = Number(id);
-  const index = cartItemArr.findIndex(item => item.Id === id);
-  if (index !== -1) {
-    cartItemArr.splice(index, 1);
-  }
+function removeCartItem(product_id) {
+  cartItemArr = cartItemArr.filter(
+    item => item.Id !== product_id
+  );
+
   saveCart();
   updateCartBadge();
-  printCart();
-  printCartProduct();
+  printCart("#item");
+  if (window.location.pathname.includes("Cart.html")) {
+    printCartProduct("#item2");
+  }
 }
 // kiểm tra có phải là pizza hay không
 function isPizza(base, size) {
@@ -280,18 +295,17 @@ function isPizza(base, size) {
   return true;
 }
 // in item ra giỏ hàng
-function printCart() {
-  $("#item").html("");
+function printCart(addr) {
+  $(addr).html("");
   if (cartItemArr.length == 0) {
-    $("#item").html(`<p id="emptyCart">Giỏ hàng của bạn trống!!!</p>`);
+    $(addr).html(`<p id="emptyCart">Giỏ hàng của bạn trống!!!</p>`);
     return;
   }
   let itemStr = `<div id="cartItemList">`;
   let totalPrice = 0;
   for (const item of cartItemArr) {
-    let price = item.Price.replace(/[^\d]/g, "");
-    price = Number(price);
-    let quantity = Number(item.Quantity);
+    let price = item.Price;
+    let quantity = item.Quantity;
     let total = price * quantity;
     totalPrice += total;
 
@@ -316,7 +330,7 @@ function printCart() {
       `<p class="cartItemInfor">Số lượng - ${item.Quantity}</p>
       </div >
       <div class="col-md-3" id="cartPrice">
-        <p class="deleteCartItem" id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
+        <p class="deleteCartItem" data-id="${item.Id}"><i class="fa-solid fa-trash"></i></p>
         <p class="cartItemInfor cartItemPrice">${formatPrice(total)}</p>
       </div>
         </div >
@@ -334,17 +348,18 @@ function printCart() {
           <p id="cartItemTotal">${formatPrice(totalPrice)}</p>
         </div>
         <div class="col-md-12">
-          <a href = "./Cart.html" id="pay">Thanh toán</a>
+          <a href = "./Payment.html" id="pay">Thanh toán</a>
         </div>
       </div>
     </div > `;
-  $("#item").html(itemStr + paymentStr);
+  $(addr).html(itemStr + paymentStr);
   showScroll();
 }
 // khi click nút thêm lấy dữ liệu
 $("#addToCart").on("click", function () {
+  let id = $(".modal-content").data('id');
   let title = $("#modalTitle").text();
-  let price = $("#modalPrice").text();
+  let price = $("#modalPrice").data("price");
   let img = $("#modalImg").attr("src");
   let qty = $(".foodQty").val();
   let note = $("#foodNote").val();
@@ -354,21 +369,21 @@ $("#addToCart").on("click", function () {
   if (existItem) {
     existItem.Quantity = Number(existItem.Quantity) + Number(qty);
   } else {
-    addCartItem(title, price, img, qty, note, base, size);
+    addCartItem(id, title, price, img, qty, note, base, size);
   }
   $("#foodModal").modal("hide");
+  $("#comboModal").modal("hide");
   saveCart();
   updateCartBadge();
-  printCart();
-  updateScroll();
+  printCart("#item");
 });
 //Khi bấm thùng rác sẽ xóa món ăn khỏi giỏ hàng
 $(document).on(
   "click",
   ".deleteCartItem, .deleteCartProduct",
   function () {
-    const id = $(this).attr("id") || $(this).data("id");
-    removeCartItem(id);
+    const product_id = $(this).data("id");
+    removeCartItem(product_id);
   }
 );
 
@@ -411,7 +426,10 @@ window.onload = function () {
   document.getElementById("countCart").textContent = savedCount ?? cartItemArr.length;
 
   if (window.location.pathname.includes("Cart.html")) {
-    printCartProduct();
+    printCartProduct("#item2");
+  }
+  if (window.location.pathname.includes("Payment.html")) {
+    printCartBox("#item3");
   }
 };
 //Khi thêm trên 4 món ăn sẽ có nút Scroll
@@ -426,8 +444,3 @@ function showScroll() {
   }
 }
 
-// Load trang
-document.addEventListener("DOMContentLoaded", function () {
-  printIntroductionSlider();
-  getAllProducts();
-});

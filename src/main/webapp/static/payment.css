@@ -74,8 +74,14 @@
 .paymentProductImg {
     width: 100%;
 }
-.paymentProductQty {
+.paymentProductQty, .paymentProductSize, .paymentProductBase {
     font-size: 16px;
+    margin-bottom: 0;
+}
+.paymentProductPrice {
+    text-align: right;
+    font-style: italic;
+    font-size: 20px;
     font-weight: 700;
 }
 .paymentProductTotal {
@@ -85,4 +91,55 @@
 }
 .paymentProductTotal span {
     color: #cc3e44;
+}
+
+
+#paymentMethod h1 {
+  color: orange;
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.payment-method {
+  display: block;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-method i {
+  font-size: 32px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.nameMethod {
+  margin: 0;
+  font-weight: 500;
+}
+
+#pay-cash, #pay-qr {
+    width: 100%;
+    text-align: center;
+    border-radius: 15px;
+}
+
+/* Hover */
+.payment-method:hover {
+  border-color: orange;
+}
+#paymentMethod .row * {
+    justify-items: center;
+}
+label {
+    width: 100%;
+}
+/* Khi radio được chọn */
+input[type="radio"]:checked + .payment-method {
+  border-color: orange;
+  background-color: #fff3e6;
+  box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
 }

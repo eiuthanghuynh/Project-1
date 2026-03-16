@@ -66,6 +66,28 @@ CREATE TABLE order_detail (
         ON DELETE RESTRICT
 );
 
+CREATE TABLE combo (
+    combo_id VARCHAR(6) PRIMARY KEY,
+    combo_name VARCHAR(100) NOT NULL,
+    combo_description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    image_url VARCHAR(255)
+);
+
+CREATE TABLE combo_product (
+    combo_id VARCHAR(6),
+    product_id VARCHAR(10),
+    PRIMARY KEY (combo_id, product_id),
+    CONSTRAINT fk_combo
+        FOREIGN KEY (combo_id)
+        REFERENCES combo(combo_id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_product
+        FOREIGN KEY (product_id)
+        REFERENCES product(product_id)
+        ON DELETE CASCADE
+);
+
 -- ########################################
 -- Tạo các trigger tự động cho các ID
 -- customer_id: C...
@@ -73,6 +95,7 @@ CREATE TABLE order_detail (
 -- category_id: CA...
 -- product_id: P...
 -- order_id: O...
+-- combo_id: PC...
 -- ########################################
 
 DELIMITER //
@@ -152,5 +175,21 @@ BEGIN
 
     SET new_id = CONCAT('O', LPAD(next_id, 7, '0'));
     SET NEW.order_id = new_id;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER trg_before_insert_combo
+BEFORE INSERT ON combo
+FOR EACH ROW
+BEGIN
+    DECLARE next_id INT;
+    DECLARE new_id VARCHAR(50);
+
+    SELECT IFNULL(MAX(CAST(SUBSTRING(combo_id, 3) AS UNSIGNED)), 0) + 1 INTO next_id
+    FROM combo;
+
+    SET new_id = CONCAT('PC', LPAD(next_id, 4, '0'));
+    SET NEW.combo_id = new_id;
 END//
 DELIMITER ;

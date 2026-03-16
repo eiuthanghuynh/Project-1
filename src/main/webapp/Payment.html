@@ -56,6 +56,30 @@
               <input type="tel" id="customer-phone" placeholder="Nhập số điện thoại của bạn" required>
               <p><label for="customer-email">Email: </label></p>
               <input type="text" id="customer-email" placeholder="Nhập email của bạn">
+
+              <div id="paymentMethod">
+                <h1>Phương thức thanh toán</h1>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div id="pay-cash">
+                      <input type="radio" id="cash" value="cash" name="payment-method" hidden>
+                      <label for="cash" class="payment-method">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <p class="nameMethod">Cash</p>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div id="pay-qr">
+                      <input type="radio" id="qr" value="qr" name="payment-method" hidden>
+                      <label for="qr" class="payment-method">
+                        <i class="fa-solid fa-wallet"></i>
+                        <p class="nameMethod">Wallet</p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <button type="submit" id="order">Đặt Hàng</button>
             </form>
           </div>
@@ -67,7 +91,7 @@
         </div>
       </div>
     </div>
-
+    
     <div class="modal" tabindex="-1" id="modal-confirm">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
