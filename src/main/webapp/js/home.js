@@ -3,7 +3,7 @@ let linkIntroductionSliders = [
   "./assets/combo/combo-buoi-trua-vui-ve.png",
   "./assets/combo/combo-sieu-tiet-kiem.png",
   "./assets/combo/burger.png",
-  "./assets.combo/burrito.png",
+  "./assets/combo/burrito.png",
 ]
 
 function printIntroductionSlider() {
