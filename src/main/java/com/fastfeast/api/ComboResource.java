@@ -3,6 +3,7 @@ package com.fastfeast.api;
 import com.fastfeast.dao.ComboDAO;
 import com.fastfeast.model.Combo;
 
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -36,5 +37,12 @@ public class ComboResource {
         }
 
         return Response.ok(combo).build();
+    }
+
+    @DELETE
+    @Path("/{combo_id}")
+    public Response deleteCombo(@PathParam("combo_id") String combo_id) {
+        comboDAO.deleteCombo(combo_id);
+        return Response.ok().build();
     }
 }

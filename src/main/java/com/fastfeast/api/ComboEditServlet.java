@@ -11,6 +11,8 @@ import jakarta.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @WebServlet("/upload/combos/edit")
 @MultipartConfig
@@ -50,9 +52,22 @@ public class ComboEditServlet extends HttpServlet {
             combo.setCombo_description(description);
             combo.setPrice(price);
 
-            comboDAO.editCombo(combo);
+            String[] productIdsArray = req.getParameterValues("product_ids");
+            if (productIdsArray != null && productIdsArray.length > 0) {
+                combo.setProduct_ids(Arrays.asList(productIdsArray));
+            } else {
+                combo.setProduct_ids(new ArrayList<>());
+            }
+            boolean isSuccess = comboDAO.editCombo(combo);
 
-            resp.setStatus(HttpServletResponse.SC_OK);
+            if (isSuccess) {
+                resp.setStatus(HttpServletResponse.SC_CREATED);
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().write("{\"success\": true}");
+            } else {
+                resp.sendError(500, "Không thể lưu combo vào cơ sở dữ liệu");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
