@@ -1,6 +1,7 @@
 /*Giới thiệu banner*/
 .introduce-slider .carousel-item a img {
     border-radius: 25px;
+    margin-top: 100px;
 }
 
 .introduce-slider {
@@ -8,6 +9,7 @@
 }
 /*Tìm kiếm món ăn*/
 #filter-section {
+    margin-top: 40px;
     margin-bottom: 40px;
 }
 #searching {
@@ -78,6 +80,7 @@
     color: #ff7d01;
     font-size: 40px;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .food-item {

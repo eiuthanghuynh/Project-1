@@ -24,14 +24,6 @@ async function getAllProducts() {
 
 let menuArr;
 
-let linkIntroductionSliders = [
-  "./assets/Banner1.png",
-  "./assets/1.png",
-  "./assets/2.png",
-  "./assets/bannercombo1.png",
-  "./assets/bannercombo2.png",
-]
-
 function calcLoop(list) {
   let a = list.length % 4;
   switch (a) {
@@ -85,23 +77,9 @@ function printProduct(list, selector) {
   $(selector).html(html);
 }
 
-function printIntroductionSlider() {
-  let introArr = ``;
-  let i = 1;
-  for (const link of linkIntroductionSliders) {
-    introArr +=
-      `<div class="carousel-item ${i === 1 ? "active" : ""}">
-                <a href=""><img src=${link} class="d-block w-100"
-                    alt="..."></a>
-              </div>`;
-    i++;
-  }
-  $("#intro").html(introArr);
-}
 // Load trang
 document.addEventListener("DOMContentLoaded", function () {
   getAllProducts();
-  printIntroductionSlider();
 });
 
 //Tạo popup cho món ăn
@@ -178,10 +156,10 @@ function searchFood(keywork) {
     for (const food of result) {
       resultStr +=
         `<div class="col-md-3">
-              <div class="food-item" id="${food.product_name.split(" ")[0].toLowerCase()}-${i}" data-description="${food.product_description}">
+              <div class="food-item" data-id="${food.product_id}" data-description="${food.product_description}">
                 <img src="${food.image_url}">
                 <h3 class="food-title">${food.product_name}</h3>
-                <p class="food-price">${formatPrice(food.price)}</p>
+                <p data-price="${food.price}" class="food-price">${formatPrice(food.price)}</p>
               </div>
         </div>`;
       i++;

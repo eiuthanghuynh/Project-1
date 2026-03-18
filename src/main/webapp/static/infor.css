@@ -1,0 +1,87 @@
+.about-us-1 {
+    background: linear-gradient(180deg, #FFF5EB 0%, #FFE8D6 100%);
+    box-shadow: inset 0 0 80px rgba(255, 122, 0, 0.05);
+    padding-bottom: 60px;
+}
+
+#about-us-infor {
+    text-align: center;
+
+}
+
+.about-us-logo {
+    margin-top: 60px;
+    width: 150px;
+}
+
+.about-us-title {
+    font-size: 36px;
+    color: #2B2B2B;
+    font-weight: 700;
+}
+
+.about-us-title>span {
+    color: #FF7A00;
+}
+
+.about-us-description {
+    color: #6B4F3A;
+    padding: 10px 100px;
+    margin-bottom: 80px;
+}
+
+.about-us-box {
+    padding: 15px 5px;
+    background: #fff;
+    border: 1.5px solid #FFD2A6;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.about-us-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(255, 122, 0, 0.15);
+}
+
+.about-us-icon {
+    font-size: 40px;
+    color: #FF7A00;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.about-us-small-title {
+    color: #FF7A00;
+    font-weight: 700;
+}
+
+.about-us-small-description {
+    color: #5A5A5A;
+    max-width: 600px;
+}
+
+.about-us-2 {
+    padding: 60px 0;
+    background: linear-gradient(180deg, #FFF8F2 0%, #FFF1E6 100%);
+}
+
+.about-us-story {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #5A5A5A;
+}
+
+.about-us-story span {
+    color: #FF7A00;
+    font-weight: 600;
+}
+
+.about-us-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    object-fit: cover;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}

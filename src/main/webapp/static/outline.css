@@ -27,7 +27,6 @@ body {
 
 main {
     flex: 1;
-    padding-bottom: 20px; 
 }
 /*Menu*/
 .logo {
@@ -38,10 +37,6 @@ main {
 .logo>img {
     width: 120px;
     max-width: 100%;
-}
-
-header {
-    margin-bottom: 20px;
 }
 
 .head-menu {
