@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fastfeast - Test QR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+
+<body>
+
+    <form id="vietqrForm" enctype="multipart/form-data">
+
+        <div>
+            <label>Order ID</label>
+            <input name="order_id" type="text" id="orderIdInput" required>
+        </div>
+
+        <br>
+
+        <div>
+            <label>Amount</label>
+            <input name="amount" type="number" id="amountInput" required>
+        </div>
+
+        <br>
+
+        <button type="submit">Generate QR</button>
+
+    </form>
+
+    <hr>
+
+    <p><strong>QR Result:</strong></p>
+    <img id="qrImage" />
+
+    <!-- Toast thông báo hành động -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 999">
+        <div id="appToast" class="toast align-items-center text-white border-0 p-3" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $('#vietqrForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            $.ajax({
+                url: '/fastfeast/api/payment/qr',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+
+                    const result = typeof response === "string"
+                        ? JSON.parse(response)
+                        : response;
+
+                    $('#qrImage').attr('src', result.qrDataURL);
+
+                    showToast('Tạo QR thành công', 'success');
+                },
+                error: function (xhr) {
+                    showToast('Tạo QR thất bại: ' + xhr.responseText, 'error');
+                }
+            });
+        });
+        // Toast thông báo hành động
+        function showToast(message, type = 'success') {
+            const toastEl = document.getElementById('appToast');
+            const toastBody = document.getElementById('toastMessage');
+
+            toastBody.textContent = message;
+
+            toastEl.classList.remove('bg-success', 'bg-danger', 'bg-warning', 'bg-info');
+
+            switch (type) {
+                case 'success':
+                    toastEl.classList.add('bg-success');
+                    break;
+                case 'error':
+                    toastEl.classList.add('bg-danger');
+                    break;
+                case 'warning':
+                    toastEl.classList.add('bg-warning');
+                    break;
+                default:
+                    toastEl.classList.add('bg-info');
+            }
+
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+        }
+    </script>
+
+</body>
+
+</html>
