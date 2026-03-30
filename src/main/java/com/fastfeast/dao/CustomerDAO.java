@@ -2,7 +2,6 @@ package com.fastfeast.dao;
 
 import com.fastfeast.model.Customer;
 import java.sql.*;
-import java.util.*;
 
 public class CustomerDAO {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/fastfood_db";
@@ -33,6 +32,31 @@ public class CustomerDAO {
             e.printStackTrace();
         }
         return customer;
+    }
+
+    public String getCustomerId(String customer_name, String phone) {
+        String customer_id = null;
+        String sql = "SELECT customer_id FROM customer WHERE customer_name = ? AND phone = ?";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setString(1, customer_name);
+                stmt.setString(2, phone);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        customer_id = rs.getString("customer_id");
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return customer_id;
     }
 
     public boolean createCustomer(Customer customer) {

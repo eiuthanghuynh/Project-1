@@ -5,18 +5,24 @@ import java.math.BigDecimal;
 public class OrderDetail {
     private String order_id;
     private String product_id;
+    private String combo_id;
     private int quantity;
     private BigDecimal price;
     private BigDecimal subtotal;
-    private BigDecimal discount;
+    private BigDecimal discount = BigDecimal.ZERO;
     private String note;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(String order_id, String product_id, int quantity, BigDecimal price) {
+    public OrderDetail(String order_id, String product_id, String combo_id, int quantity, BigDecimal price) {
         this.order_id = order_id;
-        this.product_id = product_id;
+        if (product_id != null) {
+            this.product_id = product_id;
+        }
+        if (combo_id != null) {
+            this.combo_id = combo_id;
+        }
         this.quantity = quantity;
         this.price = price;
     }
@@ -35,6 +41,14 @@ public class OrderDetail {
 
     public void setProduct_id(String product_id) {
         this.product_id = product_id;
+    }
+
+    public String getCombo_id() {
+        return combo_id;
+    }
+
+    public void setCombo_id(String combo_id) {
+        this.combo_id = combo_id;
     }
 
     public int getQuantity() {

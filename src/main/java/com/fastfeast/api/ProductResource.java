@@ -5,12 +5,14 @@ import com.fastfeast.model.Product;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -42,11 +44,31 @@ public class ProductResource {
         return Response.ok(product).build();
     }
 
+    @GET
+    @Path("/top")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTopProducts(@DefaultValue("5") @QueryParam("limit") int limit) {
+
+        if (limit <= 0) {
+            limit = 5;
+        } else if (limit > 50) {
+            limit = 50;
+        }
+
+        List<Product> topProducts = productDAO.getTopProduct(limit);
+
+        if (topProducts == null || topProducts.isEmpty()) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+
+        return Response.ok(topProducts).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createProduct(Product product) {
         boolean success = productDAO.createProduct(product);
-        
+
         if (!success) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Không thể tạo product")
