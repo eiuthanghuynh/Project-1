@@ -21,3 +21,56 @@ function printIntroductionSlider() {
 }
 
 printIntroductionSlider();
+
+bestFoodArr = [
+  {
+    "product_id": "P00001",
+    "product_name": "Pizza",
+    "product_description": "sdfdsfsdfdsf",
+    "price": 189000,
+    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
+  },
+  {
+    "product_id": "P00001",
+    "product_name": "Pizza",
+    "product_description": "sdfdsfsdfdsf",
+    "price": 189000,
+    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
+  },
+  {
+    "product_id": "P00001",
+    "product_name": "Pizza",
+    "product_description": "sdfdsfsdfdsf",
+    "price": 189000,
+    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
+  },
+  {
+    "product_id": "P00001",
+    "product_name": "Pizza",
+    "product_description": "sdfdsfsdfdsf",
+    "price": 189000,
+    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
+  },
+]
+
+bestComboArr = [
+  {
+    "product_id": "C1",
+    "product_name": "Combo Mừng Khai Trương",
+    "product_description": "1 Pizza Hải Sản Nhiệt Đới, 1 Burger Cheese và 1 ly Coca Cola",
+    "price": 249000,
+    "image_url": "./assets/combo/2.png",
+  },
+  {
+    "product_id": "C1",
+    "product_name": "Combo Mừng Khai Trương",
+    "product_description": "1 Pizza Hải Sản Nhiệt Đới, 1 Burger Cheese và 1 ly Coca Cola",
+    "price": 249000,
+    "image_url": "./assets/combo/2.png",
+  },
+]
+function formatPrice(price) {
+  return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+printProduct(bestFoodArr, "#best-seller");
+printCombo(bestComboArr, "#best-combo");

@@ -32,8 +32,8 @@ let comboArr = [
     },
 ]
 
-function printCombo() {
-    $("#list-combo").html("");
+function printCombo(comboArr, selector) {
+    $(selector).html("");
     let str = "";
     for (const combo of comboArr) {
         let price = Number(combo.price)
@@ -52,10 +52,10 @@ function printCombo() {
                         </div>
             </div>`;
     }
-    $("#list-combo").html(str);
+    $(selector).html(str);
 }
 
-printCombo();
+printCombo(comboArr, "#list-combo");
 
 function attachCombo() {
     document.querySelectorAll(".combo").forEach(combo => {
