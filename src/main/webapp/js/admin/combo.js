@@ -12,13 +12,13 @@ $(document).ready(function () {
     });
 
     // Filter món ăn
-    $('#searchProduct').on('blur change', function() {
+    $('#searchProduct').on('blur change', function () {
         var value = $(this).val().toLowerCase().trim();
-        
-        $('#productCheckboxes .form-check').each(function() {
+
+        $('#productCheckboxes .form-check').each(function () {
             var productName = $(this).find('.fw-bold').text().toLowerCase();
             var isMatch = productName.indexOf(value) > -1;
-            
+
             if (isMatch) {
                 $(this).removeClass('d-none');
             } else {
@@ -27,7 +27,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#searchProduct').on('keydown', function(e) {
+    $('#searchProduct').on('keydown', function (e) {
         if (e.key === 'Enter') {
             e.preventDefault();
             $(this).blur();
@@ -78,6 +78,7 @@ $(document).ready(function () {
                 $('#comboDescription').val(combo.combo_description);
                 $('#comboPrice').val(formatPrice(combo.price));
                 $('#price').val(combo.price);
+                $('#comboDayOfWeek').val(combo.day_of_week || '');
                 $('input[name="product_ids"]').prop('checked', false);
 
                 if (combo.product_ids && combo.product_ids.length > 0) {
@@ -171,9 +172,18 @@ function renderComboList(combos) {
     const tableBody = $('#comboTable tbody');
     tableBody.empty();
 
+    const dayNames = {
+        1: "Thứ 2", 2: "Thứ 3", 3: "Thứ 4",
+        4: "Thứ 5", 5: "Thứ 6", 6: "Thứ 7", 7: "Chủ nhật"
+    };
+
     combos.forEach(combo => {
         // Đếm số lượng món ăn, nếu null thì gán là 0
         const productCount = combo.product_ids ? combo.product_ids.length : 0;
+        let dayBadge = '';
+        if (combo.day_of_week && dayNames[combo.day_of_week]) {
+            dayBadge = `<span class="badge bg-info mt-1 ms-1"><i class="far fa-calendar-check"></i> ${dayNames[combo.day_of_week]}</span>`;
+        }
 
         const row = `
             <tr>
