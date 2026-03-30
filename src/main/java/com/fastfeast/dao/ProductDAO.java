@@ -5,9 +5,9 @@ import java.sql.*;
 import java.util.*;
 
 public class ProductDAO {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/fastfood_db";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "!Thang1407";
+    private static final String JDBC_URL = System.getenv("JDBC_URL");
+    private static final String JDBC_USER = System.getenv("JDBC_USER");
+    private static final String JDBC_PASSWORD = System.getenv("JDBC_PASSWORD");
 
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ProductDAO {
                 "FROM product p " +
                 "JOIN order_detail od ON p.product_id = od.product_id " +
                 "JOIN orders o ON od.order_id = o.order_id " +
-                "WHERE o.order_status = 'COMPLETED' " +
+                "WHERE o.order_status = 'Completed' " +
                 "GROUP BY p.product_id, p.product_name, p.product_description, p.price, p.image_url, p.category_id " +
                 "ORDER BY SUM(od.subtotal) DESC " +
                 "LIMIT ?";

@@ -76,7 +76,8 @@ CREATE TABLE combo (
     combo_name VARCHAR(100) NOT NULL,
     combo_description TEXT,
     price DECIMAL(10,2) NOT NULL,
-    image_url VARCHAR(255)
+    image_url VARCHAR(255),
+    day_of_week INT NULL COMMENT '1=Thứ 2, 2=Thứ 3, 3=Thứ 4, 4=Thứ 5, 5=Thứ 6, 6=Thứ 7, 7=Chủ nhật'
 );
 
 CREATE TABLE combo_product (
