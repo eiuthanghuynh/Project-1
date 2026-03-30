@@ -5,9 +5,9 @@ import java.sql.*;
 import java.util.*;
 
 public class ProductDAO {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/fastfood_db";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "!Thang1407";
+    private static final String JDBC_URL = System.getenv("JDBC_URL");
+    private static final String JDBC_USER = System.getenv("JDBC_USER");
+    private static final String JDBC_PASSWORD = System.getenv("JDBC_PASSWORD");
 
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
@@ -67,6 +67,47 @@ public class ProductDAO {
         }
 
         return null;
+    }
+
+    public List<Product> getTopProduct(int top) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.product_id, p.product_name, p.product_description, p.price, p.image_url, p.category_id "
+                +
+                "FROM product p " +
+                "JOIN order_detail od ON p.product_id = od.product_id " +
+                "JOIN orders o ON od.order_id = o.order_id " +
+                "WHERE o.order_status = 'Completed' " +
+                "GROUP BY p.product_id, p.product_name, p.product_description, p.price, p.image_url, p.category_id " +
+                "ORDER BY SUM(od.subtotal) DESC " +
+                "LIMIT ?";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, top);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Product product = new Product(
+                                rs.getString("product_id"),
+                                rs.getString("product_name"),
+                                rs.getDouble("price"));
+                        product.setProduct_description(rs.getString("product_description"));
+                        product.setImage_url(rs.getString("image_url"));
+                        product.setCategory_id(rs.getString("category_id"));
+
+                        products.add(product);
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return products;
     }
 
     public boolean createProduct(Product product) {

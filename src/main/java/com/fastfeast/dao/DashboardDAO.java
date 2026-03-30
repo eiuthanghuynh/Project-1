@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.*;
 
 public class DashboardDAO {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/fastfood_db";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "!Thang1407";
+    private static final String JDBC_URL = System.getenv("JDBC_URL");
+    private static final String JDBC_USER = System.getenv("JDBC_USER");
+    private static final String JDBC_PASSWORD = System.getenv("JDBC_PASSWORD");
 
     public Map<String, Object> getKPI() throws Exception {
         Map<String, Object> result = new HashMap<>();

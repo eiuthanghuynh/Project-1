@@ -5,9 +5,9 @@ import java.sql.*;
 import java.util.*;
 
 public class ComboDAO {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/fastfood_db";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "!Thang1407";
+    private static final String JDBC_URL = System.getenv("JDBC_URL");
+    private static final String JDBC_USER = System.getenv("JDBC_USER");
+    private static final String JDBC_PASSWORD = System.getenv("JDBC_PASSWORD");
 
     public List<Combo> getAllCombos() {
         List<Combo> combos = new ArrayList<>();
@@ -70,10 +70,82 @@ public class ComboDAO {
         return null;
     }
 
+    public List<Combo> getTopCombo(int top) {
+        List<Combo> combos = new ArrayList<>();
+        String sql = "SELECT c.combo_id, c.combo_name, c.combo_description, c.price, c.image_url "
+                +
+                "FROM combo c " +
+                "JOIN order_detail od ON c.combo_id = od.combo_id " +
+                "JOIN orders o ON od.order_id = o.order_id " +
+                "WHERE o.order_status = 'Completed' " +
+                "GROUP BY c.combo_id, c.combo_name, c.combo_description, c.price, c.image_url " +
+                "ORDER BY SUM(od.subtotal) DESC " +
+                "LIMIT ?";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, top);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Combo combo = new Combo(
+                                rs.getString("combo_id"),
+                                rs.getString("combo_name"),
+                                rs.getDouble("price"));
+                        combo.setCombo_description(rs.getString("combo_description"));
+                        combo.setImage_url(rs.getString("image_url"));
+                        combo.setProduct_ids(getProductIdsByCombo(conn, combo.getCombo_id()));
+
+                        combos.add(combo);
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return combos;
+    }
+
+    public List<Combo> getDailyCombo(int dayOfWeek) {
+        List<Combo> combos = new ArrayList<>();
+        String sql = "SELECT combo_id, combo_name, combo_description, price, image_url FROM combo WHERE day_of_week = ?";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, dayOfWeek);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Combo combo = new Combo(
+                                rs.getString("combo_id"),
+                                rs.getString("combo_name"),
+                                rs.getDouble("price"));
+                        combo.setCombo_description(rs.getString("combo_description"));
+                        combo.setImage_url(rs.getString("image_url"));
+                        combo.setProduct_ids(getProductIdsByCombo(conn, combo.getCombo_id()));
+
+                        combos.add(combo);
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return combos;
+    }
+
     public boolean createCombo(Combo combo) {
-        // 1. Câu lệnh lấy ID lớn nhất hiện tại
         String sqlGetId = "SELECT combo_id FROM combo ORDER BY combo_id DESC LIMIT 1";
-        // 2. Câu lệnh insert Combo
         String sqlInsertCombo = "INSERT INTO combo (combo_id, combo_name, combo_description, price, image_url) VALUES (?, ?, ?, ?, ?)";
 
         try {
