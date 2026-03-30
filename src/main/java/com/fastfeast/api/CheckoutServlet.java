@@ -20,49 +20,65 @@ public class CheckoutServlet extends HttpServlet {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
         try {
             CheckoutRequest request = mapper.readValue(req.getInputStream(), CheckoutRequest.class);
-            if (request.getCustomer() == null || request.getItems() == null || request.getItems().isEmpty()) {
-                resp.sendError(400, "Thiếu thông tin customer hoặc danh sách món ăn");
+
+            if (request.getCustomer() == null || request.getItems() == null || request.getItems().isEmpty()
+                    || request.getPaymentMethod() == null || request.getPaymentMethod().trim().isEmpty()) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Lỗi 400
+                resp.getWriter()
+                        .write("{\"error\":\"Thiếu thông tin khách hàng, món ăn hoặc phương thức thanh toán\"}");
                 return;
             }
+
             CustomerDTO c = request.getCustomer();
             List<OrderDetail> orderDetails = new ArrayList<>();
 
             for (OrderItemDTO item : request.getItems()) {
                 OrderDetail od = new OrderDetail();
                 od.setProduct_id(item.getProduct_id());
+                od.setCombo_id(item.getCombo_id());
                 od.setQuantity(item.getQuantity());
-                od.setPrice(item.getPrice());
+                od.setPrice(new BigDecimal(item.getPrice().toString()));
                 od.setDiscount(BigDecimal.ZERO);
-                od.setNote(item.getNote());
+                od.setNote(item.getNote() != null ? item.getNote() : "");
 
                 orderDetails.add(od);
             }
 
-            boolean success = checkoutDAO.checkout(c.getCustomer_name(), c.getPhone(), c.getEmail(), c.getAddress(),
-                    orderDetails);
+            String generatedOrderId = checkoutDAO.checkout(
+                    c.getCustomer_name(),
+                    c.getPhone(),
+                    c.getEmail(),
+                    c.getAddress(),
+                    orderDetails,
+                    request.getPaymentMethod());
 
-            if (success) {
+            if (generatedOrderId != null && !generatedOrderId.trim().isEmpty()) {
                 resp.setStatus(HttpServletResponse.SC_CREATED);
-                resp.getWriter().write("{\"message\":\"Đặt hàng thành công\"}");
+                String jsonResponse = String.format(
+                        "{\"message\":\"Đặt hàng thành công\", \"status\":\"success\", \"order_id\":\"%s\"}",
+                        generatedOrderId);
+                resp.getWriter().write(jsonResponse);
             } else {
-                resp.sendError(500, "Đặt hàng thất bại");
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                resp.getWriter().write("{\"error\":\"Lưu đơn hàng thất bại tại Database\"}");
             }
 
         } catch (MismatchedInputException e) {
             e.printStackTrace();
-            resp.sendError(500, e.getClass().getName() + ": " + e.getMessage());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            resp.sendError(500, e.getClass().getName() + ": " + e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("{\"error\":\"Sai định dạng dữ liệu: " + e.getMessage() + "\"}");
         } catch (Exception e) {
             e.printStackTrace();
-            // resp.sendError(400, "Dữ liệu đặt hàng không hợp lệ");
-            resp.sendError(400, e.getClass().getName() + ": " + e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter().write("{\"error\":\"Lỗi xử lý: " + e.getMessage() + "\"}");
         }
     }
 }

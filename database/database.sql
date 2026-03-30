@@ -43,6 +43,7 @@ CREATE TABLE orders (
     order_id VARCHAR(20) PRIMARY KEY,
     customer_id VARCHAR(20),
     order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     order_status VARCHAR(20),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
         ON UPDATE CASCADE
@@ -50,18 +51,22 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE order_detail (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     order_id VARCHAR(20),
-    product_id VARCHAR(20),
+    product_id VARCHAR(20) NULL,
+    combo_id VARCHAR(6) NULL,
     quantity INT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
     discount DECIMAL(10,2),
     note VARCHAR(255),
-    PRIMARY KEY (order_id, product_id),
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES product(product_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    FOREIGN KEY (combo_id) REFERENCES combo(combo_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
@@ -86,6 +91,18 @@ CREATE TABLE combo_product (
         FOREIGN KEY (product_id)
         REFERENCES product(product_id)
         ON DELETE CASCADE
+);
+
+CREATE TABLE payment (
+    payment_id VARCHAR(20) PRIMARY KEY,
+    order_id VARCHAR(20) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    payment_status VARCHAR(20) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 );
 
 -- ########################################
@@ -191,5 +208,21 @@ BEGIN
 
     SET new_id = CONCAT('PC', LPAD(next_id, 4, '0'));
     SET NEW.combo_id = new_id;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER trg_before_insert_payment
+BEFORE INSERT ON payment
+FOR EACH ROW
+BEGIN
+    DECLARE next_id INT;
+    DECLARE new_id VARCHAR(50);
+
+    SELECT IFNULL(MAX(CAST(SUBSTRING(payment_id, 2) AS UNSIGNED)), 0) + 1 INTO next_id
+    FROM payment;
+
+    SET new_id = CONCAT('P', LPAD(next_id, 7, '0'));
+    SET NEW.payment_id = new_id;
 END//
 DELIMITER ;

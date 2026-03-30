@@ -1,5 +1,6 @@
 package com.fastfeast.model;
 
+import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 
 public class Order {
@@ -7,6 +8,7 @@ public class Order {
     private String customer_id;
     private String customer_name;
     private GregorianCalendar order_date;
+    private BigDecimal total_amount;
     private String order_status;
 
     public Order() {
@@ -57,5 +59,13 @@ public class Order {
 
     public void setOrder_status(String order_status) {
         this.order_status = order_status;
+    }
+
+    public BigDecimal getTotal_amount() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(BigDecimal total_amount) {
+        this.total_amount = total_amount;
     }
 }
