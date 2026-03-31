@@ -110,29 +110,48 @@ function renderCarousel() {
     $("#list-combo").html(carouselHtml);
 }
 
-function attachCombo() {
-    $(document).off("click", ".combo").on("click", ".combo", function () {
-        $(".foodQty").val(1);
-        let id = $(this).attr("data-id");
-        let title = $(this).attr("data-title");
-        let price = $(this).attr("data-price");
-        let img = $(this).attr("data-img");
-        let description = $(this).attr("data-description");
+$(document).on("click", ".combo", function () {
+    if (document.getElementById("foodForm")) {
+        document.getElementById("foodForm").reset();
+    }
+    $("#only-pizza").html("");
+    $(".foodQty").val(1);
 
-        $("#comboModal").attr("data-id", id);
-        $("#comboModal").attr("data-title", title);
-        $("#comboModal").attr("data-price", price);
-        $("#comboModal").attr("data-img", img);
+    let id = $(this).attr("data-id");
+    let title = $(this).attr("data-title");
+    let price = $(this).attr("data-price");
+    let img = $(this).attr("data-img");
+    let description = $(this).attr("data-description");
+    let targetModal;
+    let targetDataElement;
 
-        $("#comboModal").find("#modalTitle").text(title);
-        $("#comboModal").find("#modalPrice").text(formatPrice(Number(price)));
-        $("#comboModal").find("#modalPrice").attr("data-price", price);
-        $("#comboModal").find("#modalImg").attr("src", img);
-        $("#comboModal").find("#modalDescription").text(description);
+    if ($("#comboModal").length > 0) {
+        targetModal = $("#comboModal");
+        targetDataElement = $("#comboModal .modal-content");
+    } else if ($("#foodModal").length > 0) {
+        targetModal = $("#foodModal");
+        targetDataElement = $("#foodModal");
+    } else {
+        console.error("Lỗi: Không tìm thấy popup Modal nào trên trang này!");
+        return;
+    }
+    targetDataElement.attr("data-id", id);
+    targetDataElement.attr("data-title", title);
+    targetDataElement.attr("data-price", price);
+    targetDataElement.attr("data-img", img);
+    targetDataElement.attr("data-description", description);
 
-        $("#comboModal").modal("show");
-    });
-}
+    $("#modalTitle").text(title);
+    if (typeof formatPrice === "function") {
+        $("#modalPrice").text(formatPrice(Number(price)));
+    } else {
+        $("#modalPrice").text(price);
+    }
+    $("#modalImg").attr("src", img);
+    $("#modalDescription").text(description);
+
+    targetModal.modal("show");
+});
 
 function formatPrice(price) {
     return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
@@ -140,6 +159,5 @@ function formatPrice(price) {
 
 $(document).ready(function () {
     printIntroductionSlider();
-    attachCombo();
     fetchAndPrintAllProducts();
 });

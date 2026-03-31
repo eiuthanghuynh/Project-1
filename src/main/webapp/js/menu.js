@@ -16,7 +16,6 @@ async function getAllProducts() {
     printProduct(listBurrito, "#burrito");
     printProduct(listHamburger, "#hamburger");
 
-    attachFoodEvents();
   } catch (error) {
     console.error(error.message);
   }
@@ -83,49 +82,45 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //Tạo popup cho món ăn
-function attachFoodEvents() {
-  document.querySelectorAll(".food-item").forEach(item => {
-    $(item).off("click").on("click", function () {
-      document.getElementById("foodForm").reset();
-      $("#only-pizza").html("");
-      $(".foodQty").val(1);
+$(document).on("click", ".food-item", function () {
+  document.getElementById("foodForm").reset();
+  $("#only-pizza").html("");
+  $(".foodQty").val(1);
 
-      let id = $(this).attr("data-id");
-      let title = $(this).find(".food-title").text();
-      let price = $(this).find(".food-price").attr("data-price");
-      let img = $(this).find("img").attr("src");
-      let description = $(this).attr("data-description");
+  let id = $(this).attr("data-id");
+  let title = $(this).find(".food-title").text();
+  let price = $(this).find(".food-price").attr("data-price");
+  let img = $(this).find("img").attr("src");
+  let description = $(this).attr("data-description");
 
-      $("#foodModal").attr("data-id", id);
-      $("#foodModal").attr("data-title", title);
-      $("#foodModal").attr("data-price", price);
-      $("#foodModal").attr("data-img", img);
+  $("#foodModal").attr("data-id", id);
+  $("#foodModal").attr("data-title", title);
+  $("#foodModal").attr("data-price", price);
+  $("#foodModal").attr("data-img", img);
 
-      $("#modalTitle").text(title);
-      $("#modalPrice").text(formatPrice(Number(price)));
-      $("#modalImg").attr("src", img);
-      $("#modalDescription").text(description);
+  $("#modalTitle").text(title);
+  $("#modalPrice").text(formatPrice(Number(price)));
+  $("#modalImg").attr("src", img);
+  $("#modalDescription").text(description);
 
-      if (title.toLowerCase().includes("pizza")) {
-        let str = `
-        <h2 class="modal-body-title">KÍCH THƯỚC</h2>
-        <input type="radio" class="btn-check" name="options" id="size1" autocomplete="off" checked>
-        <label class="btn btn-secondary" for="size1">Size S</label>
-        <input type="radio" class="btn-check" name="options" id="size2" autocomplete="off">
-        <label class="btn btn-secondary" for="size2">Size M</label>
-        <input type="radio" class="btn-check" name="options" id="size3" autocomplete="off">
-        <label class="btn btn-secondary" for="size3">Size L</label>
-        <h2 class="modal-body-title">ĐẾ</h2>
-        <input type="radio" id="thick" name="pizza-base" checked>
-        <label for="thick" class="pizza-base">Dày</label>
-        <input type="radio" id="thin" name="pizza-base">
-        <label for="thin" class="pizza-base">Mỏng</label>`;
-        $("#only-pizza").html(str);
-      }
-      $("#foodModal").modal("show");
-    });
-  });
-}
+  if (title.toLowerCase().includes("pizza")) {
+    let str = `
+    <h2 class="modal-body-title">KÍCH THƯỚC</h2>
+    <input type="radio" class="btn-check" name="options" id="size1" autocomplete="off" checked>
+    <label class="btn btn-secondary" for="size1">Size S</label>
+    <input type="radio" class="btn-check" name="options" id="size2" autocomplete="off">
+    <label class="btn btn-secondary" for="size2">Size M</label>
+    <input type="radio" class="btn-check" name="options" id="size3" autocomplete="off">
+    <label class="btn btn-secondary" for="size3">Size L</label>
+    <h2 class="modal-body-title">ĐẾ</h2>
+    <input type="radio" id="thick" name="pizza-base" checked>
+    <label for="thick" class="pizza-base">Dày</label>
+    <input type="radio" id="thin" name="pizza-base">
+    <label for="thin" class="pizza-base">Mỏng</label>`;
+    $("#only-pizza").html(str);
+  }
+  $("#foodModal").modal("show");
+});
 
 // Thay đổi số lượng thức ăn cần order trong popup
 $(document).on("click", ".modalPlus", function () {
@@ -171,7 +166,6 @@ function searchFood(keywork) {
       i++;
     }
     $(selector).html(resultStr);
-    attachFoodEvents();
   }
 }
 // Xóa tìm kiếm

@@ -1,6 +1,5 @@
 $(document).ready(function () {
   loadBestSellersToHome();
-  printIntroductionSlider();
 });
 
 function loadBestSellersToHome() {
@@ -35,7 +34,7 @@ function loadBestSellersToHome() {
           let id = combo.combo_id;
           let name = combo.combo_name;
           let description = combo.combo_description || "";
-          let imgUrl = combo.image_url || "./assets/default-img.png";
+          let imgUrl = combo.image_url || "";
           let price = Number(combo.price);
 
           comboHtml += `
