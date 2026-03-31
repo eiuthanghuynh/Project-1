@@ -7,6 +7,7 @@ public class Product {
     private double price;
     private String image_url;
     private String category_id;
+    private int is_bestseller;
 
     public Product() {
     }
@@ -65,4 +66,11 @@ public class Product {
         this.category_id = category_id;
     }
 
+    public int getIs_bestseller() {
+        return is_bestseller;
+    }
+
+    public void setIs_bestseller(int is_bestseller) {
+        this.is_bestseller = is_bestseller;
+    }
 }

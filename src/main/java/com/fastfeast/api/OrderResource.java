@@ -1,7 +1,9 @@
 package com.fastfeast.api;
 
 import com.fastfeast.dao.OrderDAO;
+import com.fastfeast.dao.OrderDetailDAO;
 import com.fastfeast.model.Order;
+import com.fastfeast.model.OrderDetail;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -19,6 +21,7 @@ import java.util.Map;
 public class OrderResource {
 
     private OrderDAO orderDAO = new OrderDAO();
+    private OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -37,6 +40,26 @@ public class OrderResource {
                     .build();
         }
         return Response.ok(order).build();
+    }
+
+    @GET
+    @Path("/{order_id}/details")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOrderDetails(@PathParam("order_id") String order_id) {
+
+        if (order_id == null || order_id.trim().isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Mã đơn hàng không hợp lệ")
+                    .build();
+        }
+
+        List<OrderDetail> details = orderDetailDAO.getOrderDetails(order_id);
+
+        if (details == null || details.isEmpty()) {
+            return Response.ok("[]").build();
+        }
+
+        return Response.ok(details).build();
     }
 
     @POST

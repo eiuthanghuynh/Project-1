@@ -3,6 +3,7 @@
     border-radius: 10px;
     margin-bottom: 40px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .combo:hover {
@@ -29,4 +30,12 @@
     color: #637381;
     padding-left: 10px;
     margin: 10px 0;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background-color: #ff7d01;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
 }

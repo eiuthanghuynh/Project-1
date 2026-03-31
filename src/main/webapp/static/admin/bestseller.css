@@ -1,0 +1,22 @@
+.item-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.item-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.form-check-input {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
+}

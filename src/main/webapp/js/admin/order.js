@@ -56,6 +56,7 @@ function getOrders() {
 function renderOrderList(orders) {
     const statusMap = {
         "Completed": "<span class='badge bg-success'>Hoàn thành</span>",
+        "Pending": "<span class='badge bg-warning text-dark'>Đang chờ duyệt</span>",
         "Preparing": "<span class='badge bg-warning text-dark'>Đang chuẩn bị</span>",
         "In Delivery": "<span class='badge bg-info text-dark'>Đang giao</span>",
         "Cancelled": "<span class='badge bg-danger'>Đã hủy</span>"
@@ -74,7 +75,10 @@ function renderOrderList(orders) {
                         <td>${new Date(order.order_date).toLocaleString()}</td>
                         <td>${status}</td>
                         <td>
-                            <button class="btn btn-sm btn-warning me-1 btn-edit-status" title="Sửa" data-id="${order.order_id}">
+                            <button class="btn btn-sm btn-success me-1 btn-view-details" title="Xem chi tiết" data-id="${order.order_id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning me-1 btn-edit-status" title="Sửa" data-id="${order.order_id}" data-status="${order.order_status}">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </td>
@@ -85,29 +89,109 @@ function renderOrderList(orders) {
     });
 }
 
+$(document).on('click', '.btn-view-details', function () {
+    const orderId = $(this).data('id');
+    $('#detailOrderId').text(orderId);
+
+    fetch(`/fastfeast/api/orders/${orderId}/details`)
+        .then(response => {
+            if (!response.ok) throw new Error("Lỗi lấy chi tiết");
+            return response.json();
+        })
+        .then(details => {
+            renderOrderDetails(details);
+            $('#viewDetailsModal').modal('show');
+        })
+        .catch(error => {
+            console.error(error);
+            showToast('Không thể tải chi tiết đơn hàng', 'error');
+        });
+});
+
+function renderOrderDetails(details) {
+    const tbody = $('#orderDetailsTable tbody');
+    tbody.empty();
+    let totalAmount = 0;
+
+    if (!details || details.length === 0) {
+        tbody.append('<tr><td colspan="5" class="text-center text-muted">Không có dữ liệu chi tiết cho đơn hàng này.</td></tr>');
+        $('#detailTotalAmount').text('0 đ');
+        return;
+    }
+
+    details.forEach(item => {
+        const name = item.combo_name || item.product_name || "Chưa rõ tên";
+        const isCombo = item.type === 'combo';
+        const typeBadge = isCombo
+            ? '<span class="badge bg-warning text-dark"><i class="fas fa-box"></i> Combo</span>'
+            : '<span class="badge bg-info text-dark"><i class="fas fa-hamburger"></i> Món lẻ</span>';
+
+        const price = item.price || 0;
+        const quantity = item.quantity || 1;
+        const lineTotal = price * quantity;
+
+        totalAmount += lineTotal;
+
+        const row = `
+            <tr>
+                <td>${name}</td>
+                <td>${typeBadge}</td>
+                <td class="text-center">${quantity}</td>
+                <td>${formatPrice(price)}</td>
+                <td class="text-danger fw-bold">${formatPrice(lineTotal)}</td>
+            </tr>
+        `;
+        tbody.append(row);
+    });
+
+    $('#detailTotalAmount').text(formatPrice(totalAmount));
+}
+
+function formatPrice(price) {
+    return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+
 // Toast thông báo hành động
 function showToast(message, type = 'success') {
-    const toastEl = document.getElementById('appToast');
-    const toastBody = document.getElementById('toastMessage');
+    const container = document.querySelector('.toast-container');
+    if (!container) return;
 
-    toastBody.textContent = message;
-
-    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-warning', 'bg-info');
+    let bgClass = 'bg-info';
+    let textClass = 'text-white';
+    let btnCloseClass = 'btn-close-white';
 
     switch (type) {
         case 'success':
-            toastEl.classList.add('bg-success');
+            bgClass = 'bg-success';
             break;
         case 'error':
-            toastEl.classList.add('bg-danger');
+            bgClass = 'bg-danger';
             break;
         case 'warning':
-            toastEl.classList.add('bg-warning');
+            bgClass = 'bg-warning';
+            textClass = 'text-dark';
+            btnCloseClass = '';
             break;
-        default:
-            toastEl.classList.add('bg-info');
     }
 
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-    toast.show();
+    const toastId = 'toast-' + Date.now() + Math.floor(Math.random() * 1000);
+    const toastHTML = `
+        <div id="${toastId}" class="toast align-items-center ${textClass} ${bgClass} border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${message}
+                </div>
+                <button type="button" class="btn-close ${btnCloseClass} me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', toastHTML);
+
+    const toastElement = document.getElementById(toastId);
+    const bsToast = new bootstrap.Toast(toastElement, { delay: 3000 });
+
+    bsToast.show();
+    toastElement.addEventListener('hidden.bs.toast', function () {
+        toastElement.remove();
+    });
 }

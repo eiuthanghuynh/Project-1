@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fastfeast - Trang Nhân Viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="static/admin/staff.css">
+    <link rel="stylesheet" type="text/css" href="static/admin/bestseller.css">
+    <link rel="stylesheet" type="text/css" href="static/manage.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="page-header">
+            <h2 class="page-title">Quản lý Menu Nổi Bật Trang Chủ</h2>
+            <button class="btn btn-primary-custom" id="btn-save-bestseller">
+                <i class="fas fa-save me-2"></i> Lưu Thay Đổi
+            </button>
+        </div>
+
+        <div class="content-box">
+            <div class="box-header">
+                <h3>Cấu hình Sản phẩm & Combo</h3>
+            </div>
+
+            <div class="box-body">
+                <ul class="nav nav-tabs mb-4" id="bestsellerTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active fw-bold" id="product-tab" data-bs-toggle="tab"
+                            data-bs-target="#product-pane" type="button" role="tab">
+                            <i class="fas fa-hamburger text-warning me-1"></i> Sản phẩm nổi bật (Tối đa 4)
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold" id="combo-tab" data-bs-toggle="tab"
+                            data-bs-target="#combo-pane" type="button" role="tab">
+                            <i class="fas fa-box-open text-primary me-1"></i> Combo nổi bật (Tối đa 2)
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="product-pane" role="tabpanel" tabindex="0">
+                        <div class="row" id="admin-product-list">
+                            <div class="text-center text-muted mt-5">
+                                <div class="spinner-border spinner-border-sm" role="status"></div> Đang tải danh sách
+                                món ăn...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="combo-pane" role="tabpanel" tabindex="0">
+                        <div class="row" id="admin-combo-list">
+                            <div class="text-center text-muted mt-5">
+                                <div class="spinner-border spinner-border-sm" role="status"></div> Đang tải danh sách
+                                combo...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/bestseller.js"></script>
+</body>
+
+</html>

@@ -147,27 +147,45 @@ function renderStaffList(staffs) {
 
 // Toast thông báo hành động
 function showToast(message, type = 'success') {
-    const toastEl = document.getElementById('appToast');
-    const toastBody = document.getElementById('toastMessage');
+    const container = document.querySelector('.toast-container');
+    if (!container) return;
 
-    toastBody.textContent = message;
-
-    toastEl.classList.remove('bg-success', 'bg-danger', 'bg-warning', 'bg-info');
+    let bgClass = 'bg-info';
+    let textClass = 'text-white';
+    let btnCloseClass = 'btn-close-white';
 
     switch (type) {
         case 'success':
-            toastEl.classList.add('bg-success');
+            bgClass = 'bg-success';
             break;
         case 'error':
-            toastEl.classList.add('bg-danger');
+            bgClass = 'bg-danger';
             break;
         case 'warning':
-            toastEl.classList.add('bg-warning');
+            bgClass = 'bg-warning';
+            textClass = 'text-dark';
+            btnCloseClass = '';
             break;
-        default:
-            toastEl.classList.add('bg-info');
     }
 
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
-    toast.show();
+    const toastId = 'toast-' + Date.now() + Math.floor(Math.random() * 1000);
+    const toastHTML = `
+        <div id="${toastId}" class="toast align-items-center ${textClass} ${bgClass} border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    ${message}
+                </div>
+                <button type="button" class="btn-close ${btnCloseClass} me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', toastHTML);
+
+    const toastElement = document.getElementById(toastId);
+    const bsToast = new bootstrap.Toast(toastElement, { delay: 3000 });
+
+    bsToast.show();
+    toastElement.addEventListener('hidden.bs.toast', function () {
+        toastElement.remove();
+    });
 }

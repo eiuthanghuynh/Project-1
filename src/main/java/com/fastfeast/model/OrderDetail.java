@@ -11,6 +11,9 @@ public class OrderDetail {
     private BigDecimal subtotal;
     private BigDecimal discount = BigDecimal.ZERO;
     private String note;
+    private String type;
+    private String product_name;
+    private String combo_name;
 
     public OrderDetail() {
     }
@@ -89,5 +92,29 @@ public class OrderDetail {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public String getCombo_name() {
+        return combo_name;
+    }
+
+    public void setCombo_name(String combo_name) {
+        this.combo_name = combo_name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

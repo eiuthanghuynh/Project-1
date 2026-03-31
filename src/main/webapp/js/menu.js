@@ -85,21 +85,27 @@ document.addEventListener("DOMContentLoaded", function () {
 //Tạo popup cho món ăn
 function attachFoodEvents() {
   document.querySelectorAll(".food-item").forEach(item => {
-    item.addEventListener("click", function () {
+    $(item).off("click").on("click", function () {
       document.getElementById("foodForm").reset();
       $("#only-pizza").html("");
       $(".foodQty").val(1);
-      let id = $(this).data("id");
+
+      let id = $(this).attr("data-id");
       let title = $(this).find(".food-title").text();
-      let price = Number($(this).find(".food-price").data("price"));
+      let price = $(this).find(".food-price").attr("data-price");
       let img = $(this).find("img").attr("src");
-      let description = $(this).data("description");
-      $(".modal-content").data("id", id);
+      let description = $(this).attr("data-description");
+
+      $("#foodModal").attr("data-id", id);
+      $("#foodModal").attr("data-title", title);
+      $("#foodModal").attr("data-price", price);
+      $("#foodModal").attr("data-img", img);
+
       $("#modalTitle").text(title);
-      $("#modalPrice").data("price", price);
-      $("#modalPrice").text(formatPrice(price));
+      $("#modalPrice").text(formatPrice(Number(price)));
       $("#modalImg").attr("src", img);
       $("#modalDescription").text(description);
+
       if (title.toLowerCase().includes("pizza")) {
         let str = `
         <h2 class="modal-body-title">KÍCH THƯỚC</h2>
@@ -335,26 +341,37 @@ function printCart(addr) {
 }
 // khi click nút thêm lấy dữ liệu
 $("#addToCart").on("click", function () {
-  let id = $(".modal-content").data('id');
-  let title = $("#modalTitle").text();
-  let price = $("#modalPrice").data("price");
-  let img = $("#modalImg").attr("src");
+  let $modal = $(this).closest(".modal");
+  let id = $modal.attr("data-id") || $modal.find(".modal-content").attr("data-id");
+  let title = $modal.attr("data-title") || $modal.find("#modalTitle").text();
+  let price = Number($modal.attr("data-price") || $modal.find("#modalPrice").attr("data-price"));
+  let img = $modal.attr("data-img") || $modal.find("#modalImg").attr("src");
+
+  if (!id || id === "undefined") {
+    alert("Đã xảy ra lỗi lấy thông tin món ăn, vui lòng thử lại!");
+    return;
+  }
+
   let qty = $(".foodQty").val();
   let note = $("#foodNote").val();
-  let size = $("input[name='options']:checked").next("label").text();
-  let base = $("input[name='pizza-base']:checked").next("label").text();
+  let size = $("input[name='options']:checked").length ? $("input[name='options']:checked").next("label").text() : "";
+  let base = $("input[name='pizza-base']:checked").length ? $("input[name='pizza-base']:checked").next("label").text() : "";
+
   let existItem = findCartItem(title, size, base, note);
   if (existItem) {
     existItem.Quantity = Number(existItem.Quantity) + Number(qty);
   } else {
     addCartItem(id, title, price, img, qty, note, base, size);
   }
+
   $("#foodModal").modal("hide");
   $("#comboModal").modal("hide");
+
   saveCart();
   updateCartBadge();
   printCart("#item");
 });
+
 //Khi bấm thùng rác sẽ xóa món ăn khỏi giỏ hàng
 $(document).on(
   "click",

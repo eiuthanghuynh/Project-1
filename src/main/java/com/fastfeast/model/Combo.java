@@ -10,6 +10,7 @@ public class Combo {
     private String image_url;
     private List<String> product_ids;
     private int day_of_week;
+    private int is_bestseller;
 
     public Combo() {
     }
@@ -82,5 +83,13 @@ public class Combo {
 
     public void setDay_of_week(int day_of_week) {
         this.day_of_week = day_of_week;
+    }
+
+    public int getIs_bestseller() {
+        return is_bestseller;
+    }
+
+    public void setIs_bestseller(int is_bestseller) {
+        this.is_bestseller = is_bestseller;
     }
 }

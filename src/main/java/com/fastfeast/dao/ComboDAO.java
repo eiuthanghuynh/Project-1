@@ -11,7 +11,7 @@ public class ComboDAO {
 
     public List<Combo> getAllCombos() {
         List<Combo> combos = new ArrayList<>();
-        String sql = "SELECT combo_id, combo_name, combo_description, price, image_url FROM combo";
+        String sql = "SELECT combo_id, combo_name, combo_description, price, image_url, is_bestseller FROM combo";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -28,6 +28,7 @@ public class ComboDAO {
                     combo.setCombo_description(rs.getString("combo_description"));
                     combo.setImage_url(rs.getString("image_url"));
                     combo.setProduct_ids(getProductIdsByCombo(conn, combo.getCombo_id()));
+                    combo.setIs_bestseller(rs.getInt("is_bestseller"));
 
                     combos.add(combo);
                 }
@@ -41,7 +42,7 @@ public class ComboDAO {
 
     public Combo getCombo(String combo_id) {
         Combo combo = new Combo();
-        String sql = "SELECT combo_id, combo_name, combo_description, price, image_url FROM combo WHERE combo_id = ?";
+        String sql = "SELECT combo_id, combo_name, combo_description, price, image_url, is_bestseller FROM combo WHERE combo_id = ?";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -58,6 +59,7 @@ public class ComboDAO {
                         combo.setCombo_description(rs.getString("combo_description"));
                         combo.setImage_url(rs.getString("image_url"));
                         combo.setProduct_ids(getProductIdsByCombo(conn, combo_id));
+                        combo.setIs_bestseller(rs.getInt("is_bestseller"));
 
                         return combo;
                     }

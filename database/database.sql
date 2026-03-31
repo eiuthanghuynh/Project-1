@@ -34,6 +34,7 @@ CREATE TABLE product (
     price DECIMAL(10,2) NOT NULL,
     image_url VARCHAR(255),
     category_id VARCHAR(10),
+    is_bestseller TINYINT(1) DEFAULT 0,
     FOREIGN KEY (category_id) REFERENCES category(category_id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
@@ -77,7 +78,8 @@ CREATE TABLE combo (
     combo_description TEXT,
     price DECIMAL(10,2) NOT NULL,
     image_url VARCHAR(255),
-    day_of_week INT NULL COMMENT '1=Thứ 2, 2=Thứ 3, 3=Thứ 4, 4=Thứ 5, 5=Thứ 6, 6=Thứ 7, 7=Chủ nhật'
+    day_of_week INT NULL COMMENT '1=Thứ 2, 2=Thứ 3, 3=Thứ 4, 4=Thứ 5, 5=Thứ 6, 6=Thứ 7, 7=Chủ nhật',
+    is_bestseller TINYINT(1) DEFAULT 0
 );
 
 CREATE TABLE combo_product (

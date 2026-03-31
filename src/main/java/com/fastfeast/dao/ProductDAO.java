@@ -11,7 +11,7 @@ public class ProductDAO {
 
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT product_id, product_name, product_description, price, image_url, category_id FROM product";
+        String sql = "SELECT product_id, product_name, product_description, price, image_url, category_id, is_bestseller FROM product";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -28,6 +28,7 @@ public class ProductDAO {
                     product.setProduct_description(rs.getString("product_description"));
                     product.setImage_url(rs.getString("image_url"));
                     product.setCategory_id(rs.getString("category_id"));
+                    product.setIs_bestseller(rs.getInt("is_bestseller"));
                     products.add(product);
                 }
 
@@ -41,7 +42,7 @@ public class ProductDAO {
 
     public Product getProduct(String product_id) {
         Product product = new Product();
-        String sql = "SELECT product_id, product_name, product_description, price, image_url, category_id FROM product WHERE product_id = ?";
+        String sql = "SELECT product_id, product_name, product_description, price, image_url, category_id, is_bestseller FROM product WHERE product_id = ?";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -58,6 +59,7 @@ public class ProductDAO {
                         product.setProduct_description(rs.getString("product_description"));
                         product.setImage_url(rs.getString("image_url"));
                         product.setCategory_id(rs.getString("category_id"));
+                        product.setIs_bestseller(rs.getInt("is_bestseller"));
                         return product;
                     }
                 }

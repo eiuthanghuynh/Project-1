@@ -1,3 +1,74 @@
+$(document).ready(function () {
+  loadBestSellersToHome();
+  printIntroductionSlider();
+});
+
+function loadBestSellersToHome() {
+  $.ajax({
+    url: "/fastfeast/api/bestseller",
+    type: "GET",
+    dataType: "json",
+    success: function (response) {
+      let bestProducts = response.products || [];
+      let bestCombos = response.combos || [];
+
+      let productHtml = "";
+      if (bestProducts.length > 0) {
+        for (const food of bestProducts) {
+          productHtml += `
+            <div class="col-md-3">
+                <div class="food-item" data-id="${food.product_id}" data-description="${food.product_description || ''}">
+                    <img src="${food.image_url || './assets/default-img.png'}">
+                    <h3 class="food-title">${food.product_name}</h3>
+                    <p data-price="${food.price}" class="food-price">${formatPrice(food.price)}</p>
+                </div>
+            </div>`;
+        }
+      } else {
+        productHtml = "<p class='text-center'>Chưa có sản phẩm nổi bật nào được chọn.</p>";
+      }
+      $("#best-product").html(productHtml);
+
+      let comboHtml = "";
+      if (bestCombos.length > 0) {
+        for (const combo of bestCombos) {
+          let id = combo.combo_id;
+          let name = combo.combo_name;
+          let description = combo.combo_description || "";
+          let imgUrl = combo.image_url || "./assets/default-img.png";
+          let price = Number(combo.price);
+
+          comboHtml += `
+            <div class="col-md-6">
+                <div class="combo" 
+                    data-id="${id}" 
+                    data-img="${imgUrl}" 
+                    data-title="${name}" 
+                    data-description="${description}" 
+                    data-price="${price}">
+                    <img src="${imgUrl}" alt="${name}">
+                    <h1 class="combo-name">${name}</h1>
+                    <p class="combo-price">${formatPrice(price)}</p>
+                </div>
+            </div>`;
+        }
+      } else {
+        comboHtml = "<p class='text-center'>Chưa có combo nổi bật nào được chọn.</p>";
+      }
+      $("#best-combo").html(comboHtml);
+    },
+    error: function (xhr, status, error) {
+      console.error("Lỗi khi tải Best Sellers:", error);
+      $("#best-product").html("<p class='text-center text-danger'>Lỗi kết nối máy chủ. Không thể tải sản phẩm.</p>");
+      $("#best-combo").html("<p class='text-center text-danger'>Lỗi kết nối máy chủ. Không thể tải combo.</p>");
+    }
+  });
+}
+
+function formatPrice(price) {
+  return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+
 let linkIntroductionSliders = [
   "./assets/combo/combo-mung-khai-truong.png",
   "./assets/combo/combo-buoi-trua-vui-ve.png",
@@ -12,65 +83,9 @@ function printIntroductionSlider() {
   for (const link of linkIntroductionSliders) {
     introArr +=
       `<div class="carousel-item ${i === 1 ? "active" : ""}">
-                <a href=""><img src=${link} class="d-block w-100"
-                    alt="..."></a>
+                <a href=""><img src="${link}" class="d-block w-100" alt="Slider Image"></a>
               </div>`;
     i++;
   }
   $("#intro").html(introArr);
 }
-
-printIntroductionSlider();
-
-bestFoodArr = [
-  {
-    "product_id": "P00001",
-    "product_name": "Pizza",
-    "product_description": "sdfdsfsdfdsf",
-    "price": 189000,
-    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
-  },
-  {
-    "product_id": "P00001",
-    "product_name": "Pizza",
-    "product_description": "sdfdsfsdfdsf",
-    "price": 189000,
-    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
-  },
-  {
-    "product_id": "P00001",
-    "product_name": "Pizza",
-    "product_description": "sdfdsfsdfdsf",
-    "price": 189000,
-    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
-  },
-  {
-    "product_id": "P00001",
-    "product_name": "Pizza",
-    "product_description": "sdfdsfsdfdsf",
-    "price": 189000,
-    "image_url": "./assets/product/0002211_tropical-sf-test_300.png",
-  },
-]
-
-bestComboArr = [
-  {
-    "product_id": "C1",
-    "product_name": "Combo Mừng Khai Trương",
-    "product_description": "1 Pizza Hải Sản Nhiệt Đới, 1 Burger Cheese và 1 ly Coca Cola",
-    "price": 249000,
-    "image_url": "./assets/combo/2.png",
-  },
-  {
-    "product_id": "C1",
-    "product_name": "Combo Mừng Khai Trương",
-    "product_description": "1 Pizza Hải Sản Nhiệt Đới, 1 Burger Cheese và 1 ly Coca Cola",
-    "price": 249000,
-    "image_url": "./assets/combo/2.png",
-  },
-]
-function formatPrice(price) {
-  return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-}
-printProduct(bestFoodArr, "#best-seller");
-printCombo(bestComboArr, "#best-combo");

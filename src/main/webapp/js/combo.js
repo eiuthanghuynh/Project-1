@@ -1,83 +1,145 @@
-let cartItemArr = JSON.parse(localStorage.getItem("cart")) || [];
-
-let comboArr = [
-    {
-        "product_id": "C1",
-        "product_name": "Combo Mừng Khai Trương",
-        "product_description": "1 Pizza Hải Sản Nhiệt Đới, 1 Burger Cheese và 1 ly Coca Cola",
-        "price": 249000,
-        "image_url": "./assets/Banner1.png",
-    },
-    {
-        "product_id": "C2",
-        "product_name": "Combo Buổi Trưa Hoàn Hảo",
-        "product_description": "1 Burger Double và 1 ly Coca Cola",
-        "price": 139000,
-        "image_url": "./assets/1.png",
-    },
-    {
-        "product_id": "C3",
-        "product_name": "Combo Thứ 3 Vui Vẻ",
-        "product_description": "1 Pizza Hải Sản Nhiệt Đới, 1 Burger Cheese và 1 ly Coca Cola",
-        "price": 249000,
-        "image_url": "./assets/120K.png",
-    },
-
-    {
-        "product_id": "C4",
-        "product_name": "Combo Siêu Tiết Kiệm",
-        "product_description": "1 Miếng Pizza Thịt Nguội Xúc Xích, 1 Burrito Gà Giòn và 1 ly Trà Trái Cây",
-        "price": 79000,
-        "image_url": "./assets/bannercombo1.png",
-    },
+let linkIntroductionSliders = [
+    "./assets/combo/combo-mung-khai-truong.png",
+    "./assets/combo/combo-buoi-trua-vui-ve.png",
+    "./assets/combo/combo-sieu-tiet-kiem.png",
+    "./assets/combo/burger.png",
+    "./assets/combo/burrito.png",
 ]
 
-function printCombo(comboArr, selector) {
-    $(selector).html("");
-    let str = "";
-    for (const combo of comboArr) {
-        let price = Number(combo.price)
-        str +=
-            `<div class="col-md-6">
-                        <div class="combo" 
-                            data-id="${combo.product_id}" 
-                            data-img="${combo.image_url}" 
-                            data-title="${combo.product_name}" 
-                            data-description="${combo.product_description}" 
-                            data-price="${combo.price}"
-                        >
-                            <img src="${combo.image_url}" alt="">
-                            <h1 class="combo-name">${combo.product_name}</h1>
-                            <p class="combo-price">${formatPrice(price)}</p>
-                        </div>
-            </div>`;
+function printIntroductionSlider() {
+    let introArr = ``;
+    let i = 1;
+    for (const link of linkIntroductionSliders) {
+        introArr +=
+            `<div class="carousel-item ${i === 1 ? "active" : ""}">
+          <a href=""><img src=${link} class="d-block w-100" alt="..."></a>
+       </div>`;
+        i++;
     }
-    $(selector).html(str);
+    $("#intro").html(introArr);
 }
 
-printCombo(comboArr, "#list-combo");
+let allProducts = [];
+const itemsPerPage = 4;
+
+function fetchAndPrintAllProducts() {
+    $.ajax({
+        url: "/fastfeast/api/combos",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            allProducts = data;
+            renderCarousel();
+        },
+        error: function (xhr) {
+            console.error("Lỗi khi lấy dữ liệu:", xhr.responseText);
+            $("#list-combo").html("<p class='text-center text-danger'>Không thể tải danh sách sản phẩm.</p>");
+        }
+    });
+}
+
+function renderCarousel() {
+    if (!allProducts || allProducts.length === 0) return;
+
+    const totalSlides = Math.ceil(allProducts.length / itemsPerPage);
+
+    let indicatorsHtml = '';
+    let innerHtml = '';
+
+    for (let slideIndex = 0; slideIndex < totalSlides; slideIndex++) {
+        let isActive = slideIndex === 0 ? "active" : "";
+
+        indicatorsHtml += `
+            <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="${slideIndex}" 
+                    class="${isActive}" aria-current="${isActive ? 'true' : 'false'}" 
+                    aria-label="Slide ${slideIndex + 1}" style="background-color: #dc3545;"></button>`;
+
+        innerHtml += `<div class="carousel-item ${isActive}"><div class="row">`;
+
+        let startIndex = slideIndex * itemsPerPage;
+        for (let i = 0; i < itemsPerPage; i++) {
+            let itemIndex = (startIndex + i) % allProducts.length;
+            let item = allProducts[itemIndex];
+
+            let price = Number(item.price);
+            let id = item.combo_id || item.product_id;
+            let name = item.combo_name || item.product_name;
+            let description = item.combo_description || item.product_description || "";
+            let imgUrl = item.image_url || "./assets/default-img.png";
+
+            innerHtml += `
+                <div class="col-md-6">
+                    <div class="combo" 
+                        data-id="${id}" 
+                        data-img="${imgUrl}" 
+                        data-title="${name}" 
+                        data-description="${description}" 
+                        data-price="${price}">
+                        <img src="${imgUrl}" alt="${name}">
+                        <h1 class="combo-name">${name}</h1>
+                        <p class="combo-price">${formatPrice(price)}</p>
+                    </div>
+                </div>`;
+        }
+
+        innerHtml += `</div></div>`;
+    }
+
+    let carouselHtml = `
+        <div id="menuCarousel" class="carousel slide" data-bs-interval="false">
+            <div class="carousel-inner px-5 pb-4">
+                ${innerHtml}
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#menuCarousel" data-bs-slide="prev" style="width: 5%; left: -20px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#menuCarousel" data-bs-slide="next" style="width: 5%; right: -20px;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+            <div class="carousel-indicators" style="bottom: -15px;">
+                ${indicatorsHtml}
+            </div>
+        </div>
+    `;
+
+    $("#list-combo").html(carouselHtml);
+}
 
 function attachCombo() {
-    document.querySelectorAll(".combo").forEach(combo => {
-        combo.addEventListener("click", function () {
-            let id = $(this).data("id");
-            let title = $(this).data("title");
-            let price = Number($(this).data("price"));
-            let img = $(this).data("img");
-            let description = $(this).data("description");
-            $(".modal-content").data("id", id);
-            $(".modal-content").data("title", title);
-            $(".modal-content").data("price", price);
-            $(".modal-content").data("img", img);
-            $(".modal-content").data("description", description);
-            $("#modalTitle").text(title);
-            $("#modalPrice").data("price", price);
-            $("#modalPrice").text(formatPrice(price));
-            $("#modalImg").attr("src", img);
-            $("#modalDescription").text(description);
-            $("#comboModal").modal("show");
-        })
-    })
+    $(document).off("click", ".combo").on("click", ".combo", function () {
+        $(".foodQty").val(1);
+        let id = $(this).attr("data-id");
+        let title = $(this).attr("data-title");
+        let price = $(this).attr("data-price");
+        let img = $(this).attr("data-img");
+        let description = $(this).attr("data-description");
+
+        $("#comboModal").attr("data-id", id);
+        $("#comboModal").attr("data-title", title);
+        $("#comboModal").attr("data-price", price);
+        $("#comboModal").attr("data-img", img);
+
+        $("#comboModal").find("#modalTitle").text(title);
+        $("#comboModal").find("#modalPrice").text(formatPrice(Number(price)));
+        $("#comboModal").find("#modalPrice").attr("data-price", price);
+        $("#comboModal").find("#modalImg").attr("src", img);
+        $("#comboModal").find("#modalDescription").text(description);
+
+        $("#comboModal").modal("show");
+    });
 }
 
-attachCombo();
+function formatPrice(price) {
+    return price.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+
+$(document).ready(function () {
+    printIntroductionSlider();
+    attachCombo();
+    fetchAndPrintAllProducts();
+});
