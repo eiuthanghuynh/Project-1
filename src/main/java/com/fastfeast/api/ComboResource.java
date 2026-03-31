@@ -13,7 +13,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Path("/combos")
@@ -62,20 +61,20 @@ public class ComboResource {
         return Response.ok(topCombos).build();
     }
 
-    @GET
-    @Path("/daily")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getDailyCombo() {
-        LocalDate today = LocalDate.now();
-        int currentDayOfWeek = today.getDayOfWeek().getValue();
-        List<Combo> dailyCombos = comboDAO.getDailyCombo(currentDayOfWeek);
+    // @GET
+    // @Path("/daily")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // public Response getDailyCombo() {
+    //     LocalDate today = LocalDate.now();
+    //     int currentDayOfWeek = today.getDayOfWeek().getValue();
+    //     List<Combo> dailyCombos = comboDAO.getDailyCombo(currentDayOfWeek);
 
-        if (dailyCombos == null || dailyCombos.isEmpty()) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
+    //     if (dailyCombos == null || dailyCombos.isEmpty()) {
+    //         return Response.status(Response.Status.NO_CONTENT).build();
+    //     }
 
-        return Response.ok(dailyCombos).build();
-    }
+    //     return Response.ok(dailyCombos).build();
+    // }
 
     @DELETE
     @Path("/{combo_id}")

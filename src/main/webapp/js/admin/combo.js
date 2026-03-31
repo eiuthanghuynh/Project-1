@@ -172,18 +172,18 @@ function renderComboList(combos) {
     const tableBody = $('#comboTable tbody');
     tableBody.empty();
 
-    const dayNames = {
-        1: "Thứ 2", 2: "Thứ 3", 3: "Thứ 4",
-        4: "Thứ 5", 5: "Thứ 6", 6: "Thứ 7", 7: "Chủ nhật"
-    };
+    // const dayNames = {
+    //     1: "Thứ 2", 2: "Thứ 3", 3: "Thứ 4",
+    //     4: "Thứ 5", 5: "Thứ 6", 6: "Thứ 7", 7: "Chủ nhật"
+    // };
 
     combos.forEach(combo => {
         // Đếm số lượng món ăn, nếu null thì gán là 0
         const productCount = combo.product_ids ? combo.product_ids.length : 0;
         let dayBadge = '';
-        if (combo.day_of_week && dayNames[combo.day_of_week]) {
-            dayBadge = `<span class="badge bg-info mt-1 ms-1"><i class="far fa-calendar-check"></i> ${dayNames[combo.day_of_week]}</span>`;
-        }
+        // if (combo.day_of_week && dayNames[combo.day_of_week]) {
+        //     dayBadge = `<span class="badge bg-info mt-1 ms-1"><i class="far fa-calendar-check"></i> ${dayNames[combo.day_of_week]}</span>`;
+        // }
 
         const row = `
             <tr>

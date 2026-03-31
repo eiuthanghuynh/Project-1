@@ -45,12 +45,12 @@ public class ComboUploadServlet extends HttpServlet {
             imagePart.write(uploadPath + File.separator + newFileName);
 
             String imageUrl = "./assets/combo/" + newFileName;
-            String dayOfWeekStr = req.getParameter("day_of_week");
-            Integer dayOfWeek = null;
+            // String dayOfWeekStr = req.getParameter("day_of_week");
+            // Integer dayOfWeek = null;
 
-            if (dayOfWeekStr != null && !dayOfWeekStr.trim().isEmpty()) {
-                dayOfWeek = Integer.parseInt(dayOfWeekStr);
-            }
+            // if (dayOfWeekStr != null && !dayOfWeekStr.trim().isEmpty()) {
+            //     dayOfWeek = Integer.parseInt(dayOfWeekStr);
+            // }
 
             Combo combo = new Combo();
             combo.setCombo_id(comboId);
@@ -58,7 +58,7 @@ public class ComboUploadServlet extends HttpServlet {
             combo.setCombo_description(description);
             combo.setPrice(price);
             combo.setImage_url(imageUrl);
-            combo.setDay_of_week(dayOfWeek);
+            // combo.setDay_of_week(dayOfWeek);
 
             String[] productIdsArray = req.getParameterValues("product_ids");
             if (productIdsArray != null && productIdsArray.length > 0) {

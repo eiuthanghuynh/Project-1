@@ -113,38 +113,38 @@ public class ComboDAO {
         return combos;
     }
 
-    public List<Combo> getDailyCombo(int dayOfWeek) {
-        List<Combo> combos = new ArrayList<>();
-        String sql = "SELECT combo_id, combo_name, combo_description, price, image_url FROM combo WHERE day_of_week = ?";
+    // public List<Combo> getDailyCombo(int dayOfWeek) {
+    //     List<Combo> combos = new ArrayList<>();
+    //     String sql = "SELECT combo_id, combo_name, combo_description, price, image_url FROM combo WHERE day_of_week = ?";
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+    //     try {
+    //         Class.forName("com.mysql.cj.jdbc.Driver");
 
-            try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-                    PreparedStatement stmt = conn.prepareStatement(sql)) {
+    //         try (Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
+    //                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-                stmt.setInt(1, dayOfWeek);
+    //             stmt.setInt(1, dayOfWeek);
 
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        Combo combo = new Combo(
-                                rs.getString("combo_id"),
-                                rs.getString("combo_name"),
-                                rs.getDouble("price"));
-                        combo.setCombo_description(rs.getString("combo_description"));
-                        combo.setImage_url(rs.getString("image_url"));
-                        combo.setProduct_ids(getProductIdsByCombo(conn, combo.getCombo_id()));
+    //             try (ResultSet rs = stmt.executeQuery()) {
+    //                 while (rs.next()) {
+    //                     Combo combo = new Combo(
+    //                             rs.getString("combo_id"),
+    //                             rs.getString("combo_name"),
+    //                             rs.getDouble("price"));
+    //                     combo.setCombo_description(rs.getString("combo_description"));
+    //                     combo.setImage_url(rs.getString("image_url"));
+    //                     combo.setProduct_ids(getProductIdsByCombo(conn, combo.getCombo_id()));
 
-                        combos.add(combo);
-                    }
-                }
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    //                     combos.add(combo);
+    //                 }
+    //             }
+    //         }
+    //     } catch (SQLException | ClassNotFoundException e) {
+    //         e.printStackTrace();
+    //     }
 
-        return combos;
-    }
+    //     return combos;
+    // }
 
     public boolean createCombo(Combo combo) {
         String sqlGetId = "SELECT combo_id FROM combo ORDER BY combo_id DESC LIMIT 1";
