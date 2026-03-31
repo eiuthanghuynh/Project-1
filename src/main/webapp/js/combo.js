@@ -111,10 +111,7 @@ function renderCarousel() {
 }
 
 $(document).on("click", ".combo", function () {
-    if (document.getElementById("foodForm")) {
-        document.getElementById("foodForm").reset();
-    }
-    $("#only-pizza").html("");
+    document.getElementById("foodForm").reset();
     $(".foodQty").val(1);
 
     let id = $(this).attr("data-id");
@@ -122,35 +119,18 @@ $(document).on("click", ".combo", function () {
     let price = $(this).attr("data-price");
     let img = $(this).attr("data-img");
     let description = $(this).attr("data-description");
-    let targetModal;
-    let targetDataElement;
 
-    if ($("#comboModal").length > 0) {
-        targetModal = $("#comboModal");
-        targetDataElement = $("#comboModal .modal-content");
-    } else if ($("#foodModal").length > 0) {
-        targetModal = $("#foodModal");
-        targetDataElement = $("#foodModal");
-    } else {
-        console.error("Lỗi: Không tìm thấy popup Modal nào trên trang này!");
-        return;
-    }
-    targetDataElement.attr("data-id", id);
-    targetDataElement.attr("data-title", title);
-    targetDataElement.attr("data-price", price);
-    targetDataElement.attr("data-img", img);
-    targetDataElement.attr("data-description", description);
+    $("#foodModal").attr("data-id", id);
+    $("#foodModal").attr("data-title", title);
+    $("#foodModal").attr("data-price", price);
+    $("#foodModal").attr("data-img", img);
 
     $("#modalTitle").text(title);
-    if (typeof formatPrice === "function") {
-        $("#modalPrice").text(formatPrice(Number(price)));
-    } else {
-        $("#modalPrice").text(price);
-    }
+    $("#modalPrice").text(formatPrice(Number(price)));
     $("#modalImg").attr("src", img);
     $("#modalDescription").text(description);
 
-    targetModal.modal("show");
+    $("#foodModal").modal("show");
 });
 
 function formatPrice(price) {
