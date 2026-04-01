@@ -67,11 +67,11 @@ function printCartProduct(addr) {
           <p class="cartProductTotalPrice">Tổng tiền: <span>${formatPrice(totalPrice)}</span></p>
           <div class="row">
             <div class="col-md-6"></div>
-            <div class="col-md-3"><a href="./Home.html" id="backToMenu"><i
+            <div class="col-md-3"><a href="./" id="backToMenu"><i
               class="fa-solid fa-arrow-left"></i>Tiếp tục mua
               hàng</a>
             </div>
-            <div class="col-md-3"><a href="./Payment.html" id="payConfirm">Thanh toán<i
+            <div class="col-md-3"><a href="./checkout" id="payConfirm">Thanh toán<i
               class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
@@ -107,4 +107,12 @@ $(document).on("click", ".cartMinus", function () {
   } else {
     removeCartItem(id);
   }
+});
+
+$(document).ready(function () {
+    printCartProduct("#item2");
+    
+    if (typeof updateCartBadge === "function") {
+         updateCartBadge();
+    }
 });

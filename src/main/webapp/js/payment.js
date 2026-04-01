@@ -45,7 +45,7 @@ $("#btn-confirm").on("click", function () {
         localStorage.removeItem("cartCount");
         cartItemArr = [];
         if (typeof updateCartBadge === "function") updateCartBadge();
-        window.location.href = "./Home.html";
+        window.location.href = "./";
       }
 
       if (jsonData.paymentMethod === "VietQR") {

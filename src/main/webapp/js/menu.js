@@ -326,7 +326,7 @@ function printCart(addr) {
           <p id="cartItemTotal">${formatPrice(totalPrice)}</p>
         </div>
         <div class="col-md-12">
-          <a href = "./Payment.html" id="pay">Thanh toán</a>
+          <a href = "./checkout" id="pay">Thanh toán</a>
         </div>
       </div>
     </div > `;
